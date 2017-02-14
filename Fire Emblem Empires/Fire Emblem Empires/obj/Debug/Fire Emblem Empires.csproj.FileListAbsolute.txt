@@ -12,3 +12,4 @@ D:\AppDev\Fire Emblem Empires\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\
 D:\AppDev\Fire Emblem Empires\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.csproj.GenerateResource.Cache
 D:\AppDev\Fire Emblem Empires\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.exe
 D:\AppDev\Fire Emblem Empires\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.pdb
+D:\Documents\Introductory Software Projects\Fire Emblem\Fire Emblem Empires\Fire Emblem Empires\bin\Debug\Fire Emblem Empires.exe.config
