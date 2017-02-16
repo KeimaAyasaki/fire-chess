@@ -15,3 +15,4 @@ D:\AppDev\Fire Emblem Empires\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\
 D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\bin\Debug\Fire Emblem Empires.exe.config
 D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.exe
 D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.pdb
+D:\Neumont\Q6\Introductory Software Projects\Fire Emblem Empires\fire-chess\Fire Emblem Empires\Fire Emblem Empires\bin\Debug\Fire Emblem Empires.exe.config
