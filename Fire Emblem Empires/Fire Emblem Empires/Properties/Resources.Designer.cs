@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fire_Emblem_Empires.Properties
-{
-
-
+namespace Fire_Emblem_Empires.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,49 +22,118 @@ namespace Fire_Emblem_Empires.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fire_Emblem_Empires.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 11X9
+        ///A1 M
+        ///A2 M
+        ///A3 M
+        ///A4 M
+        ///A5 M
+        ///A6 M
+        ///A7 M
+        ///A8 W
+        ///A9 W
+        ///A10 W
+        ///A11 F
+        ///B1 M
+        ///B2 M
+        ///B3 M
+        ///B4 F
+        ///B5 F
+        ///B6 M
+        ///B7 P E
+        ///B8 P E
+        ///B9 F
+        ///B10 F
+        ///B11 P E
+        ///C1 M
+        ///C5 P E
+        ///C6 P E
+        ///C8 P E
+        ///C9 M
+        ///C10 F E
+        ///D1 W
+        ///D2 T
+        ///D3 F
+        ///D4 M
+        ///D5 F
+        ///D7 P E
+        ///D9 M
+        ///D10 M
+        ///E1 W
+        ///E2 W
+        ///E3 M
+        ///E4 F
+        ///E5 F
+        ///E6 F
+        ///E7 M
+        ///E10 M
+        ///F1 W
+        ///F2 W
+        ///F5 F
+        ///F6 M
+        ///F7 M
+        ///G1 M
+        ///G2 M
+        ///G3 P A
+        ///G6 T
+        ///G7 M
+        ///H1 M
+        ///H2 P A
+        ///H4 P A
+        ///H9 F
+        ///H10 M
+        ///H11 F E
+        ///I1 F A
+        ///I3 P A
+        ///I4 M
+        ///I5 P A
+        ///I8 F
+        ///I9 F
+        ///I10 M
+        ///I11 M.
+        /// </summary>
+        internal static string Chapter1T1 {
+            get {
+                return ResourceManager.GetString("Chapter1T1", resourceCulture);
             }
         }
     }

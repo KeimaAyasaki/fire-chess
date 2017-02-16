@@ -24,5 +24,11 @@ namespace Fire_Emblem_Empires
         {
             InitializeComponent();
         }
+
+        private void fileLoader_Click(object sender, RoutedEventArgs e)
+        {
+            FileReader fReader = new FileReader();
+            fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes");
+        }
     }
 }
