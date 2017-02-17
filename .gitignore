@@ -210,5 +210,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-obj
-bin
+
+Fire Emblem Empires/Fire Emblem Empires/bin/*
+Fire Emblem Empires/Fire Emblem Empires/obj/*
