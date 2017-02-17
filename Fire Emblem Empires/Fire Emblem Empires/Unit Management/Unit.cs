@@ -438,6 +438,7 @@ namespace Fire_Emblem_Empires
                 lowerLimit = upperLimit;
                 upperLimit = lowerLimit;
             }
+
             MIN_DEFENSE = lowerLimit;
             MAX_DEFENSE = upperLimit;
         }
