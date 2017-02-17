@@ -26,27 +26,15 @@ namespace Fire_Emblem_Empires
                     {
                         damage -= 2;
                     }
-                    if (atkUnit.GetSpeed() >= (defUnit.GetSpeed() * 2))
-                    {
-                        damage *= 2;
-                    }
-                    if (damage < 0)
-                    {
-                        damage = 0;
-                    }
+                    if (atkUnit.GetSpeed() >= (defUnit.GetSpeed() * 2)){ damage *= 2; }
+                    if (damage < 0){ damage = 0; }
                     damageWasCalculated = true;
                 }
                 else
                 {
                     damage = (byte)(atkUnit.GetAttack() - defUnit.GetResistance());
-                    if (atkUnit.GetSpeed() >= (defUnit.GetSpeed() * 2))
-                    {
-                        damage *= 2;
-                    }
-                    if (damage < 0)
-                    {
-                        damage = 0;
-                    }
+                    if (atkUnit.GetSpeed() >= (defUnit.GetSpeed() * 2)){ damage *= 2; }
+                    if (damage < 0){ damage = 0; }
                     damageWasCalculated = true;
                 }
             }
