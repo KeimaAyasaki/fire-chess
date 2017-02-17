@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires
 {
-    enum Job
+    public enum Job
     {
         MERCENARY, 
         SOLDIER,
@@ -15,14 +15,14 @@ namespace Fire_Emblem_Empires
         MAGE,
     }
 
-    enum Team
+    public enum Team
     {
         RED,
         BLUE,
         GREEN,
     }
 
-    abstract class Unit
+    public abstract class Unit
     {
         // Private data members
         private const int MAX_INVENTORY_SIZE = 4;

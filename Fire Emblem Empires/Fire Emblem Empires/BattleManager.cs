@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fire_Emblem_Empires.Unit_Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Fire_Emblem_Empires
             {
                 if (atkUnit.GetJob() == Job.MERCENARY || atkUnit.GetJob() == Job.FIGHTER || atkUnit.GetJob() == Job.SOLDIER)
                 {
-                    damage = atkUnit.GetAttack() - defUnit.GetDefense();
+                    damage = (byte)(atkUnit.GetAttack() - defUnit.GetDefense());
                     if (atkUnit.GetJob() == Job.MERCENARY && defUnit.GetJob() == Job.FIGHTER || atkUnit.GetJob() == Job.FIGHTER && defUnit.GetJob() == Job.SOLDIER || atkUnit.GetJob() == Job.SOLDIER && defUnit.GetJob() == Job.MERCENARY)
                     {
                         damage += 2;
@@ -37,7 +38,7 @@ namespace Fire_Emblem_Empires
                 }
                 else
                 {
-                    damage = atkUnit.GetAttack() - defUnit.GetResistance();
+                    damage = (byte)(atkUnit.GetAttack() - defUnit.GetResistance());
                     if (atkUnit.GetSpeed() >= (defUnit.GetSpeed() * 2))
                     {
                         damage *= 2;
@@ -63,7 +64,7 @@ namespace Fire_Emblem_Empires
             bool healingWasCalculated;
             if(healingUnit.GetTeamColor() == healedUnit.GetTeamColor())
             {
-                amountHealed = 5 + (healingUnit.GetAttack() / 2);
+                amountHealed = (byte)(5 + (healingUnit.GetAttack() / 2));
                 healingWasCalculated = true;
             }
             else
