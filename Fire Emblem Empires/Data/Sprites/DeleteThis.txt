@@ -1,0 +1,1 @@
+This is just a text document to get the folder to show up on git. You can delete this file after you have pulled and added the file to the project.
