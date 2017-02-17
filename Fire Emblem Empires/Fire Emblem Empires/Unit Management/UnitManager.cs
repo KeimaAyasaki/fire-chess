@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Unit_Management
 {
-    public class Mercenary : Unit
+    class UnitManager
     {
-
-       public Mercenary()
-        {
-
-        }
     }
 }
