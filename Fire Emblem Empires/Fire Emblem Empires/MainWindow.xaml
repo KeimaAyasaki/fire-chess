@@ -8,6 +8,7 @@
         Title="Fire Emblem: Empires" Height="700" Width="900">
     <Grid>
         <TextBlock Text="Hello World"></TextBlock>
-        <Button x:Name="fileLoader" Content="Load File" HorizontalAlignment="Left" Margin="232,85,0,0" VerticalAlignment="Top" Width="75" Click="fileLoader_Click"/>
+        <Button x:Name="fileLoader" Click="fileLoader_Click" Content="Load File" HorizontalAlignment="Left" Margin="232,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="fileSaver" Click="fileSaver_Click" Content="Save File" HorizontalAlignment="Left" Margin="232,125,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

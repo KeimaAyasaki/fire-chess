@@ -20,6 +20,8 @@ namespace Fire_Emblem_Empires
     /// </summary>
     public partial class MainWindow : Window
     {
+            FileReader fReader = new FileReader();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,8 +29,12 @@ namespace Fire_Emblem_Empires
 
         private void fileLoader_Click(object sender, RoutedEventArgs e)
         {
-            FileReader fReader = new FileReader();
             fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes");
+        }
+
+        private void fileSaver_Click(object sender, RoutedEventArgs e)
+        {
+            fReader.CreateFile("Chapter1");
         }
     }
 }
