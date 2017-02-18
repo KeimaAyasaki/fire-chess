@@ -71,7 +71,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
+    <Compile Include="TileEnumeration.cs" />
+    <Compile Include="Unit Management\Fighter.cs" />
+    <Compile Include="Unit Management\Healer.cs" />
+    <Compile Include="Unit Management\Mage.cs" />
     <Compile Include="Unit Management\Mercenary.cs" />
+    <Compile Include="Unit Management\Soldier.cs" />
     <Compile Include="Unit Management\Unit.cs" />
     <Compile Include="Unit Management\UnitManager.cs" />
     <Page Include="MainWindow.xaml">
