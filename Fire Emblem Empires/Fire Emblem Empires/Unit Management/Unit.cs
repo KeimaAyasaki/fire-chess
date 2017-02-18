@@ -40,7 +40,7 @@ namespace Fire_Emblem_Empires
         private byte MIN_DEFENSE;
         private byte MAX_RESISTANCE;
         private byte MIN_RESISTANCE;
-        private byte MODIFIERS;
+        private byte MODIFIER_COUNT;
 
         // Protected data members
         protected byte m_MaxHealth;
@@ -97,7 +97,7 @@ namespace Fire_Emblem_Empires
             bool itemHasBeenStored = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareTo(new Item()) == 0)
+                if (m_inventory[j].compare(new Item()) == 0)
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
@@ -112,7 +112,7 @@ namespace Fire_Emblem_Empires
             bool itemHasBeenRemoved = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareTo(item) == 0)
+                if (m_inventory[j].compare(item) == 0)
                 {
                     m_inventory[j] = new Item();
                     itemHasBeenRemoved = true;
@@ -459,24 +459,67 @@ namespace Fire_Emblem_Empires
         private void CalculateModifiers()
         {
             byte modifiers = 0;
+            Job job = GetJob();
+            modifiers += (byte)(GetMaxHealth(job)     - GetMinHealth(job));
+            modifiers += (byte)(GetMaxAttack(job)     - GetMinAttack(job));
+            modifiers += (byte)(GetMaxSpeed(job)      - GetMinSpeed(job));
+            modifiers += (byte)(GetMaxDefense(job)    - GetMinDefense(job));
+            modifiers += (byte)(GetMaxResistance(job) - GetMinResistance(job));
+            MODIFIER_COUNT = modifiers;
+        }
 
+        private void CreateDefaultUnitInformation()
+        {
+            Job job = GetJob();
+            SetHPLimits(GetMinHealth(job), GetMaxHealth(job));
+            SetAttackLimits(GetMinAttack(job), GetMaxAttack(job));
+            SetSpeedLimits(GetMinSpeed(job), GetMaxSpeed(job));
+            SetDefenseLimits(GetMinDefense(job), GetMaxDefense(job));
+            SetResistanceLimits(GetMinResistance(job), GetMaxResistance(job));
+
+            CalculateModifiers();
+        }
+
+        private void AssignRandomStatsToUnit()
+        {
+            Random random = new Random();
+            m_MaxHealth  = (byte)(random.Next(MIN_HP, MAX_HP));
+            m_Attack     = (byte)(random.Next(MIN_ATTACK, MAX_ATTACK));
+            m_Speed      = (byte)(random.Next(MIN_SPEED, MAX_SPEED));
+            m_Defense    = (byte)(random.Next(MIN_DEFENSE, MAX_DEFENSE));
+            m_Resistance = (byte)(random.Next(MIN_RESISTANCE, MAX_RESISTANCE));
+        }
+
+        private void AssignAbilityPoints()
+        {
+            Random random = new Random();
+            for (int j = 0; j < MODIFIER_COUNT; ++j)
+            {
+                byte x = (byte) (random.Next(1, 5));
+                if(x == 1)
+                {
+                    ++m_MaxHealth;
+                }else if (x == 2)
+                {
+                    ++m_Attack;
+                }else if (x == 3)
+                {
+                    ++m_Speed;
+                }else if (x == 4)
+                {
+                    ++m_Defense;
+                }else if (x == 5)
+                {
+                    ++m_Resistance;
+                }
+            }
         }
 
         protected void CalculateLimits()
         {
-            // Set limits based on class
-            SetHPLimits(GetMinHealth(GetJob()), GetMaxHealth(GetJob()));
-            SetAttackLimits(GetMinAttack(GetJob()), GetMaxAttack(GetJob()));
-            SetSpeedLimits(GetMinSpeed(GetJob()), GetMaxSpeed(GetJob()));
-            SetDefenseLimits(GetMinDefense(GetJob()), GetMaxDefense(GetJob()));
-            SetResistanceLimits(GetMinResistance(GetJob()), GetMaxResistance(GetJob()));
-
-
-            // Create unit based on limits
-
-            // Assign ability points
-
-
+            CreateDefaultUnitInformation();
+            AssignRandomStatsToUnit();
+            AssignAbilityPoints();
         }
     }
 }

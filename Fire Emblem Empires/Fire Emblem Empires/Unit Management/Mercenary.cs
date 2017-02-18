@@ -11,7 +11,8 @@ namespace Fire_Emblem_Empires.Unit_Management
 
        public Mercenary()
         {
-
+            m_Job = Job.MERCENARY;
+            CalculateLimits();
         }
     }
 }
