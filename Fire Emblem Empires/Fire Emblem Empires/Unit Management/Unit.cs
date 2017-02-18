@@ -1,5 +1,4 @@
 ﻿using Fire_Emblem_Empires.Unit_Management;
-using Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
