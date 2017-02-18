@@ -1,4 +1,5 @@
 ﻿using Fire_Emblem_Empires.Unit_Management;
+using Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Fire_Emblem_Empires
 {
     public enum Job
     {
-        MERCENARY, 
+        MERCENARY,
         SOLDIER,
         FIGHTER,
         HEALER,
@@ -43,18 +44,18 @@ namespace Fire_Emblem_Empires
         private byte MODIFIERS;
 
         // Protected data members
-        protected byte          m_MaxHealth;
-        protected byte          m_CurrentHealth;
-        protected byte          m_Attack;
-        protected byte          m_Speed;
-        protected byte          m_Defense;
-        protected byte          m_Resistance;
-        protected byte          m_MovementRange;
-        protected bool          m_alive = true;
-        protected bool          m_canMove = true;
-        protected Job           m_Job;
-        protected Team          m_Team;
-        protected Item[]       m_inventory;
+        protected byte m_MaxHealth;
+        protected byte m_CurrentHealth;
+        protected byte m_Attack;
+        protected byte m_Speed;
+        protected byte m_Defense;
+        protected byte m_Resistance;
+        protected byte m_MovementRange;
+        protected bool m_alive = true;
+        protected bool m_canMove = true;
+        protected Job m_Job;
+        protected Team m_Team;
+        protected Item[] m_inventory;
 
 
         // Public access methods
@@ -95,13 +96,13 @@ namespace Fire_Emblem_Empires
         public bool AddItemToInventory(Item item)
         {
             bool itemHasBeenStored = false;
-            for(int j = 0; j < MAX_INVENTORY_SIZE; ++j)
+            for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if(m_inventory[j].compareTo(Item()) == 0)
+                if (m_inventory[j].compareTo(new Item()) == 0)
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
-                    Console.WriteLine("A {0} has been added to the {1}'s inventory.", item.GetName(), m_Job.ToString());
+                    Console.WriteLine("A {0} has been added to the {1}'s inventory.", item.getTypeName(), m_Job.ToString());
                     break;
                 }
             }
@@ -110,11 +111,11 @@ namespace Fire_Emblem_Empires
         public bool RemoveItemFromInventory(Item item)
         {
             bool itemHasBeenRemoved = false;
-            for(int j = 0; j < MAX_INVENTORY_SIZE; ++j)
+            for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if(m_inventory[j].compareTo(item) == 0)
+                if (m_inventory[j].compareTo(item) == 0)
                 {
-                    m_inventory[j] = Item();
+                    m_inventory[j] = new Item();
                     itemHasBeenRemoved = true;
                     break;
                 }
@@ -128,67 +129,67 @@ namespace Fire_Emblem_Empires
         {
             m_MovementRange = (byte)(BASE_MOVEMENT_SPEED + (m_Speed % 3));
         }
-        
+
         public bool hasTheJob(Job job)
         {
             return job.CompareTo(GetJob()) == 0;
         }
 
         // Find a new place to put these things
-        byte MERCENARY_MIN_HEALTH       = 16;
-        byte MERCENARY_MAX_HEALTH       = 18;
-        byte MERCENARY_MIN_ATTACK       = 02;
-        byte MERCENARY_MAX_ATTACK       = 04;
-        byte MERCENARY_MIN_SPEED        = 05;
-        byte MERCENARY_MAX_SPEED        = 08;
-        byte MERCENARY_MIN_DEFENSE      = 03;
-        byte MERCENARY_MAX_DEFENSE      = 04;
-        byte MERCENARY_MIN_RESISTANCE   = 00;
-        byte MERCENARY_MAX_RESISTANCE   = 01;
+        byte MERCENARY_MIN_HEALTH = 16;
+        byte MERCENARY_MAX_HEALTH = 18;
+        byte MERCENARY_MIN_ATTACK = 02;
+        byte MERCENARY_MAX_ATTACK = 04;
+        byte MERCENARY_MIN_SPEED = 05;
+        byte MERCENARY_MAX_SPEED = 08;
+        byte MERCENARY_MIN_DEFENSE = 03;
+        byte MERCENARY_MAX_DEFENSE = 04;
+        byte MERCENARY_MIN_RESISTANCE = 00;
+        byte MERCENARY_MAX_RESISTANCE = 01;
 
-        byte SOLDIER_MIN_HEALTH         = 18;
-        byte SOLDIER_MAX_HEALTH         = 20;
-        byte SOLDIER_MIN_ATTACK         = 03;
-        byte SOLDIER_MAX_ATTACK         = 05;
-        byte SOLDIER_MIN_SPEED          = 03;
-        byte SOLDIER_MAX_SPEED          = 04;
-        byte SOLDIER_MIN_DEFENSE        = 05;
-        byte SOLDIER_MAX_DEFENSE        = 08;
-        byte SOLDIER_MIN_RESISTANCE     = 01;
-        byte SOLDIER_MAX_RESISTANCE     = 02;
+        byte SOLDIER_MIN_HEALTH = 18;
+        byte SOLDIER_MAX_HEALTH = 20;
+        byte SOLDIER_MIN_ATTACK = 03;
+        byte SOLDIER_MAX_ATTACK = 05;
+        byte SOLDIER_MIN_SPEED = 03;
+        byte SOLDIER_MAX_SPEED = 04;
+        byte SOLDIER_MIN_DEFENSE = 05;
+        byte SOLDIER_MAX_DEFENSE = 08;
+        byte SOLDIER_MIN_RESISTANCE = 01;
+        byte SOLDIER_MAX_RESISTANCE = 02;
 
-        byte FIGHTER_MIN_HEALTH         = 20;
-        byte FIGHTER_MAX_HEALTH         = 24;
-        byte FIGHTER_MIN_ATTACK         = 06;
-        byte FIGHTER_MAX_ATTACK         = 09;
-        byte FIGHTER_MIN_SPEED          = 02;
-        byte FIGHTER_MAX_SPEED          = 03;
-        byte FIGHTER_MIN_DEFENSE        = 02;
-        byte FIGHTER_MAX_DEFENSE        = 04;
-        byte FIGHTER_MIN_RESISTANCE     = 00;
-        byte FIGHTER_MAX_RESISTANCE     = 00;
+        byte FIGHTER_MIN_HEALTH = 20;
+        byte FIGHTER_MAX_HEALTH = 24;
+        byte FIGHTER_MIN_ATTACK = 06;
+        byte FIGHTER_MAX_ATTACK = 09;
+        byte FIGHTER_MIN_SPEED = 02;
+        byte FIGHTER_MAX_SPEED = 03;
+        byte FIGHTER_MIN_DEFENSE = 02;
+        byte FIGHTER_MAX_DEFENSE = 04;
+        byte FIGHTER_MIN_RESISTANCE = 00;
+        byte FIGHTER_MAX_RESISTANCE = 00;
 
-        byte HEALER_MIN_HEALTH          = 16;
-        byte HEALER_MAX_HEALTH          = 18;
-        byte HEALER_MIN_ATTACK          = 02;
-        byte HEALER_MAX_ATTACK          = 03;
-        byte HEALER_MIN_SPEED           = 02;
-        byte HEALER_MAX_SPEED           = 04;
-        byte HEALER_MIN_DEFENSE         = 00;
-        byte HEALER_MAX_DEFENSE         = 02;
-        byte HEALER_MIN_RESISTANCE      = 05;
-        byte HEALER_MAX_RESISTANCE      = 08;
+        byte HEALER_MIN_HEALTH = 16;
+        byte HEALER_MAX_HEALTH = 18;
+        byte HEALER_MIN_ATTACK = 02;
+        byte HEALER_MAX_ATTACK = 03;
+        byte HEALER_MIN_SPEED = 02;
+        byte HEALER_MAX_SPEED = 04;
+        byte HEALER_MIN_DEFENSE = 00;
+        byte HEALER_MAX_DEFENSE = 02;
+        byte HEALER_MIN_RESISTANCE = 05;
+        byte HEALER_MAX_RESISTANCE = 08;
 
-        byte MAGE_MIN_HEALTH            = 15;
-        byte MAGE_MAX_HEALTH            = 16;
-        byte MAGE_MIN_ATTACK            = 04;
-        byte MAGE_MAX_ATTACK            = 08;
-        byte MAGE_MIN_SPEED             = 02;
-        byte MAGE_MAX_SPEED             = 06;
-        byte MAGE_MIN_DEFENSE           = 00;
-        byte MAGE_MAX_DEFENSE           = 02;
-        byte MAGE_MIN_RESISTANCE        = 04;
-        byte MAGE_MAX_RESISTANCE        = 06;
+        byte MAGE_MIN_HEALTH = 15;
+        byte MAGE_MAX_HEALTH = 16;
+        byte MAGE_MIN_ATTACK = 04;
+        byte MAGE_MAX_ATTACK = 08;
+        byte MAGE_MIN_SPEED = 02;
+        byte MAGE_MAX_SPEED = 06;
+        byte MAGE_MIN_DEFENSE = 00;
+        byte MAGE_MAX_DEFENSE = 02;
+        byte MAGE_MIN_RESISTANCE = 04;
+        byte MAGE_MAX_RESISTANCE = 06;
 
         public byte GetMinHealth(Job job)
         {
@@ -392,7 +393,7 @@ namespace Fire_Emblem_Empires
 
         private void SetHPLimits(byte lowerLimit, byte upperLimit)
         {
-            if(lowerLimit > upperLimit)
+            if (lowerLimit > upperLimit)
             {
                 Console.WriteLine("Warning - SetHPLimits was given a higher lower limit than upper limit. Substituting each for each other");
                 byte temp = lowerLimit;
@@ -459,6 +460,7 @@ namespace Fire_Emblem_Empires
         private void CalculateModifiers()
         {
             byte modifiers = 0;
+
         }
 
         protected void CalculateLimits()
