@@ -43,29 +43,20 @@ namespace Fire_Emblem_Empires
         private byte MODIFIER_COUNT;
 
         // Protected data members
-        protected byte m_MaxHealth;
-        protected byte m_CurrentHealth;
-        protected byte m_Attack;
-        protected byte m_Speed;
-        protected byte m_Defense;
-        protected byte m_Resistance;
-        protected byte m_MovementRange;
+        public byte m_MaxHealth { get; private set; }
+        public byte m_CurrentHealth { get; private set; }
+        public byte m_Attack { get; private set; }
+        public byte m_Speed { get; private set; }
+        public byte m_Defense { get; private set; }
+        public byte m_Resistance { get; private set; }
+        public byte m_MovementRange { get; private set; }
         protected bool m_alive = true;
         protected bool m_canMove = true;
         protected Job m_Job;
         protected Team m_Team;
         protected Item[] m_inventory;
 
-
         // Public access methods
-        public byte GetMaxHealth() { return m_MaxHealth; }
-        public void SetCurrentHealth(byte health) { m_CurrentHealth = health; }
-        public byte GetCurrentHealth() { return m_CurrentHealth; }
-        public byte GetAttack() { return m_Attack; }
-        public byte GetSpeed() { return m_Speed; }
-        public byte GetDefense() { return m_Defense; }
-        public byte GetResistance() { return m_Resistance; }
-        public byte GetMovementRange() { return m_MovementRange; }
         public bool IsAlive() { return m_alive; }
         // If the unit was alive and is now dead, returns true;
         // If the unit was dead, returns false;
@@ -513,6 +504,7 @@ namespace Fire_Emblem_Empires
                     ++m_Resistance;
                 }
             }
+            m_CurrentHealth = m_MaxHealth;
         }
 
         protected void CalculateLimits()
