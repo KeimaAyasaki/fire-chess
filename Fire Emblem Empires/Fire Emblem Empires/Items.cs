@@ -86,7 +86,7 @@ namespace Items{
     public class IronSword : Item{
         public IronSword()
         {
-            super.Item(itemType.IRON_SWORD);
+            this.setMight(itemType.IRON_SWORD);
         }
     }
 }
