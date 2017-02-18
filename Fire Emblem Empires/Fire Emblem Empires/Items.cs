@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Items{
+namespace Fire_Emblem_Empires{
 
     /*List of Items:
      * Iron Sword - 5 Might
