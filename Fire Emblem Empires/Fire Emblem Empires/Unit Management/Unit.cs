@@ -456,6 +456,11 @@ namespace Fire_Emblem_Empires
             MAX_RESISTANCE = upperLimit;
         }
 
+        private void CalculateModifiers()
+        {
+            byte modifiers = 0;
+        }
+
         protected void CalculateLimits()
         {
             // Set limits based on class

@@ -16,3 +16,4 @@ D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\bin\De
 D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.exe
 D:\Fire Emblem Project\fire-chess\Fire Emblem Empires\Fire Emblem Empires\obj\Debug\Fire Emblem Empires.pdb
 D:\Documents\CSC171\Fire Emblem Empires\fire-chess\Fire Emblem Empires\Fire Emblem Empires\bin\Debug\Fire Emblem Empires.exe.config
+D:\Documents\Introductory Software Projects\Fire Emblem Empires\fire-chess\Fire Emblem Empires\Fire Emblem Empires\bin\Debug\Fire Emblem Empires.exe.config
