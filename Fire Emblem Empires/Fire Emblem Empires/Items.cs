@@ -93,6 +93,17 @@ namespace Fire_Emblem_Empires{
                 return false;
             }
         }
+        public Boolean isDefaultItem(Item item)
+        {
+            if (item.getType() == itemType.DEFAULT_ITEM)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     // Iron Sword, Iron Lance, Iron Axe, Fire, Staff, Vulnerary
     public class IronSword : Item
