@@ -21,7 +21,7 @@ namespace Fire_Emblem_Empires
         private List<string> terrains = new List<string>();
         private List<string> units = new List<string>();
 
-        public bool Initialize(string filename)
+        public bool Initialize(string filename, Board map)
         {
             string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
@@ -45,7 +45,7 @@ namespace Fire_Emblem_Empires
                 Console.WriteLine("The Column Format did not contain a number.");
                 return false;
             }
-
+            map = new Board(numRows, numColumns);
             regexString = string.Format("^([A-{0}][0-9]+)\\s([M,W,P,F,T])\\s?([A,E])?$", (char)('A' + numRows));
 
             string tileLocation = string.Format("([A-{0}])([0-9]*)", (char)('A' + numRows)); 
@@ -74,6 +74,7 @@ namespace Fire_Emblem_Empires
                 columns.Add(column);
                 string terrain = tileInformation.Groups[2].ToString();
                 terrains.Add(terrain);
+                map.SetSpace(row, column, new Tile(map.ConvertToTileEnumeration(terrain), null));
                 // will be empty string if no unit on tile
                 string unitInfo = tileInformation.Groups[3].ToString();
                 units.Add(unitInfo);
