@@ -101,17 +101,31 @@ namespace Fire_Emblem_Empires{
 
     public class IronSword : Item
     {
-        public IronSword()
-        {
-            this.setMight(itemType.IRON_SWORD);
-        }
+        public IronSword() : base(itemType.IRON_SWORD) { }
     }
     public class IronLance : Item
     {
-        public IronLance()
-        {
-            this.setMight(itemType.IRON_LANCE);
-        }
+        public IronLance() : base(itemType.IRON_LANCE) { }
+    }
+
+    public class IronAxe : Item
+    {
+        public IronAxe() : base(itemType.IRON_AXE) { }
+    }
+
+    public class Fire : Item
+    {
+        public Fire() : base(itemType.FIRE) { }
+    }
+
+    public class Staff : Item
+    {
+        public Staff() : base(itemType.STAFF) { }
+    }
+
+    public class Vulnerary : Item
+    {
+        public Vulnerary() : base(itemType.VULNERARY) { }
     }
 }
 
