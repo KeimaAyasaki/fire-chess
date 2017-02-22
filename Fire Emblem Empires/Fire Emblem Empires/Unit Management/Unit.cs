@@ -25,6 +25,7 @@ namespace Fire_Emblem_Empires
 
     public abstract class Unit
     {
+        Random random = new Random();
         // Private Data Members
         private const byte MAX_INVENTORY_SIZE = 4;
         private const byte BASE_MOVEMENT_SPEED = 4;
@@ -41,7 +42,7 @@ namespace Fire_Emblem_Empires
         private byte MAX_RESISTANCE;
         private byte MIN_RESISTANCE;
         private byte MODIFIER_COUNT;
-
+        
         // Protected data members
         public byte m_MaxHealth { get; private set; }
         public byte m_CurrentHealth { get; private set; }
@@ -54,7 +55,25 @@ namespace Fire_Emblem_Empires
         protected bool m_canMove = true;
         protected Job m_Job;
         protected Team m_Team;
-        protected Item[] m_inventory;
+        protected Item[] m_inventory = new Item[MAX_INVENTORY_SIZE];
+
+        // Temporary for debugging
+        public static byte m_id;
+
+        public override string ToString()
+        {
+            String output = m_Job.ToString() + " #" + ++m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
+                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance;
+            if(m_inventory.Count() > 0)
+            {
+                output += "\nInventory:";
+                for(int j = 0; j < m_inventory.Count(); ++j)
+                {
+                    output += "\n" + m_inventory[j].getTypeName();
+                }
+            }
+            return output;
+        }
 
         // Public access methods
         public bool IsAlive() { return m_alive; }
@@ -88,13 +107,17 @@ namespace Fire_Emblem_Empires
             bool itemHasBeenStored = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compare(new Item()) == 0)
+                if (m_inventory[j].compareItem(new Item()))
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
                     Console.WriteLine("A {0} has been added to the {1}'s inventory.", item.getTypeName(), m_Job.ToString());
                     break;
                 }
+            }
+            if(!itemHasBeenStored)
+            {
+                Console.WriteLine("The {0}'s inventory is full.", m_Job.ToString());
             }
             return itemHasBeenStored;
         }
@@ -103,12 +126,17 @@ namespace Fire_Emblem_Empires
             bool itemHasBeenRemoved = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compare(item) == 0)
+                if (m_inventory[j].compareItem(item))
                 {
                     m_inventory[j] = new Item();
                     itemHasBeenRemoved = true;
+                    Console.WriteLine("A {0} has been removed from the {1}'s inventory.", item.getTypeName(), m_Job.ToString());
                     break;
                 }
+            }
+            if(!itemHasBeenRemoved)
+            {
+                Console.WriteLine("The {0} did not have a {1} in their inventory.", m_Job.ToString(), item.getTypeName());
             }
             return itemHasBeenRemoved;
         }
@@ -473,7 +501,6 @@ namespace Fire_Emblem_Empires
 
         private void AssignRandomStatsToUnit()
         {
-            Random random = new Random();
             m_MaxHealth  = (byte)(random.Next(MIN_HP, MAX_HP));
             m_Attack     = (byte)(random.Next(MIN_ATTACK, MAX_ATTACK));
             m_Speed      = (byte)(random.Next(MIN_SPEED, MAX_SPEED));
@@ -512,6 +539,14 @@ namespace Fire_Emblem_Empires
             CreateDefaultUnitInformation();
             AssignRandomStatsToUnit();
             AssignAbilityPoints();
+        }
+
+        protected void InitializeInventory()
+        {
+            for(int j = 0; j < MAX_INVENTORY_SIZE; ++j)
+            {
+                m_inventory[j] = new Item();
+            }
         }
     }
 }
