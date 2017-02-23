@@ -108,42 +108,32 @@ namespace Fire_Emblem_Empires{
     // Iron Sword, Iron Lance, Iron Axe, Fire, Staff, Vulnerary
     public class IronSword : Item
     {
-        public IronSword():base(itemType.IRON_SWORD){ }
+        public IronSword() : base(itemType.IRON_SWORD) { }
     }
-    public class IronLance : Item
-    {
-        public IronLance()
+        
+        public class IronLance : Item
         {
-            this.setMight(itemType.IRON_LANCE);
+            public IronLance() : base(itemType.IRON_LANCE) { }
+        }
+
+        public class IronAxe : Item
+        {
+            public IronAxe() : base(itemType.IRON_AXE) { }
+        }
+
+        public class Fire : Item
+        {
+            public Fire() : base(itemType.FIRE) { }
+        }
+
+        public class Staff : Item
+        {
+            public Staff() : base(itemType.STAFF) { }
+        }
+
+        public class Vulnerary : Item
+        {
+            public Vulnerary() : base(itemType.VULNERARY) { }
         }
     }
-    public class IronAxe : Item
-    {
-        public IronAxe()
-        {
-            this.setMight(itemType.IRON_AXE);
-        }
-    }
-    public class Fire : Item
-    {
-        public Fire()
-        {
-            this.setMight(itemType.FIRE);
-        }
-    }
-    public class Staff : Item
-    {
-        public Staff()
-        {
-            this.setMight(itemType.STAFF);
-        }
-    }
-    public class Vulnerary : Item
-    {
-        public Vulnerary()
-        {
-            this.setMight(itemType.VULNERARY);
-        }
-    }
-}
 
