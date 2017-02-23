@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires
@@ -43,6 +44,28 @@ namespace Fire_Emblem_Empires
         private byte MIN_RESISTANCE;
         private byte MODIFIER_COUNT;
         
+        public Unit(Team team)
+        {
+            m_Team = team;
+            Thread.Sleep(100);
+            // temp identification
+            ++m_id;
+        }
+
+        public Unit(Team team, Job job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        {
+            m_Team = team;
+            m_Job = job;
+            m_MaxHealth = MaxHealth;
+            m_CurrentHealth = CurrentHealth;
+            m_Attack = Attack;
+            m_Speed = Speed;
+            m_Defense = Defense;
+            m_Resistance = Resistance;
+            // temp identification
+            ++m_id;
+        }
+
         // Protected data members
         public byte m_MaxHealth { get; private set; }
         public byte m_CurrentHealth { get; private set; }
@@ -62,7 +85,7 @@ namespace Fire_Emblem_Empires
 
         public override string ToString()
         {
-            String output = m_Job.ToString() + " #" + ++m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
+            String output = m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
                 + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance;
             if(m_inventory.Count() > 0)
             {
