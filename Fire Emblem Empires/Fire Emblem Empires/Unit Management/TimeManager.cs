@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Unit_Management
 {
-    class Healer : Unit
+    class TimeManager
     {
-        public Healer(Team team) : base(team)
+        Stopwatch stopwatch = new Stopwatch();
+        public TimeManager()
         {
-            m_Job = Job.HEALER;
-            CalculateLimits();
-            InitializeInventory();
+
         }
     }
 }
