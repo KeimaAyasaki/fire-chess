@@ -135,7 +135,7 @@ namespace Fire_Emblem_Empires.Items
         public class Vulnerary : Item
         {
         private int durability = 0;
-        public int getDefense()
+        public int getDurability()
         {
             return durability;
         }

@@ -10,7 +10,7 @@ namespace Fire_Emblem_Empires.Items
     {
         public Boolean checkVulneraryStatus(Vulnerary vul)
         {
-            if (vul.getDefense() > 0)
+            if (vul.getDurability() > 0)
             {
                 return true;
             }
@@ -24,7 +24,7 @@ namespace Fire_Emblem_Empires.Items
         {
             if (checkVulneraryStatus(vul))
             {
-                vul.setDurability(vul.getDefense()-1);
+                vul.setDurability(vul.getDurability()-1);
             }
         }
     }
