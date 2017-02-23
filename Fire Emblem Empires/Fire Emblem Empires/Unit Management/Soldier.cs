@@ -12,6 +12,7 @@ namespace Fire_Emblem_Empires.Unit_Management
         {
             m_Job = Job.SOLDIER;
             CalculateLimits();
+            InitializeInventory();
         }
     }
 }
