@@ -22,13 +22,10 @@ namespace Fire_Emblem_Empires
     public partial class MainWindow : Window
     {
             FileReader fReader = new FileReader();
-            UnitManager m_UnitManager;
 
         public MainWindow()
         {
             InitializeComponent();
-            m_UnitManager = new UnitManager();
-            Console.WriteLine(m_UnitManager.ToString());
         }
 
         private void fileLoader_Click(object sender, RoutedEventArgs e)
