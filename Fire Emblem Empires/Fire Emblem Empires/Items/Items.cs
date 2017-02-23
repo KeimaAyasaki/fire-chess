@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires{
+namespace Fire_Emblem_Empires.Items
+{
 
     /*List of Items:
      * Iron Sword - 5 Might
@@ -133,7 +134,12 @@ namespace Fire_Emblem_Empires{
 
         public class Vulnerary : Item
         {
-            public Vulnerary() : base(itemType.VULNERARY) { }
+        private int defense = 0;
+        public int getDefense()
+        {
+            return defense;
+        }
+            public Vulnerary() : base(itemType.VULNERARY) { defense = 3; }
         }
     }
 

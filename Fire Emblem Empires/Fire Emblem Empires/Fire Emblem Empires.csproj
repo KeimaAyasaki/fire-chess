@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
+    <Compile Include="Items\ItemManager.cs" />
     <Compile Include="TileEnumeration.cs" />
     <Compile Include="Unit Management\Fighter.cs" />
     <Compile Include="Unit Management\Healer.cs" />
@@ -88,7 +89,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FileReader.cs" />
-    <Compile Include="Items.cs" />
+    <Compile Include="Items\Items.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
