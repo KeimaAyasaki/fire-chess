@@ -12,25 +12,7 @@ namespace Fire_Emblem_Empires.Unit_Management
         List<Unit> unitList = new List<Unit>();
         public UnitManager()
         {
-            unitList.Add(new Soldier());
-            Thread.Sleep(100);
-            unitList.Add(new Mage());
-            Thread.Sleep(100);
-            unitList.Add(new Fighter());
-            Thread.Sleep(100);
-            unitList.Add(new Fighter());
-            Thread.Sleep(100);
-            unitList.Add(new Healer());
-            Thread.Sleep(100);
-            unitList.Add(new Mercenary());
-            Thread.Sleep(100);
-            unitList.Add(new Mercenary());
-            Thread.Sleep(100);
-            unitList.Add(new Mercenary());
-
-            unitList[0].AddItemToInventory(new IronLance());
-            unitList[0].AddItemToInventory(new IronSword());
-            unitList[0].RemoveItemFromInventory(new IronSword());
+            // To add a random unit, must execute Thread.Sleep()
 
         }
 

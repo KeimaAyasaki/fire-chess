@@ -8,7 +8,7 @@ namespace Fire_Emblem_Empires.Unit_Management
 {
     class Soldier : Unit
     {
-        public Soldier()
+        public Soldier(Team team) : base(team)
         {
             m_Job = Job.SOLDIER;
             CalculateLimits();
