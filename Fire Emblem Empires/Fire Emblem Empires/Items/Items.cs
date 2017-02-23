@@ -134,12 +134,16 @@ namespace Fire_Emblem_Empires.Items
 
         public class Vulnerary : Item
         {
-        private int defense = 0;
+        private int durability = 0;
         public int getDefense()
         {
-            return defense;
+            return durability;
         }
-            public Vulnerary() : base(itemType.VULNERARY) { defense = 3; }
+        public void setDurability(int change)
+        {
+            durability = change;
+        }
+        public Vulnerary() : base(itemType.VULNERARY) { durability = 3; }
         }
     }
 

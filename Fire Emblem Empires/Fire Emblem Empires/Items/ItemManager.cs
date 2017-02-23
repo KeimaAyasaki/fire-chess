@@ -6,7 +6,26 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Items
 {
-    class ItemManager
+    public class ItemManager
     {
+        public Boolean checkVulneraryStatus(Vulnerary vul)
+        {
+            if (vul.getDefense() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void useVulnenary(Vulnerary vul)
+        {
+            if (checkVulneraryStatus(vul))
+            {
+                vul.setDurability(vul.getDefense()-1);
+            }
+        }
     }
 }
