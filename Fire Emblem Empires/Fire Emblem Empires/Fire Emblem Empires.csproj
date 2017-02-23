@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
+    <Compile Include="Board.cs" />
     <Compile Include="TileEnumeration.cs" />
     <Compile Include="Unit Management\Fighter.cs" />
     <Compile Include="Unit Management\Healer.cs" />

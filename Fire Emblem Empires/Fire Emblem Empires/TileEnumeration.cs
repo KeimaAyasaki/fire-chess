@@ -12,6 +12,7 @@ namespace Fire_Emblem_Empires
         PLAIN,
         FOREST,
         MOUNTAIN,
-        WATER
+        WATER,
+        NULL
     }
 }
