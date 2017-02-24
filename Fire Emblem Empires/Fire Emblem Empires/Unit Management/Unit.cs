@@ -52,10 +52,9 @@ namespace Fire_Emblem_Empires
             ++m_id;
         }
 
-        public Unit(Team team, Job job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
         {
             m_Team = team;
-            m_Job = job;
             m_MaxHealth = MaxHealth;
             m_CurrentHealth = CurrentHealth;
             m_Attack = Attack;
@@ -92,7 +91,10 @@ namespace Fire_Emblem_Empires
                 output += "\nInventory:";
                 for(int j = 0; j < m_inventory.Count(); ++j)
                 {
-                    output += "\n" + m_inventory[j].getTypeName();
+                    if (!m_inventory[j].compareItem(new Item()))
+                    {
+                        output += "\n" + m_inventory[j].getTypeName();
+                    }
                 }
             }
             return output;
