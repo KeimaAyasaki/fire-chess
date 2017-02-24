@@ -111,39 +111,30 @@ namespace Fire_Emblem_Empires.Items
     {
         public IronSword() : base(itemType.IRON_SWORD) { }
     }
-        
-        public class IronLance : Item
-        {
-            public IronLance() : base(itemType.IRON_LANCE) { }
-        }
 
-        public class IronAxe : Item
-        {
-            public IronAxe() : base(itemType.IRON_AXE) { }
-        }
-
-        public class Fire : Item
-        {
-            public Fire() : base(itemType.FIRE) { }
-        }
-
-        public class Staff : Item
-        {
-            public Staff() : base(itemType.STAFF) { }
-        }
-
-        public class Vulnerary : Item
-        {
-        private int durability = 0;
-        public int getDurability()
-        {
-            return durability;
-        }
-        public void setDurability(int change)
-        {
-            durability = change;
-        }
-        public Vulnerary() : base(itemType.VULNERARY) { durability = 3; }
-        }
+    public class IronLance : Item
+    {
+        public IronLance() : base(itemType.IRON_LANCE) { }
     }
+
+    public class IronAxe : Item
+    {
+        public IronAxe() : base(itemType.IRON_AXE) { }
+    }
+
+    public class Fire : Item
+    {
+        public Fire() : base(itemType.FIRE) { }
+    }
+
+    public class Staff : Item
+    {
+        public Staff() : base(itemType.STAFF) { }
+    }
+
+    public class Vulnerary : Item
+    {
+        public Vulnerary() : base(itemType.VULNERARY) { }
+    }
+}
 
