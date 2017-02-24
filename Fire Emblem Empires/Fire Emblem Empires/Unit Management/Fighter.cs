@@ -8,10 +8,11 @@ namespace Fire_Emblem_Empires.Unit_Management
 {
     class Fighter : Unit
     {
-        public Fighter()
+        public Fighter(Team team) : base(team)
         {
             m_Job = Job.FIGHTER;
             CalculateLimits();
+            InitializeInventory();
         }
     }
 }
