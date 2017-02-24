@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fire Emblem Empires", "Fire Emblem Empires\Fire Emblem Empires.csproj", "{95ADCAEC-7A22-44E7-96FD-D1BE98AAD4DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fire Emblem Empires Tests", "Fire Emblem Empires Tests\Fire Emblem Empires Tests.csproj", "{1CB25BA7-D201-4FCD-948C-56D1779EBDB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{95ADCAEC-7A22-44E7-96FD-D1BE98AAD4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95ADCAEC-7A22-44E7-96FD-D1BE98AAD4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95ADCAEC-7A22-44E7-96FD-D1BE98AAD4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CB25BA7-D201-4FCD-948C-56D1779EBDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB25BA7-D201-4FCD-948C-56D1779EBDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB25BA7-D201-4FCD-948C-56D1779EBDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB25BA7-D201-4FCD-948C-56D1779EBDB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
