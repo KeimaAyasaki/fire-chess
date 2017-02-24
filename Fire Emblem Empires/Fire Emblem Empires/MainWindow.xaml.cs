@@ -21,8 +21,7 @@ namespace Fire_Emblem_Empires
     /// </summary>
     public partial class MainWindow : Window
     {
-            FileReader fReader = new FileReader();
-
+        FileReader fReader = new FileReader();
 
         public MainWindow()
         {
