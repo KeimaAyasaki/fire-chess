@@ -32,6 +32,7 @@ namespace Fire_Emblem_Empires
         private void fileLoader_Click(object sender, RoutedEventArgs e)
         {
             fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes", out map);
+            map.AddUnitToSpace(0, 0, new Mercenary(Team.GREEN));
         }
 
         private void fileSaver_Click(object sender, RoutedEventArgs e)

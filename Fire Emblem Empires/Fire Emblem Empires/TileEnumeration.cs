@@ -8,11 +8,10 @@ namespace Fire_Emblem_Empires
 {
     public enum TileEnumeration
     {
-        TOWN,
         PLAIN,
         FOREST,
-        MOUNTAIN,
         WATER,
-        NULL
+        MOUNTAIN,
+        TOWN
     }
 }

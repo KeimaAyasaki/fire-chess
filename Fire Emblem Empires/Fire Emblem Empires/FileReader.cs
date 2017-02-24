@@ -15,10 +15,13 @@ namespace Fire_Emblem_Empires
         private string mapSize;
 
         private string regexString;
-
-        private List<int> rows = new List<int>();
-        private List<int> columns = new List<int>();
-        private List<string> terrains = new List<string>();
+        
+        // Group 1 is team color: Red, Blue, Green
+        
+        // Group 2 is job: 0 = mercenary, 1 = soldier, 2 = fighter, 3 = healer, 4 = mage
+                 
+        private string unitRegex = "([0-2])\\s([0-4])\\s(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s?)";
+        
         private List<string> units = new List<string>();
 
         public bool Initialize(string filename, out Board map)
@@ -50,7 +53,7 @@ namespace Fire_Emblem_Empires
             map = new Board(numRows, numColumns);
             map.name = "Chapter1";
 
-            regexString = string.Format("^([A-{0}][0-9]+)\\s([M,W,P,F,T])\\s?([A,E])?$", (char)('A' + numRows));
+            regexString = string.Format("^([A-{0}][0-9]+)\\s([0-4])\\s?(.*)$", (char)('A' + numRows));
 
             string tileLocation = string.Format("([A-{0}])([0-9]*)", (char)('A' + numRows)); 
 
@@ -63,7 +66,6 @@ namespace Fire_Emblem_Empires
                 Match locationInfo = Regex.Match(index, tileLocation);
                 // sets row with 0 base index
                 int row = locationInfo.Groups[1].ToString()[0] - 'A';
-                rows.Add(row);
                 // sets column with 0 base index
                 int column;
                 if(int.TryParse(locationInfo.Groups[2].ToString(), out column))
@@ -75,12 +77,21 @@ namespace Fire_Emblem_Empires
                     Console.WriteLine("Unable to convert {0} from {1} to int.", locationInfo.Groups[0].ToString(), locationInfo.Groups[2].ToString());
                     return false;
                 }
-                columns.Add(column);
-                string terrain = tileInformation.Groups[2].ToString();
-                terrains.Add(terrain);
-                map.SetSpace(row, column, new Tile(map.ConvertToTileEnumeration(terrain), null));
+                int terrain;
+                int.TryParse(tileInformation.Groups[2].ToString(), out terrain);
                 // will be empty string if no unit on tile
                 string unitInfo = tileInformation.Groups[3].ToString();
+                Unit unit = null;
+                if (unitInfo != "")
+                {
+                    Match unitInformation = Regex.Match(unitInfo, unitRegex);
+                    int unitTeam;
+                    int.TryParse(unitInformation.Groups[1].ToString(), out unitTeam);
+                    int unitJob;
+                    int.TryParse(unitInformation.Groups[2].ToString(), out unitJob);
+                    string statsInfo = unitInformation.Groups[3].ToString();
+                }
+                map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
                 units.Add(unitInfo);
             }
             return true;
@@ -102,13 +113,13 @@ namespace Fire_Emblem_Empires
                     Tile currentTile = map.spaces[row, column];
                     TileEnumeration terrain = currentTile.terrainType;
                     Unit unit = currentTile.occupiedBy;
-                    if (i == rows.Count - 1)
+                    if (i == map.numRows - 1 && j == map.numColumns - 1)
                     {
-                        newMap.Write("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + unit);
+                        newMap.Write("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                     else
                     {
-                        newMap.WriteLine("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + unit);
+                        newMap.WriteLine("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                 }
             }
