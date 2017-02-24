@@ -8,14 +8,14 @@ namespace Fire_Emblem_Empires.Unit_Management
 {
     public class Mage : Unit
     {
-        Mage(Team team) : base(team)
+        public Mage(Team team) : base(team)
         {
             m_Job = Job.MAGE;
             CalculateLimits();
             InitializeInventory();
         }
 
-        Mage(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Mage(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
             m_Job = Job.MAGE;

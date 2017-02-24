@@ -8,14 +8,14 @@ namespace Fire_Emblem_Empires.Unit_Management
 {
     public class Healer : Unit
     {
-        Healer(Team team) : base(team)
+        public Healer(Team team) : base(team)
         {
             m_Job = Job.HEALER;
             CalculateLimits();
             InitializeInventory();
         }
 
-        Healer(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Healer(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
             m_Job = Job.HEALER;
