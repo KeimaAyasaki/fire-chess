@@ -21,8 +21,6 @@ namespace Fire_Emblem_Empires
         // Group 2 is job: 0 = mercenary, 1 = soldier, 2 = fighter, 3 = healer, 4 = mage
                  
         private string unitRegex = "([0-2])\\s([0-4])\\s(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s?)";
-        
-        private List<string> units = new List<string>();
 
         public bool Initialize(string filename, out Board map)
         {
@@ -30,7 +28,7 @@ namespace Fire_Emblem_Empires
             filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
             mapFile = new StreamReader(filepath + filename);
 
-            string mapSizeRegex = "^([0-9]*)[X]([0-9]*)$";
+            string mapSizeRegex = @"^([0-9]*)[X]([0-9]*)\s?$";
             mapSize = mapFile.ReadLine();
 
             map = new Board(0, 0);
@@ -61,7 +59,9 @@ namespace Fire_Emblem_Empires
             
             while((line = mapFile.ReadLine()) != null)
             {
-                Match tileInformation = Regex.Match(line, regexString);
+                Match commentless = Regex.Match(line, @"([^\/]*)\s?(\/\/.*)?");
+                string lineWithoutComments =commentless.Groups[1].ToString();
+                Match tileInformation = Regex.Match(lineWithoutComments, regexString);
                 string index = tileInformation.Groups[1].ToString();
                 Match locationInfo = Regex.Match(index, tileLocation);
                 // sets row with 0 base index
@@ -90,21 +90,21 @@ namespace Fire_Emblem_Empires
                     int unitJob;
                     int.TryParse(unitInformation.Groups[2].ToString(), out unitJob);
                     string[] statsInfo = Regex.Split(unitInformation.Groups[3].ToString(), @"\D+");
-                    int maxHealth;
-                    int.TryParse(statsInfo[0], out maxHealth);
-                    int currentHealth;
-                    int.TryParse(statsInfo[1], out currentHealth);
-                    int attack;
-                    int.TryParse(statsInfo[2], out attack);
-                    int speed;
-                    int.TryParse(statsInfo[3], out speed);
-                    int defense;
-                    int.TryParse(statsInfo[4], out defense);
-                    int resistance;
-                    int.TryParse(statsInfo[5], out resistance);
+                    byte maxHealth;
+                    byte.TryParse(statsInfo[0], out maxHealth);
+                    byte currentHealth;
+                    byte.TryParse(statsInfo[1], out currentHealth);
+                    byte attack;
+                    byte.TryParse(statsInfo[2], out attack);
+                    byte speed;
+                    byte.TryParse(statsInfo[3], out speed);
+                    byte defense;
+                    byte.TryParse(statsInfo[4], out defense);
+                    byte resistance;
+                    byte.TryParse(statsInfo[5], out resistance);
+                    unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance);
                 }
                 map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
-                units.Add(unitInfo);
             }
             return true;
         }
@@ -127,11 +127,11 @@ namespace Fire_Emblem_Empires
                     Unit unit = currentTile.occupiedBy;
                     if (i == map.numRows - 1 && j == map.numColumns - 1)
                     {
-                        newMap.Write("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
+                        newMap.Write("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                     else
                     {
-                        newMap.WriteLine("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, terrain.ToString().First(), (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
+                        newMap.WriteLine("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                 }
             }
@@ -141,8 +141,8 @@ namespace Fire_Emblem_Empires
         public string ConvertUnitToRegexFormat(Unit unit)
         {
             string line ="";
-            line += unit.GetTeamColor().ToString().First();
-            line += " " + unit.GetJob().ToString().First();
+            line += (int)unit.GetTeamColor();
+            line += " " + (int)unit.GetJob();
             line += " " + unit.m_MaxHealth;
             line += " " + unit.m_CurrentHealth;
             line += " " + unit.m_Attack;
@@ -150,6 +150,29 @@ namespace Fire_Emblem_Empires
             line += " " + unit.m_Defense;
             line += " " + unit.m_Resistance;
             return line;
+        }
+        public Unit CreateUnitWithJob(Team team, int job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        {
+            Unit unit = null;
+            switch(job)
+            {
+                case 0:
+                    unit = new Unit_Management.Mercenary(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    break;
+                case 1:
+                    unit = new Unit_Management.Soldier(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    break;
+                case 2:
+                    unit = new Unit_Management.Fighter(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    break;
+                case 3:
+                    unit = new Unit_Management.Healer(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    break;
+                case 4:
+                    unit = new Unit_Management.Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    break;
+            }
+            return unit;
         }
     }
 }

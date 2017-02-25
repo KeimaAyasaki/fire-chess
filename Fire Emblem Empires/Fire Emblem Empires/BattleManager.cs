@@ -17,14 +17,28 @@ namespace Fire_Emblem_Empires
             {
                 if (atkUnit.GetJob() == Job.MERCENARY || atkUnit.GetJob() == Job.FIGHTER || atkUnit.GetJob() == Job.SOLDIER)
                 {
-                    damage = (byte)(atkUnit.m_Attack - defUnit.m_Defense);
+                    if ((atkUnit.m_Attack - defUnit.m_Defense) < 0)
+                    {
+                        damage = 0;
+                    }
+                    else
+                    {
+                        damage = (byte)(atkUnit.m_Attack - defUnit.m_Defense);
+                    }
                     if (atkUnit.GetJob() == Job.MERCENARY && defUnit.GetJob() == Job.FIGHTER || atkUnit.GetJob() == Job.FIGHTER && defUnit.GetJob() == Job.SOLDIER || atkUnit.GetJob() == Job.SOLDIER && defUnit.GetJob() == Job.MERCENARY)
                     {
                         damage += 2;
                     }
                     else if (atkUnit.GetJob() == Job.MERCENARY && defUnit.GetJob() == Job.SOLDIER || atkUnit.GetJob() == Job.SOLDIER && defUnit.GetJob() == Job.FIGHTER || atkUnit.GetJob() == Job.FIGHTER && defUnit.GetJob() == Job.MERCENARY)
                     {
-                        damage -= 2;
+                        if((damage - 2) < 0)
+                        {
+                            damage = 0;
+                        }
+                        else
+                        {
+                            damage -= 2;
+                        }
                     }
                     if (atkUnit.m_Speed >= (defUnit.m_Speed * 2)){ damage *= 2; }
                     if (damage < 0){ damage = 0; }
@@ -32,7 +46,14 @@ namespace Fire_Emblem_Empires
                 }
                 else
                 {
-                    damage = (byte)(atkUnit.m_Attack - defUnit.m_Resistance);
+                    if ((atkUnit.m_Attack - defUnit.m_Resistance) < 0)
+                    {
+                        damage = 0;
+                    }
+                    else
+                    {
+                        damage = (byte)(atkUnit.m_Attack - defUnit.m_Resistance);
+                    }
                     if (atkUnit.m_Speed >= (defUnit.m_Speed * 2)){ damage *= 2; }
                     if (damage < 0){ damage = 0; }
                     damageWasCalculated = true;
@@ -45,15 +66,27 @@ namespace Fire_Emblem_Empires
             }
             return damageWasCalculated;
         }
-
+        
         //Calculate Healing
         public bool calculateHealing(Unit healingUnit, Unit healedUnit, out byte amountHealed)
         {
             bool healingWasCalculated;
-            if(healingUnit.GetTeamColor() == healedUnit.GetTeamColor())
+            if(healingUnit.GetJob() == Job.HEALER)
             {
-                amountHealed = (byte)(5 + (healingUnit.m_Attack / 2));
-                healingWasCalculated = true;
+                if (healingUnit.GetTeamColor() == healedUnit.GetTeamColor())
+                {
+                    amountHealed = (byte)(5 + (healingUnit.m_Attack / 2));
+                    if (amountHealed + healedUnit.m_CurrentHealth > healedUnit.m_MaxHealth)
+                    {
+                        amountHealed = 0;
+                    }
+                    healingWasCalculated = true;
+                }
+                else
+                {
+                    healingWasCalculated = false;
+                    amountHealed = 0;
+                }
             }
             else
             {

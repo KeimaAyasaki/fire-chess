@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Unit_Management
 {
-    class Soldier : Unit
+    public class Soldier : Unit
     {
         public Soldier(Team team) : base(team)
         {
             m_Job = Job.SOLDIER;
             CalculateLimits();
+            InitializeInventory();
+        }
+
+        public Soldier(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+            : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
+        {
+            m_Job = Job.SOLDIER;
             InitializeInventory();
         }
     }
