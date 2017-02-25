@@ -16,7 +16,7 @@ namespace Fire_Emblem_Empires
 
         private string regexString;
         
-        // Group 1 is team color: Red, Blue, Green
+        // Group 1 is team color: 0 = Red, 1 = Blue,  2 = Green
         
         // Group 2 is job: 0 = mercenary, 1 = soldier, 2 = fighter, 3 = healer, 4 = mage
                  
@@ -89,7 +89,19 @@ namespace Fire_Emblem_Empires
                     int.TryParse(unitInformation.Groups[1].ToString(), out unitTeam);
                     int unitJob;
                     int.TryParse(unitInformation.Groups[2].ToString(), out unitJob);
-                    string statsInfo = unitInformation.Groups[3].ToString();
+                    string[] statsInfo = Regex.Split(unitInformation.Groups[3].ToString(), @"\D+");
+                    int maxHealth;
+                    int.TryParse(statsInfo[0], out maxHealth);
+                    int currentHealth;
+                    int.TryParse(statsInfo[1], out currentHealth);
+                    int attack;
+                    int.TryParse(statsInfo[2], out attack);
+                    int speed;
+                    int.TryParse(statsInfo[3], out speed);
+                    int defense;
+                    int.TryParse(statsInfo[4], out defense);
+                    int resistance;
+                    int.TryParse(statsInfo[5], out resistance);
                 }
                 map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
                 units.Add(unitInfo);
