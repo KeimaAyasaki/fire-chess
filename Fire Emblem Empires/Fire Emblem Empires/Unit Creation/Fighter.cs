@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires.Unit_Management
+namespace Fire_Emblem_Empires.Unit_Creation
 {
-    public class Soldier : Unit
+    public class Fighter : Unit
     {
-        public Soldier(Team team) : base(team)
+        public Fighter(Team team) : base(team)
         {
-            m_Job = Job.SOLDIER;
+            m_Job = Job.FIGHTER;
             CalculateLimits();
             InitializeInventory();
         }
-
-        public Soldier(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        
+        public Fighter(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
-            m_Job = Job.SOLDIER;
+            m_Job = Job.FIGHTER;
             InitializeInventory();
         }
     }

@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires.Unit_Management
+namespace Fire_Emblem_Empires.Unit_Creation
 {
-    public class Healer : Unit
+    public class Mercenary : Unit
     {
-        public Healer(Team team) : base(team)
+
+       public Mercenary(Team team) : base(team)
         {
-            m_Job = Job.HEALER;
+            m_Job = Job.MERCENARY;
             CalculateLimits();
             InitializeInventory();
         }
 
-        public Healer(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Mercenary(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
-            m_Job = Job.HEALER;
+            m_Job = Job.MERCENARY;
             InitializeInventory();
         }
     }
