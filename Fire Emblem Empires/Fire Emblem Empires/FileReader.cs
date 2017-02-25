@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Fire_Emblem_Empires.Unit_Creation;
 
 namespace Fire_Emblem_Empires
 {
@@ -157,19 +158,19 @@ namespace Fire_Emblem_Empires
             switch(job)
             {
                 case 0:
-                    unit = new Unit_Management.Mercenary(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Mercenary(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
                     break;
                 case 1:
-                    unit = new Unit_Management.Soldier(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Soldier(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
                     break;
                 case 2:
-                    unit = new Unit_Management.Fighter(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Fighter(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
                     break;
                 case 3:
-                    unit = new Unit_Management.Healer(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Healer(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
                     break;
                 case 4:
-                    unit = new Unit_Management.Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
                     break;
             }
             return unit;
