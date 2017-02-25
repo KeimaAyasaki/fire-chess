@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires
+namespace Fire_Emblem_Empires.Unit_Creation
 {
     public enum Job
     {
