@@ -10,59 +10,108 @@ namespace Fire_Emblem_Empires.Unit_Management
 {
     class TimeManager
     {
-        static Stopwatch stopWatch;
-        public TimeManager()
-        {
-            stopWatch = new Stopwatch();
-        }
+        static Stopwatch stopWatch = new Stopwatch();
+        static public bool isOn { get; private set; }
 
         static public void Start()
         {
             stopWatch.Start();
+            isOn = true;
         }
 
         static public void Stop()
         {
             stopWatch.Stop();
+            isOn = false;
         }
 
-        static public String TimeElapsed()
+        static public String TimeElapsedSinceStart()
         {
             // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
             // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
             return elapsedTime;
         }
 
-        static public bool SumOfTime(string timeOne, string timeTwo, out string timeSum)
+        static public bool TimeElapsed(string earlierTime, string laterTime, out string timeDifference)
         {
             // Regex for timespans
             string timeRegex = "^([0-9]+):([0-9]+):([0-9]+)\\.([0-9]+)$";
 
             // Extracting information from the time strings
-            int timeOneHours, timeOneMinutes, timeOneSeconds, timeOneMilliseconds;
-            int timeTwoHours, timeTwoMinutes, timeTwoSeconds, timeTwoMilliseconds;
+            int earlierTimeHours, earlierTimeMinutes, earlierTimeSeconds, earlierTimeMilliseconds;
+            int laterTimeHours, laterTimeMinutes, laterTimeSeconds, laterTimeMilliseconds;
 
-            if(!TimeExtractor(timeRegex, timeOne, out timeOneHours, out timeOneMinutes, out timeOneSeconds, out timeOneMilliseconds))
+            if (!TimeExtractor(timeRegex, earlierTime, out earlierTimeHours, out earlierTimeMinutes, out earlierTimeSeconds, out earlierTimeMilliseconds))
+            {
+                timeDifference = "-error-";
+                return false;
+            }
+            if (!TimeExtractor(timeRegex, laterTime, out laterTimeHours, out laterTimeMinutes, out laterTimeSeconds, out laterTimeMilliseconds))
+            {
+                timeDifference = "-error-";
+                return false;
+            }
+
+            // Adding the information from the time strings
+            int timeSumHours = laterTimeHours - earlierTimeHours;
+            int timeSumMinutes = laterTimeMinutes - earlierTimeMinutes;
+            int timeSumSeconds = laterTimeSeconds - earlierTimeSeconds;
+            int timeSumMilliseconds = laterTimeMilliseconds - earlierTimeMilliseconds;
+
+            if (timeSumMilliseconds > 999)
+            {
+                timeSumMilliseconds %= 1000;
+                ++timeSumSeconds;
+            }
+
+            if (timeSumSeconds > 59)
+            {
+                timeSumSeconds %= 60;
+                ++timeSumMinutes;
+            }
+
+            if (timeSumMinutes > 59)
+            {
+                timeSumMinutes %= 60;
+                ++timeSumHours;
+            }
+
+            timeDifference = String.Format("{0:00}:{1:00}:{2:00}.{3:000}", timeSumHours, timeSumMinutes, timeSumSeconds, timeSumMilliseconds);
+            return true;
+        }
+
+        // earlierTime = Earliest time
+        // laterTime = Latest time
+        static public bool CombineTimes(string earlierTime, string laterTime, out string timeSum)
+        {
+            // Regex for timespans
+            string timeRegex = "^([0-9]+):([0-9]+):([0-9]+)\\.([0-9]+)$";
+
+            // Extracting information from the time strings
+            int earlierTimeHours, earlierTimeMinutes, earlierTimeSeconds, earlierTimeMilliseconds;
+            int laterTimeHours, laterTimeMinutes, laterTimeSeconds, laterTimeMilliseconds;
+
+            if(!TimeExtractor(timeRegex, earlierTime, out earlierTimeHours, out earlierTimeMinutes, out earlierTimeSeconds, out earlierTimeMilliseconds))
             {
                 timeSum = "-error-";
                 return false;
             }
-            if(!TimeExtractor(timeRegex, timeTwo, out timeTwoHours, out timeTwoMinutes, out timeTwoSeconds, out timeTwoMilliseconds))
+            if(!TimeExtractor(timeRegex, laterTime, out laterTimeHours, out laterTimeMinutes, out laterTimeSeconds, out laterTimeMilliseconds))
             {
                 timeSum = "-error-";
                 return false;
             }
 
             // Adding the information from the time strings
-            int timeSumHours = timeOneHours + timeTwoHours;
-            int timeSumMinutes = timeOneMinutes + timeTwoMinutes;
-            int timeSumSeconds = timeOneSeconds + timeTwoSeconds;
-            int timeSumMilliseconds = timeOneMilliseconds + timeTwoMilliseconds;
+            int timeSumHours = earlierTimeHours + laterTimeHours;
+            int timeSumMinutes = earlierTimeMinutes + laterTimeMinutes;
+            int timeSumSeconds = earlierTimeSeconds + laterTimeSeconds;
+            int timeSumMilliseconds = earlierTimeMilliseconds + laterTimeMilliseconds;
 
             if(timeSumMilliseconds > 999)
             {
@@ -82,7 +131,7 @@ namespace Fire_Emblem_Empires.Unit_Management
                 ++timeSumHours;
             }
 
-            timeSum = timeSumHours + ":" + timeSumMinutes + ":" + timeSumSeconds + "." + timeSumMilliseconds;
+            timeSum = String.Format("{0:00}:{1:00}:{2:00}.{3:000}", timeSumHours, timeSumMinutes, timeSumSeconds, timeSumMilliseconds);
             return true;            
         }
 
