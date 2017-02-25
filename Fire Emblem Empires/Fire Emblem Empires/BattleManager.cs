@@ -71,16 +71,24 @@ namespace Fire_Emblem_Empires
         public bool calculateHealing(Unit healingUnit, Unit healedUnit, out byte amountHealed)
         {
             bool healingWasCalculated;
-            if(healingUnit.GetJob() == Job.HEALER)
+            if (healedUnit.IsAlive())
             {
-                if (healingUnit.GetTeamColor() == healedUnit.GetTeamColor())
+                if (healingUnit.GetJob() == Job.HEALER)
                 {
-                    amountHealed = (byte)(5 + (healingUnit.m_Attack / 2));
-                    if (amountHealed + healedUnit.m_CurrentHealth > healedUnit.m_MaxHealth)
+                    if (healingUnit.GetTeamColor() == healedUnit.GetTeamColor())
                     {
+                        amountHealed = (byte)(5 + (healingUnit.m_Attack / 2));
+                        if (amountHealed + healedUnit.m_CurrentHealth > healedUnit.m_MaxHealth)
+                        {
+                            amountHealed = 0;
+                        }
+                        healingWasCalculated = true;
+                    }
+                    else
+                    {
+                        healingWasCalculated = false;
                         amountHealed = 0;
                     }
-                    healingWasCalculated = true;
                 }
                 else
                 {
@@ -92,7 +100,9 @@ namespace Fire_Emblem_Empires
             {
                 healingWasCalculated = false;
                 amountHealed = 0;
+                Console.WriteLine("A healer attempted to heal a dead {0}", healedUnit.GetJob().ToString());
             }
+            
             return healingWasCalculated;
         }
     }
