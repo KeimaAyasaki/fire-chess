@@ -77,7 +77,7 @@
     <Compile Include="Unit Creation\Mage.cs" />
     <Compile Include="Unit Creation\Mercenary.cs" />
     <Compile Include="Unit Creation\Soldier.cs" />
-	<Compile Include="Time Management\TimeManager.cs" />
+    <Compile Include="Time Management\TimeManager.cs" />
     <Compile Include="Unit Creation\Unit.cs" />
     <Compile Include="Unit Management\UnitManager.cs" />
     <Page Include="MainWindow.xaml">
