@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Fire_Emblem_Empires.Item_Management;
 
 namespace Fire_Emblem_Empires.Unit_Creation
 {
