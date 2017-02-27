@@ -1,12 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fire_Emblem_Empires.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Fire_Emblem_Empires.Item_Management;
 
-namespace Fire_Emblem_Empires.Items.Tests
+namespace Fire_Emblem_Empires_Tests
 {
     [TestClass()]
     public class ItemManagerTests
@@ -23,7 +19,8 @@ namespace Fire_Emblem_Empires.Items.Tests
         [TestMethod()]
         public void mainTest()
         {
-            try {
+            try
+            {
                 IronSword sword = new IronSword();
                 Assert.AreSame(sword.GetType(), Item.itemType.IRON_SWORD);
                 Assert.AreSame(sword.getMight(), 5);
@@ -53,11 +50,23 @@ namespace Fire_Emblem_Empires.Items.Tests
                 Assert.AreSame(vul.getDurability(), 0);
 
             }
-            catch (Exception e)
+            catch (Exception /*e*/)
             {
-                
+                /*
+                This implementation is incorrect. Each individually needs to be tested. Please fix this.
+                An example:
+                try
+                {
+                method one;
+                Assert;
+                }
+                catch(Exception e)
+                {
+                    write to console that method one did something or whatever you're trying to catch
+                }
+                */
             }
-            
+
         }
     }
 }
