@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires.Items
+namespace Fire_Emblem_Empires.Item_Management
 {
     public class ItemManager
     {
