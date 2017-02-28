@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Fire_Emblem_Empires.Unit_Creation;
 
-namespace Fire_Emblem_Empires
+namespace Fire_Emblem_Empires.File_Management
 {
     class FileReader
     {
