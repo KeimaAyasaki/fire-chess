@@ -72,6 +72,9 @@
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="GameGrid.xaml.cs">
+      <DependentUpon>GameGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Item Management\ItemManager.cs" />
     <Compile Include="TileEnumeration.cs" />
     <Compile Include="Time Management\TimeManager.cs" />
@@ -81,6 +84,10 @@
     <Compile Include="Unit Creation\Mercenary.cs" />
     <Compile Include="Unit Creation\Soldier.cs" />
     <Compile Include="Unit Creation\Unit.cs" />
+    <Page Include="GameGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
