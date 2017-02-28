@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fire_Emblem_Empires.Unit_Creation;
 
-namespace Fire_Emblem_Empires
+namespace Fire_Emblem_Empires.Board_Creation
 {
 
     class Tile

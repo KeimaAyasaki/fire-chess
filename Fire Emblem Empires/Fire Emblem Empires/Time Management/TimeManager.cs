@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires.Unit_Management
+namespace Fire_Emblem_Empires.Time_Management
 {
     class TimeManager
     {
@@ -65,19 +65,19 @@ namespace Fire_Emblem_Empires.Unit_Management
 
             if (timeSumMilliseconds > 999)
             {
-                timeSumMilliseconds %= 1000;
+                timeSumMilliseconds -= 1000;
                 ++timeSumSeconds;
             }
 
             if (timeSumSeconds > 59)
             {
-                timeSumSeconds %= 60;
+                timeSumSeconds -= 60;
                 ++timeSumMinutes;
             }
 
             if (timeSumMinutes > 59)
             {
-                timeSumMinutes %= 60;
+                timeSumMinutes -= 60;
                 ++timeSumHours;
             }
 

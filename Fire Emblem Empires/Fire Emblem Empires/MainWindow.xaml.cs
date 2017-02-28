@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Fire_Emblem_Empires.Unit_Management;
 
+using Fire_Emblem_Empires.File_Management;
+using Fire_Emblem_Empires.Board_Creation;
+
 namespace Fire_Emblem_Empires
 {
     /// <summary>

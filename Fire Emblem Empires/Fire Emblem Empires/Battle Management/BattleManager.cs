@@ -1,12 +1,12 @@
-﻿using Fire_Emblem_Empires.Unit_Creation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Fire_Emblem_Empires.Unit_Creation;
 
-namespace Fire_Emblem_Empires
+namespace Fire_Emblem_Empires.Battle_Management
 {
     public class BattleManager
     {
