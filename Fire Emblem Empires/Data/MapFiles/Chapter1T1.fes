@@ -1,69 +1,100 @@
-11X9
-A1 M
-A2 M
-A3 M
-A4 M
-A5 M
-A6 M
-A7 M
-A8 W
-A9 W
-A10 W
-A11 F
-B1 M
-B2 M
-B3 M
-B4 F
-B5 F
-B6 M
-B7 P E
-B8 P E
-B9 F
-B10 F
-B11 P E
-C1 M
-C5 P E
-C6 P E
-C8 P E
-C9 M
-C10 F E
-D1 W
-D2 T
-D3 F
-D4 M
-D5 F
-D7 P E
-D9 M
-D10 M
-E1 W
-E2 W
-E3 M
-E4 F
-E5 F
-E6 F
-E7 M
-E10 M
-F1 W
-F2 W
-F5 F
-F6 M
-F7 M
-G1 M
-G2 M
-G3 P A
-G6 T
-G7 M
-H1 M
-H2 P A
-H4 P A
-H9 F
-H10 M
-H11 F E
-I1 F A
-I3 P A
-I4 M
-I5 P A
-I8 F
-I9 F
-I10 M
-I11 M
+9X11
+A1 3 2 4 17 17 4 9 7 0
+A2 3
+A3 3
+A4 3
+A5 3
+A6 3
+A7 3
+A8 2
+A9 2
+A10 2
+A11 1
+B1 3
+B2 3
+B3 3
+B4 1
+B5 1
+B6 3
+B7 0 // E
+B8 0 // E
+B9 1
+B10 1
+B11 0 // E
+C1 3
+C2 0
+C3 0
+C4 0
+C5 0 // E
+C6 0 // E
+C7 0
+C8 0 // E
+C9 3
+C10 1 // E
+C11 0
+D1 2
+D2 4
+D3 1
+D4 3
+D5 1
+D6 0
+D7 0 // E
+D8 3
+D9 3
+D10 3
+D11 0
+E1 2
+E2 2
+E3 3
+E4 1
+E5 1
+E6 1
+E7 3
+E8 0
+E9 0
+E10 3
+E11 0
+F1 2
+F2 2
+F3 0
+F4 0
+F5 1
+F6 3
+F7 3
+F8 0
+F9 0
+F10 0
+F11 0
+G1 3
+G2 3
+G3 0 // A
+G4 0
+G5 0
+G6 4
+G7 3
+G8 0
+G9 0
+G10 0
+G11 0
+H1 3
+H2 0 // A
+H3 0
+H4 0 // A
+H5 0
+H6 0
+H7 0
+H8 0
+H9 1
+H10 3
+H11 1 // E
+I1 1 // A
+I2 0
+I3 0 // A
+I4 3
+I5 0 // A
+I6 0
+I7 0
+I8 1
+I9 1
+I10 3
+I11 3

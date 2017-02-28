@@ -22,6 +22,7 @@ namespace Fire_Emblem_Empires
     public partial class MainWindow : Window
     {
         FileReader fReader = new FileReader();
+        Board map;
 
         public MainWindow()
         {
@@ -30,12 +31,12 @@ namespace Fire_Emblem_Empires
 
         private void fileLoader_Click(object sender, RoutedEventArgs e)
         {
-            fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes");
+            fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes", out map);
         }
 
         private void fileSaver_Click(object sender, RoutedEventArgs e)
         {
-            fReader.CreateFile("Chapter1");
+            fReader.CreateFile(map);
         }
     }
 }

@@ -71,21 +71,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
+    <Compile Include="Board.cs" />
     <Compile Include="Item Management\ItemManager.cs" />
-    <Compile Include="obj\Debug\App.g.i.cs" />
-    <Compile Include="obj\Debug\MainWindow.g.i.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="TileEnumeration.cs" />
+    <Compile Include="Time Management\TimeManager.cs" />
     <Compile Include="Unit Creation\Fighter.cs" />
     <Compile Include="Unit Creation\Healer.cs" />
     <Compile Include="Unit Creation\Mage.cs" />
     <Compile Include="Unit Creation\Mercenary.cs" />
     <Compile Include="Unit Creation\Soldier.cs" />
-    <Compile Include="Time Management\TimeManager.cs" />
     <Compile Include="Unit Creation\Unit.cs" />
-    <Compile Include="Unit Management\UnitManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
