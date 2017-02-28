@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fire_Emblem_Empires{
+namespace Fire_Emblem_Empires.Item_Management
+{
 
     /*List of Items:
      * Iron Sword - 5 Might
@@ -93,16 +94,24 @@ namespace Fire_Emblem_Empires{
                 return false;
             }
         }
+        public Boolean isDefaultItem(Item item)
+        {
+            if (item.getType() == itemType.DEFAULT_ITEM)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
-
-    
     // Iron Sword, Iron Lance, Iron Axe, Fire, Staff, Vulnerary
-
-
     public class IronSword : Item
     {
         public IronSword() : base(itemType.IRON_SWORD) { }
     }
+
     public class IronLance : Item
     {
         public IronLance() : base(itemType.IRON_LANCE) { }
@@ -125,7 +134,16 @@ namespace Fire_Emblem_Empires{
 
     public class Vulnerary : Item
     {
-        public Vulnerary() : base(itemType.VULNERARY) { }
+        private int durability = 0;
+        public int getDurability()
+        {
+            return durability;
+        }
+        public void setDurability(int change)
+        {
+            durability = change;
+        }
+        public Vulnerary() : base(itemType.VULNERARY) { durability = 3; }
     }
 }
 

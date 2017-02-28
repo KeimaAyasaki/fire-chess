@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="BattleManager.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="Item Management\ItemManager.cs" />
     <Compile Include="TileEnumeration.cs" />
     <Compile Include="Time Management\TimeManager.cs" />
     <Compile Include="Unit Creation\Fighter.cs" />
@@ -89,7 +90,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FileReader.cs" />
-    <Compile Include="Items.cs" />
+    <Compile Include="Item Management\Items.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -113,6 +114,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="bin\Debug\Fire Emblem Empires.exe.config" />
+    <None Include="bin\Debug\Fire Emblem Empires.vshost.exe.config" />
+    <None Include="bin\Debug\Fire Emblem Empires.vshost.exe.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -135,7 +139,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Release\" />
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Fire Emblem Empires.exe" />
+    <Content Include="bin\Debug\Fire Emblem Empires.pdb" />
+    <Content Include="bin\Debug\Fire Emblem Empires.vshost.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
