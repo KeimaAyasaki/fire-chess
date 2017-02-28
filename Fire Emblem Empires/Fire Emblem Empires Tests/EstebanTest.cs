@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Fire_Emblem_Empires;
 using Fire_Emblem_Empires.Unit_Creation;
+using Fire_Emblem_Empires.Battle_Management;
 
 namespace Fire_Emblem_Empires_Tests
 {
