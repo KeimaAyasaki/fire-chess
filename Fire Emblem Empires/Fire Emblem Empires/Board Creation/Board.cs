@@ -8,7 +8,7 @@ using Fire_Emblem_Empires.Unit_Creation;
 namespace Fire_Emblem_Empires.Board_Creation
 {
 
-    class Tile
+    public class Tile
     {
         public Tile()
         {
@@ -24,7 +24,7 @@ namespace Fire_Emblem_Empires.Board_Creation
         public TileEnumeration terrainType { get; set; }
         public Unit occupiedBy { get; set; }
     }
-    class Board
+    public class Board
     {
         public Tile[,] spaces;
         public int numRows { get; set; }

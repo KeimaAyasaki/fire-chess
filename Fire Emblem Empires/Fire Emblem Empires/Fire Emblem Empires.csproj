@@ -71,13 +71,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Battle Management\BattleManager.cs" />
-    <Compile Include="BattleManager.cs" />
     <Compile Include="Board Creation\Board.cs" />
     <Compile Include="Board Creation\TileEnumeration.cs" />
-    <Compile Include="Board.cs" />
     <Compile Include="File Management\FileReader.cs" />
+    <Compile Include="GameGrid.xaml.cs">
+      <DependentUpon>GameGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Item Management\ItemManager.cs" />
-    <Compile Include="TileEnumeration.cs" />
     <Compile Include="Time Management\TimeManager.cs" />
     <Compile Include="Unit Creation\Fighter.cs" />
     <Compile Include="Unit Creation\Healer.cs" />
@@ -86,6 +86,10 @@
     <Compile Include="Unit Creation\Soldier.cs" />
     <Compile Include="Unit Creation\Unit.cs" />
     <Compile Include="Unit Management\UnitManager.cs" />
+    <Page Include="GameGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,7 +98,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileReader.cs" />
     <Compile Include="Item Management\Items.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
