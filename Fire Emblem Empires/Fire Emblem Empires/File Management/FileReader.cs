@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using Fire_Emblem_Empires.Unit_Creation;
 
-namespace Fire_Emblem_Empires
+using Fire_Emblem_Empires.Unit_Creation;
+using Fire_Emblem_Empires.Board_Creation;
+
+namespace Fire_Emblem_Empires.File_Management
 {
     class FileReader
     {
