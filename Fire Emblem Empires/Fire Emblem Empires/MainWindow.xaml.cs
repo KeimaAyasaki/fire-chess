@@ -16,6 +16,7 @@ using Fire_Emblem_Empires.Unit_Management;
 
 using Fire_Emblem_Empires.File_Management;
 using Fire_Emblem_Empires.Board_Creation;
+using Fire_Emblem_Empires.Unit_Creation;
 
 namespace Fire_Emblem_Empires
 {

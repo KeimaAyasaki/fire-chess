@@ -27,6 +27,7 @@ namespace Fire_Emblem_Empires.File_Management
 
         public bool Initialize(string filename, out Board map)
         {
+            
             string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
             mapFile = new StreamReader(filepath + filename);
