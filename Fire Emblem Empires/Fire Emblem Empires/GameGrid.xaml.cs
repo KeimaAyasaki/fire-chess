@@ -94,11 +94,29 @@ namespace Fire_Emblem_Empires
                             break;
                     }
                     tile.Background = backgroundColor;
+                    tile.MouseEnter += new MouseEventHandler(Mouse_Enter_Event);
+                    tile.MouseLeave += new MouseEventHandler(Mouse_Exit_Event);
                     Grid.SetRow(tile, i);
                     Grid.SetColumn(tile, j);
                     dynamicGrid.Children.Add(tile);
                 }
             }
+        }
+
+        private void Mouse_Enter_Event(object sender, MouseEventArgs e)
+        {
+            TextBlock tile = (TextBlock) sender;
+            SolidColorBrush background = (SolidColorBrush)tile.Background;
+            Color newColor = background.Color + Color.FromArgb(0, 80, 80, 80);
+            tile.Background = new SolidColorBrush(newColor);
+        }
+
+        private void Mouse_Exit_Event(object sender, MouseEventArgs e)
+        {
+            TextBlock tile = (TextBlock)sender;
+            SolidColorBrush background = (SolidColorBrush)tile.Background;
+            Color newColor = background.Color - Color.FromArgb(0, 80, 80, 80);
+            tile.Background = new SolidColorBrush(newColor);
         }
     }
 }
