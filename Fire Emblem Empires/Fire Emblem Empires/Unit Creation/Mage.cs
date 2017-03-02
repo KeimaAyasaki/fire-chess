@@ -11,7 +11,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Mage(Team team) : base(team)
         {
             m_Job = Job.MAGE;
-            CalculateLimits();
+            CreateRandomStats();
             InitializeInventory();
         }
 

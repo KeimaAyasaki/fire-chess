@@ -11,7 +11,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Healer(Team team) : base(team)
         {
             m_Job = Job.HEALER;
-            CalculateLimits();
+            CreateRandomStats();
             InitializeInventory();
         }
 

@@ -11,7 +11,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Soldier(Team team) : base(team)
         {
             m_Job = Job.SOLDIER;
-            CalculateLimits();
+            CreateRandomStats();
             InitializeInventory();
         }
 

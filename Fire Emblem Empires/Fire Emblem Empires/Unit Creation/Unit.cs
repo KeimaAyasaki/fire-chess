@@ -1,12 +1,11 @@
-﻿using Fire_Emblem_Empires.Unit_Management;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Fire_Emblem_Empires.Item_Management;
+
+using Fire_Emblem_Empires.Item_Creation;
 
 namespace Fire_Emblem_Empires.Unit_Creation
 {
@@ -34,6 +33,18 @@ namespace Fire_Emblem_Empires.Unit_Creation
         private const byte BASE_MOVEMENT_SPEED = 4;
 
         // The following data members are for soft caps, not affected by the modifiers
+
+        protected byte JOB_MIN_HEALTH    ;
+        protected byte JOB_MAX_HEALTH    ;
+        protected byte JOB_MIN_ATTACK    ;
+        protected byte JOB_MAX_ATTACK    ;
+        protected byte JOB_MIN_SPEED     ;
+        protected byte JOB_MAX_SPEED     ;
+        protected byte JOB_MIN_DEFENSE   ;
+        protected byte JOB_MAX_DEFENSE   ;
+        protected byte JOB_MIN_RESISTANCE;
+        protected byte JOB_MAX_RESISTANCE;
+
         private byte MAX_HP;
         private byte MIN_HP;
         private byte MAX_ATTACK;
@@ -181,16 +192,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
         }
 
         // Find a new place to put these things
-        byte MERCENARY_MIN_HEALTH = 16;
-        byte MERCENARY_MAX_HEALTH = 18;
-        byte MERCENARY_MIN_ATTACK = 02;
-        byte MERCENARY_MAX_ATTACK = 04;
-        byte MERCENARY_MIN_SPEED = 05;
-        byte MERCENARY_MAX_SPEED = 08;
-        byte MERCENARY_MIN_DEFENSE = 03;
-        byte MERCENARY_MAX_DEFENSE = 04;
-        byte MERCENARY_MIN_RESISTANCE = 00;
-        byte MERCENARY_MAX_RESISTANCE = 01;
 
         byte SOLDIER_MIN_HEALTH = 18;
         byte SOLDIER_MAX_HEALTH = 20;
@@ -236,294 +237,16 @@ namespace Fire_Emblem_Empires.Unit_Creation
         byte MAGE_MIN_RESISTANCE = 04;
         byte MAGE_MAX_RESISTANCE = 06;
 
-        public byte GetMinHealth(Job job)
-        {
-            byte minHealth = 255;
-            if (job.Equals(Job.MERCENARY))
-            { minHealth = MERCENARY_MIN_HEALTH; }
-            else if (job.Equals(Job.SOLDIER))
-            { minHealth = SOLDIER_MIN_HEALTH; }
-            else if (job.Equals(Job.FIGHTER))
-            { minHealth = FIGHTER_MIN_HEALTH; }
-            else if (job.Equals(Job.HEALER))
-            { minHealth = HEALER_MAX_HEALTH; }
-            else if (job.Equals(Job.MAGE))
-            { minHealth = MAGE_MIN_HEALTH; }
-            if (minHealth.Equals(255))
-            {
-                Console.WriteLine("Error - GetMinHealth(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return minHealth;
-        }
-
-        public byte GetMaxHealth(Job job)
-        {
-            byte maxHealth = 255;
-            if (job.Equals(Job.MERCENARY))
-            { maxHealth = MERCENARY_MAX_HEALTH; }
-            else if (job.Equals(Job.SOLDIER))
-            { maxHealth = SOLDIER_MAX_HEALTH; }
-            else if (job.Equals(Job.FIGHTER))
-            { maxHealth = FIGHTER_MAX_HEALTH; }
-            else if (job.Equals(Job.HEALER))
-            { maxHealth = HEALER_MAX_HEALTH; }
-            else if (job.Equals(Job.MAGE))
-            { maxHealth = MAGE_MAX_HEALTH; }
-            if (maxHealth.Equals(255))
-            {
-                Console.WriteLine("Error - GetMaxHealth(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return maxHealth;
-        }
-
-        public byte GetMinAttack(Job job)
-        {
-            byte minAttack = 255;
-            if (job.Equals(Job.MERCENARY))
-            { minAttack = MERCENARY_MIN_ATTACK; }
-            else if (job.Equals(Job.SOLDIER))
-            { minAttack = SOLDIER_MIN_ATTACK; }
-            else if (job.Equals(Job.FIGHTER))
-            { minAttack = FIGHTER_MIN_ATTACK; }
-            else if (job.Equals(Job.HEALER))
-            { minAttack = HEALER_MIN_ATTACK; }
-            else if (job.Equals(Job.MAGE))
-            { minAttack = MAGE_MIN_ATTACK; }
-            if (minAttack.Equals(255))
-            {
-                Console.WriteLine("Error - GetMinAttack(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return minAttack;
-        }
-
-        public byte GetMaxAttack(Job job)
-        {
-            byte maxAttack = 255;
-            if (job.Equals(Job.MERCENARY))
-            { maxAttack = MERCENARY_MAX_ATTACK; }
-            else if (job.Equals(Job.SOLDIER))
-            { maxAttack = SOLDIER_MAX_ATTACK; }
-            else if (job.Equals(Job.FIGHTER))
-            { maxAttack = FIGHTER_MAX_ATTACK; }
-            else if (job.Equals(Job.HEALER))
-            { maxAttack = HEALER_MAX_ATTACK; }
-            else if (job.Equals(Job.MAGE))
-            { maxAttack = MAGE_MAX_ATTACK; }
-            if (maxAttack.Equals(255))
-            {
-                Console.WriteLine("Error - GetMaxAttack(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return maxAttack;
-        }
-
-        public byte GetMinSpeed(Job job)
-        {
-            byte minSpeed = 255;
-            if (job.Equals(Job.MERCENARY))
-            { minSpeed = MERCENARY_MIN_SPEED; }
-            else if (job.Equals(Job.SOLDIER))
-            { minSpeed = SOLDIER_MIN_SPEED; }
-            else if (job.Equals(Job.FIGHTER))
-            { minSpeed = FIGHTER_MIN_SPEED; }
-            else if (job.Equals(Job.HEALER))
-            { minSpeed = HEALER_MIN_SPEED; }
-            else if (job.Equals(Job.MAGE))
-            { minSpeed = MAGE_MIN_SPEED; }
-            if (minSpeed.Equals(255))
-            {
-                Console.WriteLine("Error - GetMinSpeed(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return minSpeed;
-        }
-
-        public byte GetMaxSpeed(Job job)
-        {
-            byte maxSpeed = 255;
-            if (job.Equals(Job.MERCENARY))
-            { maxSpeed = MERCENARY_MAX_SPEED; }
-            else if (job.Equals(Job.SOLDIER))
-            { maxSpeed = SOLDIER_MAX_SPEED; }
-            else if (job.Equals(Job.FIGHTER))
-            { maxSpeed = FIGHTER_MAX_SPEED; }
-            else if (job.Equals(Job.HEALER))
-            { maxSpeed = HEALER_MAX_SPEED; }
-            else if (job.Equals(Job.MAGE))
-            { maxSpeed = MAGE_MAX_SPEED; }
-            if (maxSpeed.Equals(255))
-            {
-                Console.WriteLine("Error - GetMaxSpeed(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return maxSpeed;
-        }
-
-        public byte GetMinDefense(Job job)
-        {
-            byte minDefense = 255;
-            if (job.Equals(Job.MERCENARY))
-            { minDefense = MERCENARY_MIN_DEFENSE; }
-            else if (job.Equals(Job.SOLDIER))
-            { minDefense = SOLDIER_MIN_DEFENSE; }
-            else if (job.Equals(Job.FIGHTER))
-            { minDefense = FIGHTER_MIN_DEFENSE; }
-            else if (job.Equals(Job.HEALER))
-            { minDefense = HEALER_MIN_DEFENSE; }
-            else if (job.Equals(Job.MAGE))
-            { minDefense = MAGE_MIN_DEFENSE; }
-            if (minDefense.Equals(255))
-            {
-                Console.WriteLine("Error - GetMinDefense(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return minDefense;
-        }
-
-        public byte GetMaxDefense(Job job)
-        {
-            byte maxDefense = 255;
-            if (job.Equals(Job.MERCENARY))
-            { maxDefense = MERCENARY_MAX_DEFENSE; }
-            else if (job.Equals(Job.SOLDIER))
-            { maxDefense = SOLDIER_MAX_DEFENSE; }
-            else if (job.Equals(Job.FIGHTER))
-            { maxDefense = FIGHTER_MAX_DEFENSE; }
-            else if (job.Equals(Job.HEALER))
-            { maxDefense = HEALER_MAX_DEFENSE; }
-            else if (job.Equals(Job.MAGE))
-            { maxDefense = MAGE_MAX_DEFENSE; }
-            if (maxDefense.Equals(255))
-            {
-                Console.WriteLine("Error - GetMaxDefense(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return maxDefense;
-        }
-
-        public byte GetMinResistance(Job job)
-        {
-            byte minResistance = 255;
-            if (job.Equals(Job.MERCENARY))
-            { minResistance = MERCENARY_MIN_RESISTANCE; }
-            else if (job.Equals(Job.SOLDIER))
-            { minResistance = SOLDIER_MIN_RESISTANCE; }
-            else if (job.Equals(Job.FIGHTER))
-            { minResistance = FIGHTER_MIN_RESISTANCE; }
-            else if (job.Equals(Job.HEALER))
-            { minResistance = HEALER_MIN_RESISTANCE; }
-            else if (job.Equals(Job.MAGE))
-            { minResistance = MAGE_MIN_RESISTANCE; }
-            if (minResistance.Equals(255))
-            {
-                Console.WriteLine("Error - GetMinResistance(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return minResistance;
-        }
-
-        public byte GetMaxResistance(Job job)
-        {
-            byte maxResistance = 255;
-            if (job.Equals(Job.MERCENARY))
-            { maxResistance = MERCENARY_MAX_RESISTANCE; }
-            else if (job.Equals(Job.SOLDIER))
-            { maxResistance = SOLDIER_MAX_RESISTANCE; }
-            else if (job.Equals(Job.FIGHTER))
-            { maxResistance = FIGHTER_MAX_RESISTANCE; }
-            else if (job.Equals(Job.HEALER))
-            { maxResistance = HEALER_MAX_RESISTANCE; }
-            else if (job.Equals(Job.MAGE))
-            { maxResistance = MAGE_MAX_RESISTANCE; }
-            if (maxResistance.Equals(255))
-            {
-                Console.WriteLine("Error - GetMaxResistance(Job) returned an invalid value for the job {0}.", job.ToString());
-            }
-            return maxResistance;
-        }
-
-        private void SetHPLimits(byte lowerLimit, byte upperLimit)
-        {
-            if (lowerLimit > upperLimit)
-            {
-                Console.WriteLine("Warning - SetHPLimits was given a higher lower limit than upper limit. Substituting each for each other");
-                byte temp = lowerLimit;
-                lowerLimit = upperLimit;
-                upperLimit = lowerLimit;
-            }
-            MIN_HP = lowerLimit;
-            MAX_HP = upperLimit;
-        }
-
-        private void SetAttackLimits(byte lowerLimit, byte upperLimit)
-        {
-            if (lowerLimit > upperLimit)
-            {
-                Console.WriteLine("Warning - SetAttackLimits was given a higher lower limit than upper limit. Substituting each for each other");
-                byte temp = lowerLimit;
-                lowerLimit = upperLimit;
-                upperLimit = lowerLimit;
-            }
-            MIN_ATTACK = lowerLimit;
-            MAX_ATTACK = upperLimit;
-        }
-
-        private void SetSpeedLimits(byte lowerLimit, byte upperLimit)
-        {
-            if (lowerLimit > upperLimit)
-            {
-                Console.WriteLine("Warning - SetSpeedLimits was given a higher lower limit than upper limit. Substituting each for each other");
-                byte temp = lowerLimit;
-                lowerLimit = upperLimit;
-                upperLimit = lowerLimit;
-            }
-            MIN_SPEED = lowerLimit;
-            MAX_SPEED = upperLimit;
-        }
-
-        private void SetDefenseLimits(byte lowerLimit, byte upperLimit)
-        {
-            if (lowerLimit > upperLimit)
-            {
-                Console.WriteLine("Warning - SetDefenseLimits was given a higher lower limit than upper limit. Substituting each for each other");
-                byte temp = lowerLimit;
-                lowerLimit = upperLimit;
-                upperLimit = lowerLimit;
-            }
-
-            MIN_DEFENSE = lowerLimit;
-            MAX_DEFENSE = upperLimit;
-        }
-
-        private void SetResistanceLimits(byte lowerLimit, byte upperLimit)
-        {
-            if (lowerLimit > upperLimit)
-            {
-                Console.WriteLine("Warning - SetResistanceLimits was given a higher lower limit than upper limit. Substituting each for each other");
-                byte temp = lowerLimit;
-                lowerLimit = upperLimit;
-                upperLimit = lowerLimit;
-            }
-            MIN_RESISTANCE = lowerLimit;
-            MAX_RESISTANCE = upperLimit;
-        }
-
         private void CalculateModifiers()
         {
             byte modifiers = 0;
             Job job = GetJob();
-            modifiers += (byte)(GetMaxHealth(job)     - GetMinHealth(job));
+            modifiers += (byte)(JOB_MAX_HEALTH - JOB_MIN_HEALTH);
             modifiers += (byte)(GetMaxAttack(job)     - GetMinAttack(job));
             modifiers += (byte)(GetMaxSpeed(job)      - GetMinSpeed(job));
             modifiers += (byte)(GetMaxDefense(job)    - GetMinDefense(job));
             modifiers += (byte)(GetMaxResistance(job) - GetMinResistance(job));
             MODIFIER_COUNT = modifiers;
-        }
-
-        private void CreateDefaultUnitInformation()
-        {
-            Job job = GetJob();
-            SetHPLimits(GetMinHealth(job), GetMaxHealth(job));
-            SetAttackLimits(GetMinAttack(job), GetMaxAttack(job));
-            SetSpeedLimits(GetMinSpeed(job), GetMaxSpeed(job));
-            SetDefenseLimits(GetMinDefense(job), GetMaxDefense(job));
-            SetResistanceLimits(GetMinResistance(job), GetMaxResistance(job));
-
-            CalculateModifiers();
         }
 
         private void AssignRandomStatsToUnit()
@@ -561,9 +284,8 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_CurrentHealth = m_MaxHealth;
         }
 
-        protected void CalculateLimits()
+        protected void CreateRandomStats()
         {
-            CreateDefaultUnitInformation();
             AssignRandomStatsToUnit();
             AssignAbilityPoints();
         }

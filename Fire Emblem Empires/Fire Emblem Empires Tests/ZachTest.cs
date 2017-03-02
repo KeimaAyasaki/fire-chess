@@ -5,7 +5,7 @@ using Fire_Emblem_Empires.Item_Management;
 namespace Fire_Emblem_Empires_Tests
 {
     [TestClass()]
-    public class ItemManagerTests
+    public class ZachTest
     {
         /*List of Items:
      * Iron Sword - 5 Might
