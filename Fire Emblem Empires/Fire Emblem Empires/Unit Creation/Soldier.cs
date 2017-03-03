@@ -11,15 +11,26 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Soldier(Team team) : base(team)
         {
             m_Job = Job.SOLDIER;
-            CalculateLimits();
-            InitializeInventory();
         }
 
         public Soldier(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
             m_Job = Job.SOLDIER;
-            InitializeInventory();
+        }
+
+        protected override void AssignUnitLimits()
+        {
+            JOB_MIN_HEALTH      = 18;
+            JOB_MAX_HEALTH      = 20;
+            JOB_MIN_ATTACK      = 03;
+            JOB_MAX_ATTACK      = 05;
+            JOB_MIN_SPEED       = 03;
+            JOB_MAX_SPEED       = 04;
+            JOB_MIN_DEFENSE     = 05;
+            JOB_MAX_DEFENSE     = 08;
+            JOB_MIN_RESISTANCE  = 01;
+            JOB_MAX_RESISTANCE  = 02;
         }
     }
 }
