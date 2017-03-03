@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Fire_Emblem_Empires.Item_Creation;
 using Fire_Emblem_Empires.Item_Management;
 
 namespace Fire_Emblem_Empires_Tests

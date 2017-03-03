@@ -27,58 +27,28 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
     public abstract class Unit
     {
-        Random random = new Random();
+        static Random random = new Random();
         // Private Data Members
-        private const byte MAX_INVENTORY_SIZE = 4;
-        private const byte BASE_MOVEMENT_SPEED = 4;
+        private const byte MAX_INVENTORY_SIZE   = 4;
+        private const byte BASE_MOVEMENT_SPEED  = 4;
 
         // The following data members are for soft caps, not affected by the modifiers
-
-        protected byte JOB_MIN_HEALTH    ;
-        protected byte JOB_MAX_HEALTH    ;
-        protected byte JOB_MIN_ATTACK    ;
-        protected byte JOB_MAX_ATTACK    ;
-        protected byte JOB_MIN_SPEED     ;
-        protected byte JOB_MAX_SPEED     ;
-        protected byte JOB_MIN_DEFENSE   ;
-        protected byte JOB_MAX_DEFENSE   ;
-        protected byte JOB_MIN_RESISTANCE;
-        protected byte JOB_MAX_RESISTANCE;
-
-        private byte MAX_HP;
-        private byte MIN_HP;
-        private byte MAX_ATTACK;
-        private byte MIN_ATTACK;
-        private byte MAX_SPEED;
-        private byte MIN_SPEED;
-        private byte MAX_DEFENSE;
-        private byte MIN_DEFENSE;
-        private byte MAX_RESISTANCE;
-        private byte MIN_RESISTANCE;
+        // This gets set only during unit creation, when the caps are determined by the AssignUnitLimits() method
+        protected byte JOB_MIN_HEALTH       = 0;
+        protected byte JOB_MAX_HEALTH       = 0;
+        protected byte JOB_MIN_ATTACK       = 0;
+        protected byte JOB_MAX_ATTACK       = 0;
+        protected byte JOB_MIN_SPEED        = 0;
+        protected byte JOB_MAX_SPEED        = 0;
+        protected byte JOB_MIN_DEFENSE      = 0;
+        protected byte JOB_MAX_DEFENSE      = 0;
+        protected byte JOB_MIN_RESISTANCE   = 0;
+        protected byte JOB_MAX_RESISTANCE   = 0;
+        // The total difference in stats calculated by taking the sum of differences between the upper and lower limits
         private byte MODIFIER_COUNT;
-        
-        public Unit(Team team)
-        {
-            m_Team = team;
-            Thread.Sleep(100);
-            // temp identification
-            ++m_id;
-        }
 
-        public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
-        {
-            m_Team = team;
-            m_MaxHealth = MaxHealth;
-            m_CurrentHealth = CurrentHealth;
-            m_Attack = Attack;
-            m_Speed = Speed;
-            m_Defense = Defense;
-            m_Resistance = Resistance;
-            // temp identification
-            ++m_id;
-        }
 
-        // Protected data members
+        // Public data members for stats, unable to be modified but able to be accessed
         public byte m_MaxHealth { get; private set; }
         public byte m_CurrentHealth { get; private set; }
         public byte m_Attack { get; private set; }
@@ -86,6 +56,8 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public byte m_Defense { get; private set; }
         public byte m_Resistance { get; private set; }
         public byte m_MovementRange { get; private set; }
+
+        // Protected data members to keep track of unit statuses and properties
         protected bool m_alive = true;
         protected bool m_canMove = true;
         protected Job m_Job;
@@ -94,7 +66,46 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // Temporary for debugging
         public static byte m_id;
+        public void AssignAnID() { ++m_id; }
 
+        // Public constructor that returns a unit with the given stats on a specified team
+        public Unit(Team team)
+        {
+            // Assigns the unit to the team
+            m_Team = team;
+            
+            // Creates unit stats
+            AssignUnitLimits();
+            CreateRandomStats();
+            
+            // Creates unit inventory
+            InitializeInventory();
+            
+            // Debug information
+            AssignAnID();
+        }
+
+        // Public overloaded constructor for a unit of specified parameters
+        // Items have not been implemented as of now
+        public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        {
+            // Assign unit stats
+            m_Team = team;
+            m_MaxHealth = MaxHealth;
+            m_CurrentHealth = CurrentHealth;
+            m_Attack = Attack;
+            m_Speed = Speed;
+            m_Defense = Defense;
+            m_Resistance = Resistance;
+
+            // Initialize Unit inventory
+            InitializeInventory();
+
+            // Debug information
+            AssignAnID();
+        }
+
+        // Displays all unit stats and non-default inventory items.
         public override string ToString()
         {
             String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
@@ -191,71 +202,27 @@ namespace Fire_Emblem_Empires.Unit_Creation
             return job.CompareTo(GetJob()) == 0;
         }
 
-        // Find a new place to put these things
-
-        byte SOLDIER_MIN_HEALTH = 18;
-        byte SOLDIER_MAX_HEALTH = 20;
-        byte SOLDIER_MIN_ATTACK = 03;
-        byte SOLDIER_MAX_ATTACK = 05;
-        byte SOLDIER_MIN_SPEED = 03;
-        byte SOLDIER_MAX_SPEED = 04;
-        byte SOLDIER_MIN_DEFENSE = 05;
-        byte SOLDIER_MAX_DEFENSE = 08;
-        byte SOLDIER_MIN_RESISTANCE = 01;
-        byte SOLDIER_MAX_RESISTANCE = 02;
-
-        byte FIGHTER_MIN_HEALTH = 20;
-        byte FIGHTER_MAX_HEALTH = 24;
-        byte FIGHTER_MIN_ATTACK = 06;
-        byte FIGHTER_MAX_ATTACK = 09;
-        byte FIGHTER_MIN_SPEED = 02;
-        byte FIGHTER_MAX_SPEED = 03;
-        byte FIGHTER_MIN_DEFENSE = 02;
-        byte FIGHTER_MAX_DEFENSE = 04;
-        byte FIGHTER_MIN_RESISTANCE = 00;
-        byte FIGHTER_MAX_RESISTANCE = 00;
-
-        byte HEALER_MIN_HEALTH = 16;
-        byte HEALER_MAX_HEALTH = 18;
-        byte HEALER_MIN_ATTACK = 02;
-        byte HEALER_MAX_ATTACK = 03;
-        byte HEALER_MIN_SPEED = 02;
-        byte HEALER_MAX_SPEED = 04;
-        byte HEALER_MIN_DEFENSE = 00;
-        byte HEALER_MAX_DEFENSE = 02;
-        byte HEALER_MIN_RESISTANCE = 05;
-        byte HEALER_MAX_RESISTANCE = 08;
-
-        byte MAGE_MIN_HEALTH = 15;
-        byte MAGE_MAX_HEALTH = 16;
-        byte MAGE_MIN_ATTACK = 04;
-        byte MAGE_MAX_ATTACK = 08;
-        byte MAGE_MIN_SPEED = 02;
-        byte MAGE_MAX_SPEED = 06;
-        byte MAGE_MIN_DEFENSE = 00;
-        byte MAGE_MAX_DEFENSE = 02;
-        byte MAGE_MIN_RESISTANCE = 04;
-        byte MAGE_MAX_RESISTANCE = 06;
+       protected abstract void AssignUnitLimits();
 
         private void CalculateModifiers()
         {
             byte modifiers = 0;
             Job job = GetJob();
             modifiers += (byte)(JOB_MAX_HEALTH - JOB_MIN_HEALTH);
-            modifiers += (byte)(GetMaxAttack(job)     - GetMinAttack(job));
-            modifiers += (byte)(GetMaxSpeed(job)      - GetMinSpeed(job));
-            modifiers += (byte)(GetMaxDefense(job)    - GetMinDefense(job));
-            modifiers += (byte)(GetMaxResistance(job) - GetMinResistance(job));
+            modifiers += (byte)(JOB_MAX_ATTACK - JOB_MIN_ATTACK);
+            modifiers += (byte)(JOB_MAX_SPEED - JOB_MIN_SPEED);
+            modifiers += (byte)(JOB_MAX_DEFENSE - JOB_MIN_DEFENSE);
+            modifiers += (byte)(JOB_MAX_RESISTANCE - JOB_MIN_RESISTANCE);
             MODIFIER_COUNT = modifiers;
         }
 
         private void AssignRandomStatsToUnit()
         {
-            m_MaxHealth  = (byte)(random.Next(MIN_HP, MAX_HP));
-            m_Attack     = (byte)(random.Next(MIN_ATTACK, MAX_ATTACK));
-            m_Speed      = (byte)(random.Next(MIN_SPEED, MAX_SPEED));
-            m_Defense    = (byte)(random.Next(MIN_DEFENSE, MAX_DEFENSE));
-            m_Resistance = (byte)(random.Next(MIN_RESISTANCE, MAX_RESISTANCE));
+            m_MaxHealth  = (byte)(random.Next(JOB_MIN_HEALTH,       JOB_MAX_HEALTH));
+            m_Attack     = (byte)(random.Next(JOB_MIN_ATTACK,       JOB_MAX_ATTACK));
+            m_Speed      = (byte)(random.Next(JOB_MIN_SPEED,        JOB_MAX_SPEED));
+            m_Defense    = (byte)(random.Next(JOB_MIN_DEFENSE,      JOB_MAX_DEFENSE));
+            m_Resistance = (byte)(random.Next(JOB_MIN_RESISTANCE,   JOB_MAX_RESISTANCE));
         }
 
         private void AssignAbilityPoints()

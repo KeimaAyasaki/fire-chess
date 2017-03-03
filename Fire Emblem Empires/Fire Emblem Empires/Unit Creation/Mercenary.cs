@@ -11,19 +11,15 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Mercenary(Team team) : base(team)
         {
             m_Job = Job.MERCENARY;
-            AssignUnitLimits();
-            CreateRandomStats();
-            InitializeInventory();
         }
 
         public Mercenary(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
         {
             m_Job = Job.MERCENARY;
-            InitializeInventory();
         }
 
-        public void AssignUnitLimits()
+        protected override void AssignUnitLimits()
         {
             JOB_MIN_HEALTH      = 16;
             JOB_MAX_HEALTH      = 18;
