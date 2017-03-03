@@ -87,16 +87,23 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // Public overloaded constructor for a unit of specified parameters
         // Items have not been implemented as of now
-        public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
         {
             // Assign unit stats
-            m_Team = team;
-            m_MaxHealth = MaxHealth;
+            m_Team          = team;
+
+            if (MaxHealth < CurrentHealth)
+            {
+                Console.WriteLine("Warning! A {0} was constructed with a max health of {1} and a current health of {2}!", MaxHealth, CurrentHealth);
+            }
+
+            m_MaxHealth     = MaxHealth;
             m_CurrentHealth = CurrentHealth;
-            m_Attack = Attack;
-            m_Speed = Speed;
-            m_Defense = Defense;
-            m_Resistance = Resistance;
+            m_Attack        = Attack;
+            m_Speed         = Speed;
+            m_Defense       = Defense;
+            m_Resistance    = Resistance;
+            m_canMove       = canMove;
 
             // Initialize Unit inventory
             InitializeInventory();
