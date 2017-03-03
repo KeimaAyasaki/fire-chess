@@ -13,8 +13,8 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_Job = Job.HEALER;
         }
 
-        public Healer(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
-            : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance)
+        public Healer(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
+            : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, canMove)
         {
             m_Job = Job.HEALER;
         }
