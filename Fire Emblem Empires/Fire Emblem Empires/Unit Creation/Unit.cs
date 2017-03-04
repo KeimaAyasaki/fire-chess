@@ -58,13 +58,13 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public byte m_MovementRange { get; private set; }
 
         // Protected data members to keep track of unit statuses and properties
-        protected bool m_alive = true;
-        protected bool m_canMove = true;
-        protected Job m_Job;
-        protected Team m_Team;
-        protected Item[] m_inventory = new Item[MAX_INVENTORY_SIZE];
+        protected bool      m_alive     = true;
+        protected bool      m_canMove   = true;
+        protected Job       m_Job;
+        protected Team      m_Team;
+        protected Item[]    m_inventory = new Item[MAX_INVENTORY_SIZE];
 
-        // Temporary for debugging
+        // Unique Identifier for debugging
         public static byte m_id;
         public void AssignAnID() { ++m_id; }
 
@@ -115,7 +115,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         // Displays all unit stats and non-default inventory items.
         public override string ToString()
         {
-            String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
+            String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
                 + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance;
             if(m_inventory.Count() > 0)
             {
