@@ -78,7 +78,7 @@ namespace Fire_Emblem_Empires.Battle_Management
                 amountHealed = (byte)(5 + (healingUnit.m_Attack / 2));
                 if (amountHealed + healedUnit.m_CurrentHealth > healedUnit.m_MaxHealth)
                 {
-                    amountHealed = 0;
+                    amountHealed = (byte)(healedUnit.m_MaxHealth - healedUnit.m_CurrentHealth);
                 }
                 healingWasCalculated = true;
             }
