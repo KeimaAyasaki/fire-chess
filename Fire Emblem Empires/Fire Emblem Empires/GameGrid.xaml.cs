@@ -51,12 +51,14 @@ namespace Fire_Emblem_Empires
             }
             dynamicGrid.Width = tileSize * numColumns;
             dynamicGrid.Height = tileSize * numRows;
+            dynamicGrid.Margin = new Thickness(-2);
             this.View.Items.Add(dynamicGrid);
-            this.Width = dynamicGrid.Width + 20;
-            this.Height = tileSize * (numRows + 1.5);
+            this.Width = dynamicGrid.Width + 18;
+            this.Height = tileSize * (numRows) + (tileSize * 2);
             this.View.HorizontalAlignment = HorizontalAlignment.Stretch;
             this.View.VerticalAlignment = VerticalAlignment.Stretch;
-            this.View.Margin = new Thickness(0);
+            this.View.Padding = new Thickness(-3);
+            this.View.BorderThickness = new Thickness(0);
 
             for (int i = 0; i < numRows; i++)
             {
@@ -105,6 +107,8 @@ namespace Fire_Emblem_Empires
                     tile.MouseEnter += new MouseEventHandler(Mouse_Enter_Event);
                     tile.MouseLeave += new MouseEventHandler(Mouse_Exit_Event);
                     tile.MouseLeftButtonUp += new MouseButtonEventHandler(Mouse_Left_Click);
+                    tile.Padding = new Thickness(0);
+                    tile.Margin = new Thickness(0);
                     Grid.SetRow(tile, i);
                     Grid.SetColumn(tile, j);
                     dynamicGrid.Children.Add(tile);
@@ -114,6 +118,7 @@ namespace Fire_Emblem_Empires
             unitInfo.Background = new SolidColorBrush(Colors.Gray);
             unitInfo.Width = dynamicGrid.Width;
             unitInfo.Height = tileSize * 1.5;
+            unitInfo.Margin = new Thickness(-2);
             this.View.Items.Add(unitInfo);
         }
 
