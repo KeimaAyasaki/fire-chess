@@ -23,10 +23,11 @@ namespace Fire_Emblem_Empires.File_Management
         
         // Group 2 is job: 0 = mercenary, 1 = soldier, 2 = fighter, 3 = healer, 4 = mage
                  
-        private string unitRegex = "([0-2])\\s([0-4])\\s(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s?)";
+        private string unitRegex = "([0-2])\\s([0-4])\\s(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s([0,1])\\s?)";
 
         public bool Initialize(string filename, out Board map)
         {
+            
             string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
             mapFile = new StreamReader(filepath + filename);
@@ -105,7 +106,9 @@ namespace Fire_Emblem_Empires.File_Management
                     byte.TryParse(statsInfo[4], out defense);
                     byte resistance;
                     byte.TryParse(statsInfo[5], out resistance);
-                    unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance);
+                    int canMove;
+                    int.TryParse(statsInfo[6], out canMove);
+                    unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
                 }
                 map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
             }
@@ -151,28 +154,29 @@ namespace Fire_Emblem_Empires.File_Management
             line += " " + unit.m_Attack;
             line += " " + unit.m_Speed;
             line += " " + unit.m_Defense;
-            line += " " + unit.m_Resistance;
+            line += " " + unit.m_Resistance;        
+            line += " " + (unit.CanMove() ? "0" : "1");
             return line;
         }
-        public Unit CreateUnitWithJob(Team team, int job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance)
+        public Unit CreateUnitWithJob(Team team, int job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool CanMove)
         {
             Unit unit = null;
             switch(job)
             {
                 case 0:
-                    unit = new Mercenary(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Mercenary(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
                     break;
                 case 1:
-                    unit = new Soldier(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Soldier(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
                     break;
                 case 2:
-                    unit = new Fighter(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Fighter(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
                     break;
                 case 3:
-                    unit = new Healer(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Healer(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
                     break;
                 case 4:
-                    unit = new Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance);
+                    unit = new Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
                     break;
             }
             return unit;

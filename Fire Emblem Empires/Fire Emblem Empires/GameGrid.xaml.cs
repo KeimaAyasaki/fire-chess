@@ -21,11 +21,14 @@ namespace Fire_Emblem_Empires
     /// </summary>
     public partial class GameGrid : Window
     {
+        Board map;
         public GameGrid(Board map)
         {
             InitializeComponent();
 
-            int tileSize = 100;
+            this.map = map;
+
+            int tileSize = 75;
 
             Grid dynamicGrid = new Grid();
             
@@ -46,11 +49,16 @@ namespace Fire_Emblem_Empires
                 column.Width = new GridLength(tileSize);
                 dynamicGrid.ColumnDefinitions.Add(column);
             }
-            this.Content = dynamicGrid;
-            this.Width = tileSize * numColumns + 17;
-            this.Height = tileSize * numRows + 40;
+            dynamicGrid.Width = tileSize * numColumns;
+            dynamicGrid.Height = tileSize * numRows;
+            this.View.Items.Add(dynamicGrid);
+            this.Width = dynamicGrid.Width + 20;
+            this.Height = tileSize * (numRows + 1.5);
+            this.View.HorizontalAlignment = HorizontalAlignment.Stretch;
+            this.View.VerticalAlignment = VerticalAlignment.Stretch;
+            this.View.Margin = new Thickness(0);
 
-            for(int i = 0; i < numRows; i++)
+            for (int i = 0; i < numRows; i++)
             {
                 for(int j = 0; j < numColumns; j++)
                 {
@@ -94,11 +102,69 @@ namespace Fire_Emblem_Empires
                             break;
                     }
                     tile.Background = backgroundColor;
+                    tile.MouseEnter += new MouseEventHandler(Mouse_Enter_Event);
+                    tile.MouseLeave += new MouseEventHandler(Mouse_Exit_Event);
+                    tile.MouseLeftButtonUp += new MouseButtonEventHandler(Mouse_Left_Click);
                     Grid.SetRow(tile, i);
                     Grid.SetColumn(tile, j);
                     dynamicGrid.Children.Add(tile);
                 }
             }
+            TextBlock unitInfo = new TextBlock();
+            unitInfo.Background = new SolidColorBrush(Colors.Gray);
+            unitInfo.Width = dynamicGrid.Width;
+            unitInfo.Height = tileSize * 1.5;
+            this.View.Items.Add(unitInfo);
+        }
+
+        private void Mouse_Enter_Event(object sender, MouseEventArgs e)
+        {
+            TextBlock tile = (TextBlock) sender;
+            SolidColorBrush background = (SolidColorBrush)tile.Background;
+            Color newColor = background.Color + Color.FromArgb(0, 80, 80, 80);
+            tile.Background = new SolidColorBrush(newColor);
+            Unit targetUnit = GetUnitOnTile(tile);
+            TextBlock unitInfo = (TextBlock)this.View.Items.GetItemAt(1);
+            if (targetUnit != null)
+            {
+                unitInfo.Text = targetUnit.ToString();
+                switch (targetUnit.GetTeamColor())
+                {
+                    case Team.BLUE:
+                        unitInfo.Background = new SolidColorBrush(Colors.Aqua);
+                        break;
+                    case Team.GREEN:
+                        unitInfo.Background = new SolidColorBrush(Colors.LightGreen);
+                        break;
+                    case Team.RED:
+                        unitInfo.Background = new SolidColorBrush(Colors.Red);
+                        break;
+                }
+            }
+        }
+
+        private void Mouse_Exit_Event(object sender, MouseEventArgs e)
+        {
+            TextBlock tile = (TextBlock)sender;
+            SolidColorBrush background = (SolidColorBrush)tile.Background;
+            Color newColor = background.Color - Color.FromArgb(0, 80, 80, 80);
+            tile.Background = new SolidColorBrush(newColor);
+            TextBlock unitInfo = (TextBlock)this.View.Items.GetItemAt(1);
+            unitInfo.Text = "";
+            unitInfo.Background = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void Mouse_Left_Click(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tile = (TextBlock)sender;
+            Unit selectedUnit = GetUnitOnTile(tile);
+        }
+        private Unit GetUnitOnTile(TextBlock sender)
+        {
+            int rowNumber = Grid.GetRow(sender);
+            int columnNumber = Grid.GetColumn(sender);
+            return map.spaces[rowNumber, columnNumber].occupiedBy;
         }
     }
+
 }
