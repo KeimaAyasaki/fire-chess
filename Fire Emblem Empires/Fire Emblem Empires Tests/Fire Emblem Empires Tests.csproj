@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="EstebanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GeneralUnit.cs" />
+    <Compile Include="Unit Unit Tests\UnitCreationUnitTests.cs" />
     <Compile Include="ZachTest.cs" />
   </ItemGroup>
   <ItemGroup>
