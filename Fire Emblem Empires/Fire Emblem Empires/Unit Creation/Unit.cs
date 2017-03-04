@@ -77,7 +77,8 @@ namespace Fire_Emblem_Empires.Unit_Creation
             // Creates unit stats
             AssignUnitLimits();
             CreateRandomStats();
-            
+            CalculateMovementSpeed();
+
             // Creates unit inventory
             InitializeInventory();
             
@@ -104,6 +105,9 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_Defense       = Defense;
             m_Resistance    = Resistance;
             m_canMove       = canMove;
+
+            // Calculate unit stats based on stats
+            CalculateMovementSpeed();
 
             // Initialize Unit inventory
             InitializeInventory();
@@ -201,7 +205,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         // Protected internal methods
         protected void CalculateMovementSpeed()
         {
-            m_MovementRange = (byte)(BASE_MOVEMENT_SPEED + (m_Speed % 3));
+            m_MovementRange = (byte)(BASE_MOVEMENT_SPEED + (m_Speed / 3));
         }
 
         public bool hasTheJob(Job job)
