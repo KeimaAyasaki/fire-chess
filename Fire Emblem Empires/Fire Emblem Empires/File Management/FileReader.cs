@@ -23,7 +23,7 @@ namespace Fire_Emblem_Empires.File_Management
         
         // Group 2 is job: 0 = mercenary, 1 = soldier, 2 = fighter, 3 = healer, 4 = mage
                  
-        private string unitRegex = "([0-2])\\s([0-4])\\s(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s([0,1])\\s?)";
+        private string unitRegex = "([0-2])\\s([0-4])\\s([R,r]|(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s([0,1])\\s?))";
 
         public bool Initialize(string filename, out Board map)
         {
@@ -93,22 +93,29 @@ namespace Fire_Emblem_Empires.File_Management
                     int.TryParse(unitInformation.Groups[1].ToString(), out unitTeam);
                     int unitJob;
                     int.TryParse(unitInformation.Groups[2].ToString(), out unitJob);
-                    string[] statsInfo = Regex.Split(unitInformation.Groups[3].ToString(), @"\D+");
-                    byte maxHealth;
-                    byte.TryParse(statsInfo[0], out maxHealth);
-                    byte currentHealth;
-                    byte.TryParse(statsInfo[1], out currentHealth);
-                    byte attack;
-                    byte.TryParse(statsInfo[2], out attack);
-                    byte speed;
-                    byte.TryParse(statsInfo[3], out speed);
-                    byte defense;
-                    byte.TryParse(statsInfo[4], out defense);
-                    byte resistance;
-                    byte.TryParse(statsInfo[5], out resistance);
-                    int canMove;
-                    int.TryParse(statsInfo[6], out canMove);
-                    unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
+                    if (unitInformation.Groups[3].ToString() == "R")
+                    {
+                        unit = CreateUnitWithJob((Team)unitTeam, unitJob);
+                    }
+                    else
+                    {
+                        string[] statsInfo = Regex.Split(unitInformation.Groups[4].ToString(), @"\D+");
+                        byte maxHealth;
+                        byte.TryParse(statsInfo[0], out maxHealth);
+                        byte currentHealth;
+                        byte.TryParse(statsInfo[1], out currentHealth);
+                        byte attack;
+                        byte.TryParse(statsInfo[2], out attack);
+                        byte speed;
+                        byte.TryParse(statsInfo[3], out speed);
+                        byte defense;
+                        byte.TryParse(statsInfo[4], out defense);
+                        byte resistance;
+                        byte.TryParse(statsInfo[5], out resistance);
+                        int canMove;
+                        int.TryParse(statsInfo[6], out canMove);
+                        unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
+                    }
                 }
                 map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
             }
@@ -177,6 +184,30 @@ namespace Fire_Emblem_Empires.File_Management
                     break;
                 case 4:
                     unit = new Mage(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, CanMove);
+                    break;
+            }
+            return unit;
+        }
+
+        public Unit CreateUnitWithJob(Team team, int job)
+        {
+            Unit unit = null;
+            switch(job)
+            {
+                case 0:
+                    unit = new Mercenary(team);
+                    break;
+                case 1:
+                    unit = new Soldier(team);
+                    break;
+                case 2:
+                    unit = new Fighter(team);
+                    break;
+                case 3:
+                    unit = new Healer(team);
+                    break;
+                case 4:
+                    unit = new Mage(team);
                     break;
             }
             return unit;

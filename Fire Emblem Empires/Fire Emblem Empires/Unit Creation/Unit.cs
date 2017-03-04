@@ -115,7 +115,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         // Displays all unit stats and non-default inventory items.
         public override string ToString()
         {
-            String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
+            String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
                 + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance;
             if(m_inventory.Count() > 0)
             {
