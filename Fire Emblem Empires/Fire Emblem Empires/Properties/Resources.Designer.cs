@@ -59,5 +59,15 @@ namespace Fire_Emblem_Empires.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Chapter1T1 {
+            get {
+                object obj = ResourceManager.GetObject("Chapter1T1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
