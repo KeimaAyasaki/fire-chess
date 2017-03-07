@@ -30,37 +30,49 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void TestRedUnitDamageCalculation()
         {
-            var expectedDamageRed = 2;
-            byte actualDamageRed = 0;
-            bm.calculateDamage(mb1, mr1, out actualDamageRed);
-            Assert.AreEqual(expectedDamageRed, actualDamageRed);
+            byte expectedByteResult = 2;
+            byte actualByteResult = 255;
+
+            bool expectedBoolResult = true;
+            bool actualBoolResult = bm.calculateDamage(mb1, mr1, out actualByteResult);
+            Assert.AreEqual(expectedByteResult, actualByteResult);
+            Assert.AreEqual(expectedBoolResult, actualBoolResult);
         }
 
         [TestMethod]
         public void TestBlueUnitDamageCalculation()
         {
-            var expectedDamageBlue = 2;
-            byte actualDamageBlue = 0;
-            bm.calculateDamage(mr1, mb1, out actualDamageBlue);
-            Assert.AreEqual(expectedDamageBlue, actualDamageBlue);
+            byte expectedByteResult = 2;
+            byte actualByteResult = 255;
+
+            bool expectedBoolResult = true;
+            bool actualBoolResult = bm.calculateDamage(mr1, mb1, out actualByteResult);
+            Assert.AreEqual(expectedByteResult, actualByteResult);
+            Assert.AreEqual(expectedBoolResult, actualBoolResult); ;
         }
 
         [TestMethod]
         public void TestBlueUnitHealedAmountCalculation()
         {
-            var expectedHealedAmountBlue = 6;
-            byte actualHealedAmountBlue = 6;
-            bm.calculateHealing(hb1, mb1, out actualHealedAmountBlue);
-            Assert.AreEqual(expectedHealedAmountBlue, actualHealedAmountBlue);
+            byte expectedByteResult = 6;
+            byte actualByteResult = 255;
+
+            bool expectedBoolResult = true;
+            bool actualBoolResult = bm.calculateHealing(hb1, mb1, out actualByteResult);
+            Assert.AreEqual(expectedByteResult, actualByteResult);
+            Assert.AreEqual(expectedBoolResult, actualBoolResult);
         }
 
         [TestMethod]
         public void TestRedUnitHealedAmountCalculation()
         {
-            var expectedHealedAmountRed = 6;
-            byte actualHealedAmountRed = 6;
-            bm.calculateHealing(hr1, mr1, out actualHealedAmountRed);
-            Assert.AreEqual(expectedHealedAmountRed, actualHealedAmountRed);
+            byte expectedByteResult = 6;
+            byte actualByteResult = 255;
+
+            bool expectedBoolResult = true;
+            bool actualBoolResult = bm.calculateHealing(hr1, mr1, out actualByteResult);
+            Assert.AreEqual(expectedByteResult, actualByteResult);
+            Assert.AreEqual(expectedBoolResult, actualBoolResult);
         }
 
         [TestMethod]
