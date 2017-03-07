@@ -28,7 +28,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void swordTypeTest()
         {
-            Assert.AreSame(sword.GetType(), Item.itemType.IRON_SWORD);
+            Assert.AreEqual(Item.itemType.IRON_SWORD, sword.getType());
         }
         [TestMethod]
         public void swordMightTest()
@@ -38,7 +38,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void lanceTypeTest()
         {
-            Assert.AreSame(lance.GetType(), Item.itemType.IRON_LANCE);
+            Assert.AreEqual(Item.itemType.IRON_LANCE, lance.getType());
         }
         [TestMethod]
         public void lanceMightTest()
@@ -48,7 +48,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void axeTypeTest()
         {
-            Assert.AreSame(axe.GetType(), Item.itemType.IRON_AXE);
+            Assert.AreEqual(Item.itemType.IRON_AXE, axe.getType());
         }
         [TestMethod]
         public void axeMightTest()
@@ -58,7 +58,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void fireTypeTest()
         {
-            Assert.AreSame(flames.GetType(), Item.itemType.FIRE);
+            Assert.AreEqual(Item.itemType.FIRE, flames.getType());
         }
         [TestMethod]
         public void fireMightTest()
@@ -68,7 +68,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void staffTypeTest()
         {
-            Assert.AreSame(staff.GetType(), Item.itemType.STAFF);
+            Assert.AreEqual(Item.itemType.STAFF, staff.getType());
         }
         [TestMethod]
         public void staffMightTest()
@@ -78,7 +78,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void vulneraryTypeTest()
         {
-            Assert.AreSame(vul.GetType(), Item.itemType.VULNERARY);
+            Assert.AreEqual(Item.itemType.VULNERARY, vul.getType());
         }
         [TestMethod]
         public void vulneraryMightTest()
@@ -89,25 +89,31 @@ namespace Fire_Emblem_Empires_Tests
         public void firstDurabilityTest()
         {
             im.useVulnenary(vul);
-            Assert.AreSame(vul.getDurability(), 2);
+            Assert.AreEqual(2, vul.getDurability());
         }
         [TestMethod]
         public void secondDurabilityTest()
         {
             im.useVulnenary(vul);
-            Assert.AreSame(vul.getDurability(), 1);
+            im.useVulnenary(vul);
+            Assert.AreEqual(1, vul.getDurability());
         }
         [TestMethod]
         public void thirdDurabilityTest()
         {
             im.useVulnenary(vul);
-            Assert.AreSame(vul.getDurability(), 0);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            Assert.AreEqual(0, vul.getDurability());
         }
         [TestMethod]
         public void fourthDurabilityTest()
         {
             im.useVulnenary(vul);
-            Assert.AreSame(vul.getDurability(), 0);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            Assert.AreEqual(0, vul.getDurability());
         }
     }
 }
