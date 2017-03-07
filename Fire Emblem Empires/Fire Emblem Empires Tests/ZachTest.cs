@@ -6,7 +6,7 @@ using Fire_Emblem_Empires.Item_Management;
 
 namespace Fire_Emblem_Empires_Tests
 {
-    [TestClass()]
+    [TestClass]
     public class ZachTest
     {
         /*List of Items:
@@ -18,57 +18,102 @@ namespace Fire_Emblem_Empires_Tests
      * Vulnerary - 5 HP
      *  
      */
-        [TestMethod()]
-        public void mainTest()
+        ItemManager im = new ItemManager();
+        IronSword sword = new IronSword();
+        IronLance lance = new IronLance();
+        IronAxe axe = new IronAxe();
+        Fire flames = new Fire();
+        Staff staff = new Staff();
+        Vulnerary vul = new Vulnerary();
+        [TestMethod]
+        public void swordTypeTest()
         {
-            try
-            {
-                IronSword sword = new IronSword();
-                Assert.AreSame(sword.GetType(), Item.itemType.IRON_SWORD);
-                Assert.AreSame(sword.getMight(), 5);
-                IronLance lance = new IronLance();
-                Assert.AreSame(lance.GetType(), Item.itemType.IRON_LANCE);
-                Assert.AreSame(lance.getMight(), 7);
-                IronAxe axe = new IronAxe();
-                Assert.AreSame(axe.GetType(), Item.itemType.IRON_AXE);
-                Assert.AreSame(axe.getMight(), 8);
-                Fire flames = new Fire();
-                Assert.AreSame(flames.getType(), Item.itemType.FIRE);
-                Assert.AreSame(flames.getMight(), 5);
-                Staff staff = new Staff();
-                Assert.AreSame(staff.GetType(), Item.itemType.STAFF);
-                Assert.AreSame(staff.getMight(), 5);
-                Vulnerary vul = new Vulnerary();
-                Assert.AreSame(vul.GetType(), Item.itemType.VULNERARY);
-                Assert.AreSame(vul.getMight(), 5);
-                ItemManager mg = new ItemManager();
-                mg.useVulnenary(vul);
-                Assert.AreSame(vul.getDurability(), 2);
-                mg.useVulnenary(vul);
-                Assert.AreSame(vul.getDurability(), 1);
-                mg.useVulnenary(vul);
-                Assert.AreSame(vul.getDurability(), 0);
-                mg.useVulnenary(vul);
-                Assert.AreSame(vul.getDurability(), 0);
-
-            }
-            catch (Exception /*e*/)
-            {
-                /*
-                This implementation is incorrect. Each individually needs to be tested. Please fix this.
-                An example:
-                try
-                {
-                method one;
-                Assert;
-                }
-                catch(Exception e)
-                {
-                    write to console that method one did something or whatever you're trying to catch
-                }
-                */
-            }
-
+            Assert.AreEqual(Item.itemType.IRON_SWORD, sword.getType());
+        }
+        [TestMethod]
+        public void swordMightTest()
+        {
+            Assert.AreEqual(sword.getMight(), 5);
+        }
+        [TestMethod]
+        public void lanceTypeTest()
+        {
+            Assert.AreEqual(Item.itemType.IRON_LANCE, lance.getType());
+        }
+        [TestMethod]
+        public void lanceMightTest()
+        {
+            Assert.AreEqual(lance.getMight(), 7);
+        }
+        [TestMethod]
+        public void axeTypeTest()
+        {
+            Assert.AreEqual(Item.itemType.IRON_AXE, axe.getType());
+        }
+        [TestMethod]
+        public void axeMightTest()
+        {
+            Assert.AreEqual(axe.getMight(), 8);
+        }
+        [TestMethod]
+        public void fireTypeTest()
+        {
+            Assert.AreEqual(Item.itemType.FIRE, flames.getType());
+        }
+        [TestMethod]
+        public void fireMightTest()
+        {
+            Assert.AreEqual(flames.getMight(), 5);
+        }
+        [TestMethod]
+        public void staffTypeTest()
+        {
+            Assert.AreEqual(Item.itemType.STAFF, staff.getType());
+        }
+        [TestMethod]
+        public void staffMightTest()
+        {
+            Assert.AreEqual(staff.getMight(), 5);
+        }
+        [TestMethod]
+        public void vulneraryTypeTest()
+        {
+            Assert.AreEqual(Item.itemType.VULNERARY, vul.getType());
+        }
+        [TestMethod]
+        public void vulneraryMightTest()
+        {
+            Assert.AreEqual(vul.getMight(), 5);
+        }
+        [TestMethod]
+        public void firstDurabilityTest()
+        {
+            im.useVulnenary(vul);
+            Assert.AreEqual(2, vul.getDurability());
+        }
+        [TestMethod]
+        public void secondDurabilityTest()
+        {
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            Assert.AreEqual(1, vul.getDurability());
+        }
+        [TestMethod]
+        public void thirdDurabilityTest()
+        {
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            Assert.AreEqual(0, vul.getDurability());
+        }
+        [TestMethod]
+        public void fourthDurabilityTest()
+        {
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            im.useVulnenary(vul);
+            Assert.AreEqual(0, vul.getDurability());
         }
     }
 }
