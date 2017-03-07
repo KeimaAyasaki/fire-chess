@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 
 using Fire_Emblem_Empires.Unit_Creation;
 using Fire_Emblem_Empires.Board_Creation;
+using System.Reflection;
 
 namespace Fire_Emblem_Empires.File_Management
 {
@@ -30,7 +31,9 @@ namespace Fire_Emblem_Empires.File_Management
             
             string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
-            mapFile = new StreamReader(filepath + filename);
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            var stream = currentAssembly.GetManifestResourceStream("Fire_Emblem_Empires.Data." + filename);
+            mapFile = new StreamReader(stream);        
 
             string mapSizeRegex = @"^([0-9]*)[X]([0-9]*)\s?$";
             mapSize = mapFile.ReadLine();

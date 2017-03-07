@@ -61,12 +61,60 @@ namespace Fire_Emblem_Empires.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 9X11
+        ///A1 3
+        ///A2 3
+        ///A3 3
+        ///A4 3
+        ///A5 3
+        ///A6 3
+        ///A7 3
+        ///A8 2
+        ///A9 2
+        ///A10 2
+        ///A11 1
+        ///B1 3
+        ///B2 3
+        ///B3 3
+        ///B4 1
+        ///B5 1
+        ///B6 3
+        ///B7 0 0 4 R //17 17 4 9 7 0 0 // E
+        ///B8 0 0 3 20 20 5 6 1 7 0 // E
+        ///B9 1
+        ///B10 1
+        ///B11 0 0 2 23 23 7 5 7 0 0 // E
+        ///C1 3
+        ///C2 0
+        ///C3 0
+        ///C4 0
+        ///C5 0 0 1 23 23 6 4 7 1 0 // E
+        ///C6 0 0 0 20 20 6 8 5 0 0 // E
+        ///C7 0
+        ///C8 0 0 4 24 24 2 3 1 5 0 // E
+        ///C9 3
+        ///C10 1 0 3 16 16 8 6 7 5 0 // E
+        ///C11 0
+        ///D1 2
+        ///D2 4
+        ///D3 1
+        ///D4 3
+        ///D5 1
+        ///D6 0
+        ///D7 0 0 2 20 20 10 9 3 0 0 // E
+        ///D8 0
+        ///D9 3
+        ///D10 3
+        ///D11 0
+        ///E1 2
+        ///E2 2
+        ///E3 3
+        ///E4 1
+        ///E5 1        /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] Chapter1T1 {
+        internal static string Chapter1T1 {
             get {
-                object obj = ResourceManager.GetObject("Chapter1T1", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("Chapter1T1", resourceCulture);
             }
         }
     }
