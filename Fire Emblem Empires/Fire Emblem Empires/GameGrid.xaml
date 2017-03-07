@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:Fire_Emblem_Empires"
         mc:Ignorable="d"
         Title="GameGrid" Height="300" Width="300">
-    <ListView x:Name="View"></ListView>
+    <ListView x:Name="View" Padding="0" Margin="0"></ListView>
 </Window>
