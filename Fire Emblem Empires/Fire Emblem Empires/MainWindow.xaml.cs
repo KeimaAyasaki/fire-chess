@@ -34,6 +34,7 @@ namespace Fire_Emblem_Empires
             fReader.Initialize("Chapter1T1.txt", out map);
             GameGrid grid = new GameGrid(map);
             grid.Show();
+            this.Close();
         }
     }
 }
