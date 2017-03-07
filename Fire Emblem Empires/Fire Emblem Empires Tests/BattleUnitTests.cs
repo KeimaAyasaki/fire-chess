@@ -7,7 +7,7 @@ using Fire_Emblem_Empires.Battle_Management;
 namespace Fire_Emblem_Empires_Tests
 {
     [TestClass]
-    public class EstebanTest
+    public class BattleUnitTests
     {
         BattleManager bm = new BattleManager();
         //Unit(Color, HPMAX, HPCurrent, ATK, SPD, DEF, RES)
