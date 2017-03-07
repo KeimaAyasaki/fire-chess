@@ -33,7 +33,7 @@ namespace Fire_Emblem_Empires_Tests
         [TestMethod]
         public void swordMightTest()
         {
-            Assert.AreEqual(sword.getMight(),5);
+            Assert.AreEqual(sword.getMight(), 5);
         }
         [TestMethod]
         public void lanceTypeTest()
