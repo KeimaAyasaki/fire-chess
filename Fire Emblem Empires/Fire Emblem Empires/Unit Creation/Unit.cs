@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Fire_Emblem_Empires.Item_Creation;
+using Fire_Emblem_Empires.Item_Management;
 
 namespace Fire_Emblem_Empires.Unit_Creation
 {
@@ -58,15 +58,20 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public byte m_MovementRange { get; private set; }
 
         // Protected data members to keep track of unit statuses and properties
-        protected bool      m_alive     = true;
-        protected bool      m_canMove   = true;
-        protected Job       m_Job;
-        protected Team      m_Team;
-        protected Item[]    m_inventory = new Item[MAX_INVENTORY_SIZE];
+        protected bool          m_alive     = true;
+        protected bool          m_canMove   = true;
+        protected Job           m_Job;
+        protected Team          m_Team;
+        protected ItemManager   m_itemManager = new ItemManager(MAX_INVENTORY_SIZE);
 
         // Unique Identifier for debugging
         public static byte m_id;
         public void AssignAnID() { ++m_id; }
+
+        public ItemManager OpenBag()
+        {
+            return m_itemManager;
+        }
 
         // Public constructor that returns a unit with the given stats on a specified team
         public Unit(Team team)
@@ -78,9 +83,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
             AssignUnitLimits();
             CreateRandomStats();
             CalculateMovementSpeed();
-
-            // Creates unit inventory
-            InitializeInventory();
             
             // Debug information
             AssignAnID();
@@ -109,9 +111,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
             // Calculate unit stats based on stats
             CalculateMovementSpeed();
 
-            // Initialize Unit inventory
-            InitializeInventory();
-
             // Debug information
             AssignAnID();
         }
@@ -120,18 +119,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public override string ToString()
         {
             String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
-                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance;
-            if(m_inventory.Count() > 0)
-            {
-                output += "\nInventory:";
-                for(int j = 0; j < m_inventory.Count(); ++j)
-                {
-                    if (!m_inventory[j].compareItem(new Item()))
-                    {
-                        output += "\n" + m_inventory[j].getTypeName();
-                    }
-                }
-            }
+                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_itemManager.ToString();
             return output;
         }
 
@@ -162,46 +150,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public Job GetJob() { return m_Job; }
         public void SetTeam(Team team) { m_Team = team; }
         public Team GetTeamColor() { return m_Team; }
-        public bool AddItemToInventory(Item item)
-        {
-            bool itemHasBeenStored = false;
-            for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
-            {
-                if (m_inventory[j].compareItem(new Item()))
-                {
-                    m_inventory[j] = item;
-                    itemHasBeenStored = true;
-                    Console.WriteLine("A {0} has been added to the {1}'s inventory.", item.getTypeName(), m_Job.ToString());
-                    break;
-                }
-            }
-            if(!itemHasBeenStored)
-            {
-                Console.WriteLine("The {0}'s inventory is full.", m_Job.ToString());
-            }
-            return itemHasBeenStored;
-        }
-        public bool RemoveItemFromInventory(Item item)
-        {
-            bool itemHasBeenRemoved = false;
-            for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
-            {
-                if (m_inventory[j].compareItem(item))
-                {
-                    m_inventory[j] = new Item();
-                    itemHasBeenRemoved = true;
-                    Console.WriteLine("A {0} has been removed from the {1}'s inventory.", item.getTypeName(), m_Job.ToString());
-                    break;
-                }
-            }
-            if(!itemHasBeenRemoved)
-            {
-                Console.WriteLine("The {0} did not have a {1} in their inventory.", m_Job.ToString(), item.getTypeName());
-            }
-            return itemHasBeenRemoved;
-        }
-        public Item[] GetInventory() { return m_inventory; }
-
+        
         // Protected internal methods
         protected void CalculateMovementSpeed()
         {
@@ -266,14 +215,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
         {
             AssignRandomStatsToUnit();
             AssignAbilityPoints();
-        }
-
-        protected void InitializeInventory()
-        {
-            for(int j = 0; j < MAX_INVENTORY_SIZE; ++j)
-            {
-                m_inventory[j] = new Item();
-            }
         }
     }
 }

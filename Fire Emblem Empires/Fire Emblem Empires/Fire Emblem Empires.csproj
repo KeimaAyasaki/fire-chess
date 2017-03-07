@@ -85,7 +85,6 @@
     <Compile Include="Unit Creation\Mercenary.cs" />
     <Compile Include="Unit Creation\Soldier.cs" />
     <Compile Include="Unit Creation\Unit.cs" />
-    <Compile Include="Unit Management\UnitManager.cs" />
     <Page Include="GameGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,7 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Item Creation\Items.cs" />
+    <Compile Include="Item Creation\Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
