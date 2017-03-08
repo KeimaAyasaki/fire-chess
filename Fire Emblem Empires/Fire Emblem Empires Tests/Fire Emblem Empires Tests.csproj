@@ -52,10 +52,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="EstebanTest.cs" />
+    <Compile Include="BattleUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit Unit Tests\UnitCreationUnitTests.cs" />
-    <Compile Include="ZachTest.cs" />
+    <Compile Include="Item Unit Tests\ItemManagerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
