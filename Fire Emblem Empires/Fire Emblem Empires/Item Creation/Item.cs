@@ -42,7 +42,7 @@ namespace Fire_Emblem_Empires.Item_Creation
         {
             return type.ToString();
         }
-        public int getMight()
+        public byte getMight()
         {
             return might;
         }

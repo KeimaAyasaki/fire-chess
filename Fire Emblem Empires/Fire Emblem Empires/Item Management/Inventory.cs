@@ -8,13 +8,13 @@ using Fire_Emblem_Empires.Item_Creation;
 
 namespace Fire_Emblem_Empires.Item_Management
 {
-    public class ItemManager
+    public class Inventory
     {
         Item[] m_inventory;
         byte MAX_INVENTORY_SIZE;
         byte itemCount = 0;
 
-        public ItemManager(byte inventorySize)
+        public Inventory(byte inventorySize)
         {
             MAX_INVENTORY_SIZE = inventorySize;
             m_inventory = new Item[MAX_INVENTORY_SIZE];

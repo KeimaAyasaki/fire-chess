@@ -62,15 +62,15 @@ namespace Fire_Emblem_Empires.Unit_Creation
         protected bool          m_canMove   = true;
         protected Job           m_Job;
         protected Team          m_Team;
-        protected ItemManager   m_itemManager = new ItemManager(MAX_INVENTORY_SIZE);
+        protected Inventory     m_inventory = new Inventory(MAX_INVENTORY_SIZE);
 
         // Unique Identifier for debugging
         public static byte m_id;
         public void AssignAnID() { ++m_id; }
 
-        public ItemManager OpenBag()
+        public Inventory OpenBag()
         {
-            return m_itemManager;
+            return m_inventory;
         }
 
         // Public constructor that returns a unit with the given stats on a specified team
@@ -119,7 +119,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public override string ToString()
         {
             String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
-                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_itemManager.ToString();
+                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_inventory.ToString();
             return output;
         }
 
@@ -138,7 +138,10 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_alive = false;
             return true;
         }
-        public bool CanMove() { return m_canMove; }
+        public bool CanMove()
+        {
+            return m_canMove;
+        }
         public void isNowUnableToMove()
         {
             m_canMove = false;

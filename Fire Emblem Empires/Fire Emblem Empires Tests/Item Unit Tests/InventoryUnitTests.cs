@@ -7,10 +7,10 @@ using Fire_Emblem_Empires.Item_Management;
 namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 {
     [TestClass]
-    public class ItemManagerUnitTests
+    public class InventoryUnitTests
     {
-        ItemManager m_LargeItemInventoryOne = new ItemManager(20);
-        ItemManager m_SmallItemInventoryOne = new ItemManager(1);
+        Inventory m_LargeItemInventoryOne = new Inventory(20);
+        Inventory m_SmallItemInventoryOne = new Inventory(1);
 
         Item ironSwordZero = new IronSword();
         Item ironSwordOne  = new IronSword();
@@ -22,7 +22,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
         }
 
         [TestMethod]
-        public void ItemManagerCanAddItemsToInventory()
+        public void InventoryCanAddItemsToInventory()
         {
             // Ensure that the item has been added to the inventory
             bool expectedMethodOneResult = true;
@@ -47,7 +47,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
         }
 
         [TestMethod]
-        public void ItemManagerCannotAddMoreItemsThanTheMaximumAllowedAmountOfItemsToAnInventory()
+        public void InventoryCannotAddMoreItemsThanTheMaximumAllowedAmountOfItemsToAnInventory()
         { 
             // Add an item to the inventory
             bool expectedMethodOneResult= true;
@@ -71,7 +71,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
         }
 
         [TestMethod]
-        public void ItemManagerRemovingAnItemWithTheSameTypeDoesNotRemoveAnItemThatIsntExplicitlyTheSameItem()
+        public void InventoryRemovingAnItemWithTheSameTypeDoesNotRemoveAnItemThatIsntExplicitlyTheSameItem()
         {
             // Add an item to the inventory
             bool expectedMethodOneResult = true;
@@ -92,7 +92,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
         }
 
         [TestMethod]
-        public void ItemManagerCanRemoveItemsFromInventory()
+        public void InventoryCanRemoveItemsFromInventory()
         {
             // Add an item to the inventory
             bool expectedMethodOneResult = true;
@@ -115,7 +115,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
             Assert.AreEqual(expectedItemCountTwo, actualItemCountTwo);
         }
 
-        public void ItemManagerCanUseADurabilityOfAnItem()
+        public void InventoryCanUseADurabilityOfAnItem()
         {
             // Add an item to the inventory and ensure that it is there
             bool expectedMethodOneResult = true;
@@ -136,14 +136,14 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
             Item item;
             bool expectedMethodThreeResult  = true;
             bool actualMethodThreeResult    = m_SmallItemInventoryOne.GetItemFromInventory(ItemType.IRON_SWORD, out item);
-            byte expectedItemDurability  = 13;
-            byte actualItemDurabiltiy    = item.getDurability();
+            byte expectedItemDurability = 13;
+            byte actualItemDurabiltiy   = item.getDurability();
 
             Assert.AreEqual(expectedMethodThreeResult, actualMethodThreeResult);
             Assert.AreEqual(expectedItemDurability, actualItemDurabiltiy);
         }
 
-        public void ItemManagerCannotUseTheDurabilityOfABrokenItemInsideOfTheInventory()
+        public void InventoryCannotUseTheDurabilityOfABrokenItemInsideOfTheInventory()
         {
             // Add an item to the inventory and ensure that it is there
             bool expectedMethodOneResult = true;
