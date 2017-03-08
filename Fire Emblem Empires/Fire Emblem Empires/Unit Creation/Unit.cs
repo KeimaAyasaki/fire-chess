@@ -16,6 +16,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         FIGHTER,
         HEALER,
         MAGE,
+        DEFAULT_UNIT
     }
 
     public enum Team
