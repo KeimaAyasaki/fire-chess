@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Unit_Creation
 {
-    public class Default : Unit
+    public class DefaultUnit : Unit
     {
-        public Default(Team team) : base(team)
+        public DefaultUnit(Team team) : base(team)
         {
             m_Job = Job.DEFAULT_UNIT;
         }
 
-        public Default(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
+        public DefaultUnit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
             : base(team, MaxHealth, CurrentHealth, Attack, Speed, Defense, Resistance, canMove)
         {
             m_Job = Job.DEFAULT_UNIT;

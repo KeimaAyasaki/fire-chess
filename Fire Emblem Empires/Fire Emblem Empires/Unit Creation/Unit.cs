@@ -24,6 +24,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         RED,
         BLUE,
         GREEN,
+        DEFAULT_TEAM
     }
 
     public abstract class Unit
