@@ -140,7 +140,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
             bool expectedMethodThreeResult  = true;
             bool actualMethodThreeResult    = m_SmallItemInventoryOne.GetItemFromInventory(ItemType.IRON_SWORD, out item);
             byte expectedItemDurability = 13;
-            byte actualItemDurabiltiy   = item.getDurability();
+            byte actualItemDurabiltiy   = item.durability;
 
             Assert.AreEqual(expectedMethodThreeResult, actualMethodThreeResult);
             Assert.AreEqual(expectedItemDurability, actualItemDurabiltiy);
@@ -168,7 +168,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
             bool expectedMethodThreeResult = true;
             bool actualMethodThreeResult = m_SmallItemInventoryOne.GetItemFromInventory(ItemType.IRON_SWORD, out item);
             byte expectedItemDurability = 0;
-            byte actualItemDurabiltiy = item.getDurability();
+            byte actualItemDurabiltiy = item.durability;
 
             Assert.AreEqual(expectedMethodThreeResult, actualMethodThreeResult);
             Assert.AreEqual(expectedItemDurability, actualItemDurabiltiy);

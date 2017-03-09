@@ -29,7 +29,7 @@ namespace Fire_Emblem_Empires.Item_Management
                 output += "\nInventory:";
                 for (int j = 0; j < m_inventory.Count(); ++j)
                 {
-                    if (!m_inventory[j].hasTheSameTypeAs(new Item()))
+                    if (!m_inventory[j].hasTheSameTypeAs(new DefaultItem()))
                     {
                         output += "\n" + m_inventory[j].getTypeName();
                     }
@@ -61,7 +61,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool itemHasBeenStored = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].hasTheSameTypeAs(new Item()))
+                if (m_inventory[j].hasTheSameTypeAs(new DefaultItem()))
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
@@ -84,7 +84,7 @@ namespace Fire_Emblem_Empires.Item_Management
             {
                 if (m_inventory[j].hasTheSameTypeAs(item))
                 {
-                    m_inventory[j] = new Item();
+                    m_inventory[j] = new DefaultItem();
                     itemHasBeenRemoved = true;
                     Console.WriteLine("A(n) {0} has been removed from the inventory.", item.getTypeName());
                     --itemCount;
@@ -101,7 +101,7 @@ namespace Fire_Emblem_Empires.Item_Management
         public bool GetItemFromInventory(ItemType itemType, out Item item)
         {
             bool itemHasBeenFound = false;
-            item = new Item();
+            item = new DefaultItem();
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
                 if(m_inventory[j].hasTheSameTypeAs(itemType))
@@ -123,13 +123,13 @@ namespace Fire_Emblem_Empires.Item_Management
         {
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                m_inventory[j] = new Item();
+                m_inventory[j] = new DefaultItem();
             }
         }
 
         private Boolean checkDurability(Item item)
         {
-            return item.getDurability() > 0;
+            return item.durability > 0;
         }
 
         public bool useDurability(ref Item item)
@@ -137,8 +137,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool durabilityHasBeenUsed = false;
             if (checkDurability(item))
             {
-                item.setDurability((byte)(item.getDurability() - 1));
-                durabilityHasBeenUsed = true;
+                durabilityHasBeenUsed = item.useDurability();
             }
             return durabilityHasBeenUsed;
         }

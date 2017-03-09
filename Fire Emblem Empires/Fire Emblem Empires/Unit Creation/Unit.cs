@@ -35,6 +35,13 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // The following data members are for soft caps, not affected by the modifiers
         // This gets set only during unit creation, when the caps are determined by the AssignUnitLimits() method
+        // This is an improper implementation since each unit would have allocated this much memory for these, these need to be static per instance of unit
+        // A likely solution is to move stat calculations higher up and creating different parameters for the stat creations
+        /// <summary>
+        ///  Another idea is to create a class containing a unit type and parameter list
+        ///  such as lyn (lyn stats)
+        ///  which would solve it by accessing a database using KVP
+        /// </summary>
         protected byte JOB_MIN_HEALTH       = 0;
         protected byte JOB_MAX_HEALTH       = 0;
         protected byte JOB_MIN_ATTACK       = 0;
