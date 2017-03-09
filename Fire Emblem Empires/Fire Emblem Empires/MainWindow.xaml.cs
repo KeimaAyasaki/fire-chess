@@ -30,7 +30,7 @@ namespace Fire_Emblem_Empires
         public MainWindow()
         {
             InitializeComponent();
-            fReader.Initialize("Chapter1T1.txt", out map);
+            fReader.Initialize(out map);
             GameGrid grid = new GameGrid(map);
             grid.Show();
             this.Close();

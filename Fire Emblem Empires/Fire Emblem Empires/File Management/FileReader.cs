@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using Fire_Emblem_Empires.Unit_Creation;
 using Fire_Emblem_Empires.Board_Creation;
 using System.Reflection;
+using System.Resources;
+using System.Collections;
 
 namespace Fire_Emblem_Empires.File_Management
 {
@@ -26,13 +28,25 @@ namespace Fire_Emblem_Empires.File_Management
                  
         private string unitRegex = "([0-2])\\s([0-4])\\s([R,r]|(([0-9]{1,2}\\s){5}[0-9]{1,2}\\s([0,1])\\s?))";
 
-        public bool Initialize(string filename, out Board map)
+        public bool Initialize(out Board map, string filename = null)
         {
-            
-            string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
-            filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
             var currentAssembly = Assembly.GetExecutingAssembly();
-            var stream = currentAssembly.GetManifestResourceStream("Fire_Emblem_Empires.Data." + filename);
+            Stream stream = null;
+            if (filename == null)
+            {
+                stream = currentAssembly.GetManifestResourceStream("Fire_Emblem_Empires.Data.Chapter1T1.txt");
+            }
+            else
+            {
+                ResourceSet reader = new ResourceSet("MapFiles.resources");
+                string data = reader.GetString(filename);
+                MemoryStream mem = new MemoryStream();
+                StreamWriter temp = new StreamWriter(mem);
+                temp.Write(data);
+                temp.Flush();
+                mem.Position = 0;
+                stream = mem;
+            }
             mapFile = new StreamReader(stream);        
 
             string mapSizeRegex = @"^([0-9]*)[X]([0-9]*)\s?$";
@@ -128,10 +142,8 @@ namespace Fire_Emblem_Empires.File_Management
         //currently does not work if called before Initialize, this will change when Board is implemented
         public bool CreateFile(Board map)
         {
-            string filepath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
-            filepath = Directory.GetParent(Directory.GetParent(Directory.GetParent(filepath).FullName).FullName).FullName;
-            StreamWriter newMap = new StreamWriter(filepath + string.Format("\\Data\\MapFiles\\{0}T2.fes", map.name, FileMode.OpenOrCreate));
-            newMap.WriteLine("{0}X{1}", map.numRows, map.numColumns);
+            string newMap = "";           
+            newMap += String.Format("{0}X{1}\n", map.numRows, map.numColumns);
             for(int i = 0; i <  map.numRows; i++)
             {
                 for (int j = 0; j < map.numColumns; j++)
@@ -143,15 +155,31 @@ namespace Fire_Emblem_Empires.File_Management
                     Unit unit = currentTile.occupiedBy;
                     if (i == map.numRows - 1 && j == map.numColumns - 1)
                     {
-                        newMap.Write("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
+                        newMap += String.Format("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                     else
                     {
-                        newMap.WriteLine("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
+                        newMap += String.Format("{0}{1} {2}{3}\n", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
                     }
                 }
             }
-            newMap.Close();
+            ResourceSet reader = new ResourceSet("MapFiles.resources");
+            IDictionaryEnumerator saves = reader.GetEnumerator();
+            Dictionary<object, object> saveInfo = new Dictionary<object, object>();
+            foreach (DictionaryEntry entry in reader)
+            {
+                saveInfo.Add(entry.Key, entry.Value);
+            }
+            reader.Close();
+            ResourceWriter resWriter = new ResourceWriter("MapFiles.resources");
+            foreach (KeyValuePair<object, object> entry in saveInfo)
+            {
+                string key = entry.Key.ToString();
+                string value = entry.Value.ToString();
+                resWriter.AddResource(key, value);
+            }
+            resWriter.AddResource(String.Format("{0}{1}", map.name, saveInfo.Count.ToString()), newMap);
+            resWriter.Close(); 
             return true;
         }
         public string ConvertUnitToRegexFormat(Unit unit)

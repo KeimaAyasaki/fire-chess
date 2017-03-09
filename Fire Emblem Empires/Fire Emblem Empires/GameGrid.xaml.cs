@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Fire_Emblem_Empires.Board_Creation;
 using Fire_Emblem_Empires.Unit_Creation;
+using Fire_Emblem_Empires.File_Management;
 
 namespace Fire_Emblem_Empires
 {
@@ -163,6 +164,18 @@ namespace Fire_Emblem_Empires
         {
             TextBlock tile = (TextBlock)sender;
             Unit selectedUnit = GetUnitOnTile(tile);
+            FileReader reader = new FileReader();
+            if(Grid.GetRow(tile)==0 && Grid.GetColumn(tile)==0)
+            {
+                reader.CreateFile(map);
+            }
+            else if(Grid.GetRow(tile)==0 && Grid.GetColumn(tile)==1)
+            {
+                map = new Board(9, 11);
+                reader.Initialize(out map, "Chapter1T2");
+                GameGrid newMap = new GameGrid(map);
+                newMap.Show();
+            }
         }
         private Unit GetUnitOnTile(TextBlock sender)
         {
