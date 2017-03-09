@@ -21,7 +21,7 @@ namespace Fire_Emblem_Empires.Item_Creation
     public class Item
     {
         protected ItemType type;
-        protected byte might;
+        public byte might { private set; get; }
         protected byte durability = 0;
 
         public ItemType getType()
@@ -41,10 +41,6 @@ namespace Fire_Emblem_Empires.Item_Creation
         public String getTypeName()
         {
             return type.ToString();
-        }
-        public int getMight()
-        {
-            return might;
         }
         public byte setMight(ItemType type)
         {
@@ -76,20 +72,36 @@ namespace Fire_Emblem_Empires.Item_Creation
             return value;
         }
 
-        public Boolean compareItemTypes(Item item)
+        public Boolean isTheSameItemAs(Item item)
+        {
+            return (hasTheSameTypeAs(item) && hasTheSameMightAs(item) && hasTheSameDurabilityAs(item));
+        }
+
+        public Boolean hasTheSameDurabilityAs(Item item)
+        {
+            return getDurability() == getDurability();
+        }
+
+        public Boolean hasTheSameMightAs(Item item)
+        {
+            return might == item.might;
+        }
+
+        public Boolean hasTheSameTypeAs(Item item)
         {
             return getType() == item.getType();
         }
 
-        public Boolean compareItemTypes(ItemType itemType)
+        public Boolean hasTheSameTypeAs(ItemType itemType)
         {
             return getType() == itemType;
         }
 
-        public Boolean isDefaultItem(Item item)
-        {
-            return item.getType() == ItemType.DEFAULT_ITEM;
-        }
+        // Unreferenced
+        //public Boolean isDefaultItem(Item item)
+        //{
+        //    return item.getType() == ItemType.DEFAULT_ITEM;
+        //}
 
         public byte getDurability()
         {
