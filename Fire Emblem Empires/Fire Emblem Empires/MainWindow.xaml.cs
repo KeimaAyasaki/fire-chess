@@ -43,5 +43,23 @@ namespace Fire_Emblem_Empires
         {
             fReader.CreateFile(map);
         }
+
+        private void OnMouseClick(Object sender, MouseEventArgs e)
+        {
+            if (menuScreen.Source.ToString().Equals("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\TitleScreen.jpg"))
+            {
+
+                //Image newImage = new Image();
+                //BitmapImage newimage = new BitmapImage();
+                //newimage.BeginInit();
+                //menuScreen.Source = new BitmapImage(new Uri(@"D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg", UriKind.Relative));
+                menuScreen.BeginInit();
+                menuScreen.Source = new BitmapImage(new Uri("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg", UriKind.Relative));
+                menuScreen.EndInit();
+                //menuScreen.Source = new Image("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg");
+
+
+            }
+        }
     }
 }
