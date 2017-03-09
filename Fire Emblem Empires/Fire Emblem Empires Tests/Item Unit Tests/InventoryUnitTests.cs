@@ -11,14 +11,17 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
     {
         Inventory m_LargeItemInventoryOne = new Inventory(20);
         Inventory m_SmallItemInventoryOne = new Inventory(1);
+        Inventory m_SmallItemInventoryTwo = new Inventory(1);
 
         Item ironSwordZero = new IronSword();
         Item ironSwordOne  = new IronSword();
+        Item ironSwordTwo  = new IronSword();
 
         [TestInitialize]
         public void Initialize()
         {
             ironSwordOne.setDurability(14);
+            ironSwordTwo.setDurability(14);
         }
 
         [TestMethod]
@@ -31,7 +34,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Assure that the amount of items in the inventory has been updated
             byte expectedItemCount  = 1;
-            byte actualItemCount    = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCount    = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCount, actualItemCount);
 
             // Ensure that the explicit item has been placed in the inventory, and not just the type of item
@@ -56,7 +59,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Verify that the item count was added change
             byte expectedItemCountOne = 1;
-            byte actualItemCountOne   = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCountOne   = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCountOne, actualItemCountOne);
 
             // Attempt to add one more than the max allowed items to the inventory
@@ -66,7 +69,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Verify that the item count was did not change
             byte expectedItemCountTwo = 1;
-            byte actualItemCountTwo   = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCountTwo   = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCountTwo, actualItemCountTwo);
         }
 
@@ -80,7 +83,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Verify that the item count was added change
             byte expectedItemCountOne = 1;
-            byte actualItemCountOne = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCountOne = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCountOne, actualItemCountOne);
 
             // Ensure that a particular item has been removed from the inventory and not an item of similar type
@@ -101,7 +104,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
             
             // Verify that the item count was added change
             byte expectedItemCountOne = 1;
-            byte actualItemCountOne = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCountOne = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCountOne, actualItemCountOne);
 
             // Ensure that a particular item can be removed from the inventory
@@ -111,7 +114,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Verify that the item count did change
             byte expectedItemCountTwo = 0;
-            byte actualItemCountTwo = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCountTwo = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCountTwo, actualItemCountTwo);
         }
 
@@ -124,7 +127,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Assure that the amount of items in the inventory has been updated
             byte expectedItemCount = 1;
-            byte actualItemCount = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCount = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCount, actualItemCount);
 
             // Use durability on a particular item
@@ -152,7 +155,7 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             // Assure that the amount of items in the inventory has been updated
             byte expectedItemCount = 1;
-            byte actualItemCount = m_SmallItemInventoryOne.GetItemCount();
+            byte actualItemCount = m_SmallItemInventoryOne.itemCount;
             Assert.AreEqual(expectedItemCount, actualItemCount);
 
             // Use durability on a particular item
@@ -169,6 +172,34 @@ namespace Fire_Emblem_Empires_Tests.Item_Unit_Tests
 
             Assert.AreEqual(expectedMethodThreeResult, actualMethodThreeResult);
             Assert.AreEqual(expectedItemDurability, actualItemDurabiltiy);
+        }
+
+        public void InventoriesWithTheSameItemsWithTheSameParameterrsAreEqual()
+        {
+            // Add an item to the inventory and ensure that it is there
+            bool expectedMethodOneResult = true;
+            bool actualMethodOneResult = m_SmallItemInventoryOne.AddItemToInventory(ironSwordOne);
+            Assert.AreEqual(expectedMethodOneResult, actualMethodOneResult);
+
+            // Assure that the amount of items in the inventory has been updated
+            byte expectedItemCountOne = 1;
+            byte actualItemCountOne = m_SmallItemInventoryOne.itemCount;
+            Assert.AreEqual(expectedItemCountOne, actualItemCountOne);
+
+            // Add an item to the inventory and ensure that it is there
+            bool expectedMethodTwoResult = true;
+            bool actualMethodTwoResult = m_SmallItemInventoryTwo.AddItemToInventory(ironSwordTwo);
+            Assert.AreEqual(expectedMethodTwoResult, actualMethodTwoResult);
+
+            // Assure that the amount of items in the inventory has been updated
+            byte expectedItemCountTwo = 1;
+            byte actualItemCountTwo = m_SmallItemInventoryTwo.itemCount;
+            Assert.AreEqual(expectedItemCountTwo, actualItemCountTwo);
+
+            // Compare the inventories
+            bool expectedMethodThreeResult = true;
+            bool actualMethodThreeResult = m_SmallItemInventoryOne.containsTheSameItemsAs(m_SmallItemInventoryTwo);
+            Assert.AreEqual(expectedMethodThreeResult, actualMethodThreeResult);
         }
     }
 }

@@ -90,7 +90,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
         }
 
         // Public overloaded constructor for a unit of specified parameters
-        // Items have not been implemented as of now
         public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
         {
             // Assign unit stats
@@ -122,6 +121,18 @@ namespace Fire_Emblem_Empires.Unit_Creation
             String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
                 + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_inventory.ToString();
             return output;
+        }
+
+        // Comparison (only returns true if the unit has explicitly the same stats and inventory items)
+        public bool isTheSameUnitAs(Unit unit)
+        {
+            return hasTheSameStatsAs(unit) && m_inventory.containsTheSameItemsAs(unit.m_inventory);
+        }
+
+        private bool hasTheSameStatsAs(Unit unit)
+        {
+            return (m_MaxHealth == unit.m_MaxHealth) && (m_CurrentHealth == unit.m_CurrentHealth) && (m_Attack == unit.m_Attack) &&
+                (m_Speed == unit.m_Speed) && (m_Defense == unit.m_Defense) && (m_Resistance == unit.m_Resistance);
         }
 
         // Public access methods

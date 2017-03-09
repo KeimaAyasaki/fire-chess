@@ -12,7 +12,7 @@ namespace Fire_Emblem_Empires.Item_Management
     {
         Item[] m_inventory;
         byte MAX_INVENTORY_SIZE;
-        byte itemCount = 0;
+        public byte itemCount { private set; get; }
 
         public Inventory(byte inventorySize)
         {
@@ -29,7 +29,7 @@ namespace Fire_Emblem_Empires.Item_Management
                 output += "\nInventory:";
                 for (int j = 0; j < m_inventory.Count(); ++j)
                 {
-                    if (!m_inventory[j].compareItemTypes(new Item()))
+                    if (!m_inventory[j].hasTheSameTypeAs(new Item()))
                     {
                         output += "\n" + m_inventory[j].getTypeName();
                     }
@@ -38,9 +38,22 @@ namespace Fire_Emblem_Empires.Item_Management
             return output;
         }
 
-        public byte GetItemCount()
+        // Does not check if the items are out of order, but essentially the same
+        public bool containsTheSameItemsAs(Inventory inventory)
         {
-            return itemCount;
+            if (inventory.itemCount != itemCount)
+            {
+                return false;
+            }
+
+            for(int j = 0; j < itemCount; ++j)
+            {
+                if(!m_inventory[j].isTheSameItemAs(inventory.GetInventory()[j]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool AddItemToInventory(Item item)
@@ -48,7 +61,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool itemHasBeenStored = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareItemTypes(new Item()))
+                if (m_inventory[j].hasTheSameTypeAs(new Item()))
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
@@ -69,7 +82,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool itemHasBeenRemoved = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareItemTypes(item))
+                if (m_inventory[j].hasTheSameTypeAs(item))
                 {
                     m_inventory[j] = new Item();
                     itemHasBeenRemoved = true;
@@ -91,7 +104,7 @@ namespace Fire_Emblem_Empires.Item_Management
             item = new Item();
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if(m_inventory[j].compareItemTypes(itemType))
+                if(m_inventory[j].hasTheSameTypeAs(itemType))
                 {
                     item = m_inventory[j];
                     itemHasBeenFound = true;
