@@ -78,7 +78,9 @@
       <DependentUpon>GameGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Item Management\ItemManager.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Time Management\TimeManager.cs" />
+    <Compile Include="Unit Creation\Default.cs" />
     <Compile Include="Unit Creation\Fighter.cs" />
     <Compile Include="Unit Creation\Healer.cs" />
     <Compile Include="Unit Creation\Mage.cs" />

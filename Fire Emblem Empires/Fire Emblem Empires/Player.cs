@@ -38,7 +38,7 @@ namespace Fire_Emblem_Empires
             for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
                 Unit testUnit = new Default(unit.GetTeamColor());
-                if (m_roster[j].compareTo(testUnit))
+                if (m_roster[j](testUnit))
                 {
                     m_roster[j] = unit;
                     unitHasBeenAdded = true;
