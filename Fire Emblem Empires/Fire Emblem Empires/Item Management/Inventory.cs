@@ -8,13 +8,13 @@ using Fire_Emblem_Empires.Item_Creation;
 
 namespace Fire_Emblem_Empires.Item_Management
 {
-    public class ItemManager
+    public class Inventory
     {
         Item[] m_inventory;
         byte MAX_INVENTORY_SIZE;
-        byte itemCount = 0;
+        public byte itemCount { private set; get; }
 
-        public ItemManager(byte inventorySize)
+        public Inventory(byte inventorySize)
         {
             MAX_INVENTORY_SIZE = inventorySize;
             m_inventory = new Item[MAX_INVENTORY_SIZE];
@@ -29,7 +29,7 @@ namespace Fire_Emblem_Empires.Item_Management
                 output += "\nInventory:";
                 for (int j = 0; j < m_inventory.Count(); ++j)
                 {
-                    if (!m_inventory[j].compareItemTypes(new Item()))
+                    if (!m_inventory[j].hasTheSameTypeAs(new DefaultItem()))
                     {
                         output += "\n" + m_inventory[j].getTypeName();
                     }
@@ -38,9 +38,22 @@ namespace Fire_Emblem_Empires.Item_Management
             return output;
         }
 
-        public byte GetItemCount()
+        // Does not check if the items are out of order, but essentially the same
+        public bool containsTheSameItemsAs(Inventory inventory)
         {
-            return itemCount;
+            if (inventory.itemCount != itemCount)
+            {
+                return false;
+            }
+
+            for(int j = 0; j < itemCount; ++j)
+            {
+                if(!m_inventory[j].isTheSameItemAs(inventory.GetInventory()[j]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool AddItemToInventory(Item item)
@@ -48,7 +61,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool itemHasBeenStored = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareItemTypes(new Item()))
+                if (m_inventory[j].hasTheSameTypeAs(new DefaultItem()))
                 {
                     m_inventory[j] = item;
                     itemHasBeenStored = true;
@@ -69,9 +82,9 @@ namespace Fire_Emblem_Empires.Item_Management
             bool itemHasBeenRemoved = false;
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if (m_inventory[j].compareItemTypes(item))
+                if (m_inventory[j].hasTheSameTypeAs(item))
                 {
-                    m_inventory[j] = new Item();
+                    m_inventory[j] = new DefaultItem();
                     itemHasBeenRemoved = true;
                     Console.WriteLine("A(n) {0} has been removed from the inventory.", item.getTypeName());
                     --itemCount;
@@ -88,10 +101,10 @@ namespace Fire_Emblem_Empires.Item_Management
         public bool GetItemFromInventory(ItemType itemType, out Item item)
         {
             bool itemHasBeenFound = false;
-            item = new Item();
+            item = new DefaultItem();
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                if(m_inventory[j].compareItemTypes(itemType))
+                if(m_inventory[j].hasTheSameTypeAs(itemType))
                 {
                     item = m_inventory[j];
                     itemHasBeenFound = true;
@@ -110,13 +123,13 @@ namespace Fire_Emblem_Empires.Item_Management
         {
             for (int j = 0; j < MAX_INVENTORY_SIZE; ++j)
             {
-                m_inventory[j] = new Item();
+                m_inventory[j] = new DefaultItem();
             }
         }
 
         private Boolean checkDurability(Item item)
         {
-            return item.getDurability() > 0;
+            return item.durability > 0;
         }
 
         public bool useDurability(ref Item item)
@@ -124,8 +137,7 @@ namespace Fire_Emblem_Empires.Item_Management
             bool durabilityHasBeenUsed = false;
             if (checkDurability(item))
             {
-                item.setDurability((byte)(item.getDurability() - 1));
-                durabilityHasBeenUsed = true;
+                durabilityHasBeenUsed = item.useDurability();
             }
             return durabilityHasBeenUsed;
         }

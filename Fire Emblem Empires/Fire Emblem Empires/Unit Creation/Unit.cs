@@ -24,6 +24,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
         RED,
         BLUE,
         GREEN,
+        DEFAULT_TEAM
     }
 
     public abstract class Unit
@@ -35,6 +36,13 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // The following data members are for soft caps, not affected by the modifiers
         // This gets set only during unit creation, when the caps are determined by the AssignUnitLimits() method
+        // This is an improper implementation since each unit would have allocated this much memory for these, these need to be static per instance of unit
+        // A likely solution is to move stat calculations higher up and creating different parameters for the stat creations
+        /// <summary>
+        ///  Another idea is to create a class containing a unit type and parameter list
+        ///  such as lyn (lyn stats)
+        ///  which would solve it by accessing a database using KVP
+        /// </summary>
         protected byte JOB_MIN_HEALTH       = 0;
         protected byte JOB_MAX_HEALTH       = 0;
         protected byte JOB_MIN_ATTACK       = 0;
@@ -63,15 +71,15 @@ namespace Fire_Emblem_Empires.Unit_Creation
         protected bool          m_canMove   = true;
         protected Job           m_Job;
         protected Team          m_Team;
-        protected ItemManager   m_itemManager = new ItemManager(MAX_INVENTORY_SIZE);
+        protected Inventory     m_inventory = new Inventory(MAX_INVENTORY_SIZE);
 
         // Unique Identifier for debugging
         public static byte m_id;
         public void AssignAnID() { ++m_id; }
 
-        public ItemManager OpenBag()
+        public Inventory OpenBag()
         {
-            return m_itemManager;
+            return m_inventory;
         }
 
         // Public constructor that returns a unit with the given stats on a specified team
@@ -90,7 +98,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
         }
 
         // Public overloaded constructor for a unit of specified parameters
-        // Items have not been implemented as of now
         public Unit(Team team, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool canMove)
         {
             // Assign unit stats
@@ -120,8 +127,20 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public override string ToString()
         {
             String output = m_Team.ToString() + " " + m_Job.ToString() + " #" + m_id + "\nMax Health\t\t= " + m_MaxHealth + "\nCurrent Health\t\t= " + m_CurrentHealth + "\nAttack\t\t\t= " + m_Attack
-                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_itemManager.ToString();
+                + "\nSpeed\t\t\t= " + m_Speed + "\nDefense\t\t\t= " + m_Defense + "\nResistance\t\t= " + m_Resistance + "\n" + m_inventory.ToString();
             return output;
+        }
+
+        // Comparison (only returns true if the unit has explicitly the same stats and inventory items)
+        public bool isTheSameUnitAs(Unit unit)
+        {
+            return hasTheSameStatsAs(unit) && m_inventory.containsTheSameItemsAs(unit.m_inventory);
+        }
+
+        private bool hasTheSameStatsAs(Unit unit)
+        {
+            return (m_MaxHealth == unit.m_MaxHealth) && (m_CurrentHealth == unit.m_CurrentHealth) && (m_Attack == unit.m_Attack) &&
+                (m_Speed == unit.m_Speed) && (m_Defense == unit.m_Defense) && (m_Resistance == unit.m_Resistance);
         }
 
         // Public access methods
@@ -139,7 +158,10 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_alive = false;
             return true;
         }
-        public bool CanMove() { return m_canMove; }
+        public bool CanMove()
+        {
+            return m_canMove;
+        }
         public void isNowUnableToMove()
         {
             m_canMove = false;

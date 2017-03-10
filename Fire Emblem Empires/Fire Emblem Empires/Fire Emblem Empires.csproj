@@ -77,8 +77,10 @@
     <Compile Include="GameGrid.xaml.cs">
       <DependentUpon>GameGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Item Management\ItemManager.cs" />
+    <Compile Include="Item Management\Inventory.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Time Management\TimeManager.cs" />
+    <Compile Include="Unit Creation\DefaultUnit.cs" />
     <Compile Include="Unit Creation\Fighter.cs" />
     <Compile Include="Unit Creation\Healer.cs" />
     <Compile Include="Unit Creation\Mage.cs" />
@@ -124,12 +126,13 @@
     <None Include="bin\Debug\Fire Emblem Empires.exe.config" />
     <None Include="bin\Debug\Fire Emblem Empires.vshost.exe.config" />
     <None Include="bin\Debug\Fire Emblem Empires.vshost.exe.manifest" />
+    <None Include="Data\Chapter1T1.fes" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\Chapter1T1.fes" />
+    <EmbeddedResource Include="Resources\Chapter1T1.fes" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -153,6 +156,8 @@
     <Content Include="bin\Debug\Fire Emblem Empires.exe" />
     <Content Include="bin\Debug\Fire Emblem Empires.pdb" />
     <Content Include="bin\Debug\Fire Emblem Empires.vshost.exe" />
+    <EmbeddedResource Include="Data\Chapter1T1.txt" />
+    <None Include="Resources\Chapter1T1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
