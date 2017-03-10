@@ -69,7 +69,7 @@ namespace Fire_Emblem_Empires.File_Management
                 return false;
             }
 
-            map = new Board(numRows, numColumns);
+            map = new Board((byte)numRows, (byte)numColumns);
             map.name = "Chapter1";
 
             regexString = string.Format("^([A-{0}][0-9]+)\\s([0-4])\\s?(.*)$", (char)('A' + numRows));
@@ -134,7 +134,7 @@ namespace Fire_Emblem_Empires.File_Management
                         unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
                     }
                 }
-                map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
+                map.SetSpace(new Location((byte)row, (byte)column), new Tile((TileEnumeration)terrain, unit));
             }
             return true;
         }
@@ -151,8 +151,8 @@ namespace Fire_Emblem_Empires.File_Management
                     int row = i;
                     int column = j;
                     Tile currentTile = map.spaces[row, column];
-                    TileEnumeration terrain = currentTile.terrainType;
-                    Unit unit = currentTile.occupiedBy;
+                    TileEnumeration terrain = currentTile.m_terrainType;
+                    Unit unit = currentTile.m_unit;
                     if (i == map.numRows - 1 && j == map.numColumns - 1)
                     {
                         newMap += String.Format("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));

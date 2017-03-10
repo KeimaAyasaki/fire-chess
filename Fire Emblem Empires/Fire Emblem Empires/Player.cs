@@ -9,49 +9,47 @@ namespace Fire_Emblem_Empires
 {
     public class Player
     {
-        bool isTurn;
-        bool canContinue;
-        Unit[] m_roster;
         byte MAX_ROSTER_SIZE;
-        byte unitCount = 0;
 
-        public Player(Unit[] roster)
+        public Unit[] m_roster { private set; get; }
+        public byte m_unitCount { private set; get; }
+        public Team m_teamColor { private set; get; }
+
+        public Player(Unit[] roster, byte rosterSize, Team team)
         {
             m_roster = roster;
+            m_unitCount = rosterSize;
+            m_teamColor = team;
         }
 
-        public Player(byte rosterSize)
+        public Player(byte rosterSize, Team team)
         {
             MAX_ROSTER_SIZE = rosterSize;
+            m_unitCount = rosterSize;
             m_roster = new Unit[MAX_ROSTER_SIZE];
-            InitializeRoster();
+            InitializeDefaultRoster();
+            m_teamColor = team;
         }
 
-        private void InitializeRoster()
+        private void InitializeDefaultRoster()
         {
             for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
                 m_roster[j] = new DefaultUnit(Team.DEFAULT_TEAM);
             }
         }
-
-        public byte GetUnitCount()
-        {
-            return unitCount;
-        }
-
+        
         public bool AddUnitToRoster(Unit unit)
         {
             bool unitHasBeenAdded = false;
             for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
-                Unit testUnit = new DefaultUnit(unit.GetTeamColor());
-                if (m_roster[j].isTheSameUnitAs(testUnit))
+                if (m_roster[j].isTheSameUnitAs(new DefaultUnit(m_teamColor)))
                 {
                     m_roster[j] = unit;
                     unitHasBeenAdded = true;
                     Console.WriteLine("A(n) {0} has been added to the roster.", unit.GetType());
-                    ++unitCount;
+                    ++m_unitCount;
                     break;
                 }
             }
@@ -67,13 +65,12 @@ namespace Fire_Emblem_Empires
             bool unitHasBeenRemoved = false;
             for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
-                Unit testUnit = new DefaultUnit(unit.GetTeamColor());
                 if (m_roster[j].isTheSameUnitAs(unit))
                 {
-                    m_roster[j] = testUnit;
+                    m_roster[j] = new DefaultUnit(m_teamColor);
                     unitHasBeenRemoved = true;
                     Console.WriteLine("A(n) {0} has been removed from the roster.", unit.GetJob());
-                    --unitCount;
+                    --m_unitCount;
                     break;
                 }
             }
@@ -83,30 +80,30 @@ namespace Fire_Emblem_Empires
             }
             return unitHasBeenRemoved;
         }
-
-        public bool GetUnitFromRoster(Job unitJob, out Unit unit)
+        
+        public bool CanMoveUnits()
         {
-            bool unitHasBeenFound = false;
-            unit = new DefaultUnit(Team.DEFAULT_TEAM);
-            for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
+            bool canMoveUnits = false;
+            for(int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
-                if (m_roster[j].GetJob() == unitJob)
+                if(m_roster[j].CanMove() && !m_roster[j].isADefaultUnit())
                 {
-                    unit = m_roster[j];
-                    unitHasBeenFound = true;
+                    canMoveUnits = true;
                     break;
                 }
             }
-            if (unit.isTheSameUnitAs(new DefaultUnit(Team.DEFAULT_TEAM)))
-            {
-                Console.WriteLine("There was no {0} in the Roster", unitJob);
-            }
-            return unitHasBeenFound;
+            return canMoveUnits;
         }
 
-        public Unit[] GetRoster()
+        public void CanNowMoveAllUnits()
         {
-            return m_roster;
+            for (int j = 0; j < MAX_ROSTER_SIZE; ++j)
+            {
+                if (!m_roster[j].CanMove())
+                {
+                    m_roster[j].isNowAbleToMove();
+                }
+            }
         }
     }
 }

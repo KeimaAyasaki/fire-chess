@@ -66,13 +66,13 @@ namespace Fire_Emblem_Empires
                 for(int j = 0; j < numColumns; j++)
                 {
                     TextBlock tile = new TextBlock();
-                    if(map.spaces[i, j].occupiedBy != null)
+                    if(map.spaces[i, j].m_unit != null)
                     {
-                        tile.Text = map.spaces[i, j].occupiedBy.GetJob().ToString().First().ToString();
+                        tile.Text = map.spaces[i, j].m_unit.GetJob().ToString().First().ToString();
                         tile.FontSize = 40;
                         tile.FontWeight = FontWeights.Bold;
                         tile.TextAlignment = TextAlignment.Center;
-                        switch(map.spaces[i, j].occupiedBy.GetTeamColor())
+                        switch(map.spaces[i, j].m_unit.GetTeamColor())
                         {
                             case Team.BLUE:
                                 tile.Foreground = new SolidColorBrush(Colors.Aqua);
@@ -86,7 +86,7 @@ namespace Fire_Emblem_Empires
                         }
                     }
                     SolidColorBrush backgroundColor = new SolidColorBrush();
-                    switch(map.spaces[i, j].terrainType)
+                    switch(map.spaces[i, j].m_terrainType)
                     {
                         case TileEnumeration.PLAIN:
                             backgroundColor = new SolidColorBrush(Colors.Green);
@@ -122,6 +122,8 @@ namespace Fire_Emblem_Empires
             unitInfo.Margin = new Thickness(-2);
             this.View.Items.Add(unitInfo);
         }
+
+
 
         private void Mouse_Enter_Event(object sender, MouseEventArgs e)
         {
@@ -181,7 +183,7 @@ namespace Fire_Emblem_Empires
         {
             int rowNumber = Grid.GetRow(sender);
             int columnNumber = Grid.GetColumn(sender);
-            return map.spaces[rowNumber, columnNumber].occupiedBy;
+            return map.spaces[rowNumber, columnNumber].m_unit;
         }
     }
 
