@@ -45,6 +45,7 @@ namespace Fire_Emblem_Empires.Board_Creation
 
         public TileEnumeration m_terrainType { get; set; }
         public Unit m_unit { get; set; }
+        public Location m_Location { get; set; }
     }
     public class Board
     {
@@ -58,6 +59,13 @@ namespace Fire_Emblem_Empires.Board_Creation
             this.numRows = numRows;
             this.numColumns = numColumns;
             spaces = new Tile[numRows, numColumns];
+            for(byte j = 0; j < numRows; ++j)
+            {
+                for(byte k = 0; k < numColumns; ++k)
+                {
+                    spaces[j, k].m_Location = new Location(j, k);
+                }
+            }
         }
 
         public void SetSpace(Location loc, Tile desiredTile)
@@ -101,6 +109,11 @@ namespace Fire_Emblem_Empires.Board_Creation
         public byte CalculateDistance(Location locOne, Location locTwo)
         {
             return (byte)(Math.Abs(locOne.m_row - locTwo.m_row) + Math.Abs(locOne.m_column - locTwo.m_column));
+        }
+
+        public byte CalculateDistance(Tile tileOne, Tile tileTwo)
+        {
+            return CalculateDistance(tileOne.m_Location, tileTwo.m_Location);
         }
     }
 }
