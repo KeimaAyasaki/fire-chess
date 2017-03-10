@@ -60,26 +60,27 @@ namespace Fire_Emblem_Empires.Board_Creation
             spaces = new Tile[numRows, numColumns];
         }
 
-        public void SetSpace(int row, int column, Tile desiredTile)
+        public void SetSpace(Location loc, Tile desiredTile)
         {
-            spaces[row, column] = desiredTile;
+            spaces[loc.m_row, loc.m_column] = desiredTile;
         }
 
-        public void AddUnitToSpace(int row, int column, Unit unit)
+        public void AddUnitToSpace(Location loc, Unit unit)
         {
-            spaces[row, column].m_unit = unit;
+            spaces[loc.m_row, loc.m_column].m_unit = unit;
         }
 
-        public void RemoveUnitFromSpace(int row, int column)
+        public void RemoveUnitFromSpace(Location loc)
         {
-            if(spaces[row, column].m_unit != null)
+            if(spaces[loc.m_row, loc.m_column].m_unit != null)
             {
-                spaces[row, column].m_unit = null;
+                spaces[loc.m_row, loc.m_column].m_unit = null;
             }
         }
 
         public void MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
         {
+            spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
         }
     }
 }

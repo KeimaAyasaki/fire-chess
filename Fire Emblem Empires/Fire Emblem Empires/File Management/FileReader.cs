@@ -134,7 +134,7 @@ namespace Fire_Emblem_Empires.File_Management
                         unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
                     }
                 }
-                map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
+                map.SetSpace(new Location((byte)row, (byte)column), new Tile((TileEnumeration)terrain, unit));
             }
             return true;
         }
