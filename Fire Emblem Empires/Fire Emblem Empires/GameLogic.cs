@@ -123,7 +123,11 @@ namespace Fire_Emblem_Empires
             bool unitsHaveInteracted = false;
             byte interactionDistance = m_board.CalculateDistance(currTile, destTile);
             //Checks Distance between Units
-            if (interactionDistance == 1)
+            if(interactionDistance == 0)
+            {
+                unitsHaveInteracted = true;
+            }
+            else if (interactionDistance == 1)
             {
                 //Calculate Healing
                 if (currTile.m_unit.GetJob() == Job.HEALER)
@@ -144,6 +148,16 @@ namespace Fire_Emblem_Empires
                         destTile.m_unit.ModifyCurrentHealth(damageDealt, false);
                         unitsHaveInteracted = true;
                     }
+                    // Counterattack
+                    if(destTile.m_unit.GetJob() != Job.HEALER)
+                    {
+                        byte damageTaken = 0;
+                        if(m_battleManager.calculateDamage(destTile.m_unit, currTile.m_unit, out damageTaken))
+                        {
+                            currTile.m_unit.ModifyCurrentHealth(damageTaken, false);
+                            unitsHaveInteracted = true;
+                        }    
+                    }
                 }
             }
             //Checks Distance Between Units
@@ -157,6 +171,16 @@ namespace Fire_Emblem_Empires
                     {
                         destTile.m_unit.ModifyCurrentHealth(damageDealt, false);
                         unitsHaveInteracted = true;
+                    }
+                    //Counterattack
+                    if(destTile.m_unit.GetJob() == Job.MAGE)
+                    {
+                        byte damageTaken = 0;
+                        if (m_battleManager.calculateDamage(destTile.m_unit, currTile.m_unit, out damageTaken))
+                        {
+                            currTile.m_unit.ModifyCurrentHealth(damageTaken, false);
+                            unitsHaveInteracted = true;
+                        }
                     }
                 }
             }
