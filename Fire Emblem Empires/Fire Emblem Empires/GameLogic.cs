@@ -37,8 +37,10 @@ namespace Fire_Emblem_Empires
         {
             bool noWinner = true;
             bool p1Wins = false;
+            //Keeps running so long as no winner is decided
             while (noWinner)
             {
+                //Checks if it's player 1 turn. 
                 if (p1Turn)
                 {
                     TakeTurn(p1);
@@ -48,6 +50,7 @@ namespace Fire_Emblem_Empires
                         p1Wins = true;
                     }
                 }
+                //Checks if it's player 2 turn.
                 else
                 {
                     TakeTurn(p2);
@@ -57,10 +60,12 @@ namespace Fire_Emblem_Empires
                     }
                 }
             }
+            //Handles when P1 wins
             if (p1Wins)
             {
                 Console.WriteLine("Player 1 Wins");
             }
+            //Handles when P2 wins
             else
             {
                 Console.WriteLine("Player 2 Wins");
@@ -81,6 +86,7 @@ namespace Fire_Emblem_Empires
                 {
                     continue;
                 }
+                //Checks to see if both tiles have a unit
                 if (BothTilesHaveAUnit(currTile, destTile))
                 {
                     //if units can interact
@@ -102,17 +108,10 @@ namespace Fire_Emblem_Empires
         {
             bool unitsHaveInteracted = false;
             byte interactionDistance = m_board.CalculateDistance(currTile, destTile);
+            //Checks Distance between Units
             if (interactionDistance == 1)
             {
-                if (currTile.m_unit.GetJob() == Job.MAGE)
-                {
-                    byte damageDealt = 0;
-                    if (m_battleManager.calculateDamage(currTile.m_unit, destTile.m_unit, out damageDealt))
-                    {
-                        destTile.m_unit.ModifyCurrentHealth(damageDealt, false);
-                        unitsHaveInteracted = true;
-                    }
-                }
+                //Calculate Healing
                 if (currTile.m_unit.GetJob() == Job.HEALER)
                 {
                     byte amountHealed = 0;
@@ -122,8 +121,8 @@ namespace Fire_Emblem_Empires
                         unitsHaveInteracted = true;
                     }
                 }
-                //test  all melee
-                if (currTile.m_unit.GetJob() == Job.FIGHTER || currTile.m_unit.GetJob() == Job.SOLDIER || currTile.m_unit.GetJob() == Job.MERCENARY)
+                //Calculate Damage
+                if (currTile.m_unit.GetJob() == Job.FIGHTER || currTile.m_unit.GetJob() == Job.SOLDIER || currTile.m_unit.GetJob() == Job.MERCENARY || currTile.m_unit.GetJob() == Job.MAGE)
                 {
                     byte damageDealt = 0;
                     if (m_battleManager.calculateDamage(currTile.m_unit, destTile.m_unit, out damageDealt))
@@ -133,9 +132,10 @@ namespace Fire_Emblem_Empires
                     }
                 }
             }
-            //else if mages
+            //Checks Distance Between Units
             else if (interactionDistance == 2)
             {
+                //Calculate Damage
                 if(currTile.m_unit.GetJob() == Job.MAGE)
                 {
                     byte damageDealt = 0;
@@ -146,8 +146,6 @@ namespace Fire_Emblem_Empires
                     }
                 }
             }
-            //esle units did not interact false
-            // if units interacted say the unit moved
             return unitsHaveInteracted;
         }
 
