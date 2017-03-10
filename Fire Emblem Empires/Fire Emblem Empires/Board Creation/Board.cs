@@ -80,15 +80,26 @@ namespace Fire_Emblem_Empires.Board_Creation
 
         public bool LocationIsAValidLocation(Location loc)
         {
-            return loc.m_row > numRows || loc.m_column > numColumns;
+            return loc.m_row > numRows && loc.m_column > numColumns;
         }
 
-        public void MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
+        public bool MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
         {
+            bool moveSuccess = false;
             if(LocationIsAValidLocation(currLoc) || LocationIsAValidLocation(destLoc))
             {
-                spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+                if(spaces[currLoc.m_row, currLoc.m_column].m_isOccupied && spaces[currLoc.m_row, currLoc.m_column].m_unit.m_MovementRange >= CalculateDistance(currLoc, destLoc))
+                {
+                    spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+                    moveSuccess = true;
+                }
             }
+            return moveSuccess;
+        }
+
+        public byte CalculateDistance(Location locOne, Location locTwo)
+        {
+            return (byte)(Math.Abs(locOne.m_row - locTwo.m_row) + Math.Abs(locOne.m_column - locTwo.m_column));
         }
     }
 }
