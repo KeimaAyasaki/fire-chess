@@ -49,11 +49,11 @@ namespace Fire_Emblem_Empires.Board_Creation
     public class Board
     {
         public Tile[,] spaces;
-        public int numRows { get; set; }
-        public int numColumns { get; set; }
+        public byte numRows { get; set; }
+        public byte numColumns { get; set; }
         public string name { get; set; }
 
-        public Board(int numRows, int numColumns)
+        public Board(byte numRows, byte numColumns)
         {
             this.numRows = numRows;
             this.numColumns = numColumns;
@@ -78,9 +78,17 @@ namespace Fire_Emblem_Empires.Board_Creation
             }
         }
 
+        public bool LocationIsAValidLocation(Location loc)
+        {
+            return loc.m_row > numRows || loc.m_column > numColumns;
+        }
+
         public void MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
         {
-            spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+            if(LocationIsAValidLocation(currLoc) || LocationIsAValidLocation(destLoc))
+            {
+                spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+            }
         }
     }
 }

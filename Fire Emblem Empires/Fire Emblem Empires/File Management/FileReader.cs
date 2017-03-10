@@ -69,7 +69,7 @@ namespace Fire_Emblem_Empires.File_Management
                 return false;
             }
 
-            map = new Board(numRows, numColumns);
+            map = new Board((byte)numRows, (byte)numColumns);
             map.name = "Chapter1";
 
             regexString = string.Format("^([A-{0}][0-9]+)\\s([0-4])\\s?(.*)$", (char)('A' + numRows));
