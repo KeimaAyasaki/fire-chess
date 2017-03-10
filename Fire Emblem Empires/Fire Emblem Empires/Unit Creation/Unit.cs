@@ -76,6 +76,32 @@ namespace Fire_Emblem_Empires.Unit_Creation
         public static byte m_id;
         public void AssignAnID() { ++m_id; }
 
+        public void ModifyCurrentHealth(byte modifier, bool add)
+        {
+            if (add)
+            {
+                if (m_CurrentHealth + modifier > m_MaxHealth)
+                {
+                    m_CurrentHealth = m_MaxHealth;
+                }
+                else
+                {
+                    m_CurrentHealth += modifier;
+                }
+            }
+            else
+            {
+                if(m_CurrentHealth < modifier)
+                {
+                    m_CurrentHealth = 0;
+                }
+                else
+                {
+                    m_CurrentHealth -= modifier;
+                }
+            }
+        }
+
         public Inventory OpenBag()
         {
             return m_inventory;
