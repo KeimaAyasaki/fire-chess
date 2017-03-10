@@ -71,13 +71,13 @@ namespace Fire_Emblem_Empires
                 for(int j = 0; j < numColumns; j++)
                 {
                     TextBlock tile = new TextBlock();
-                    if(map.spaces[i, j].occupiedBy != null)
+                    if(map.spaces[i, j].m_unit != null)
                     {
-                        tile.Text = ConvertJobToString(map.spaces[i, j].occupiedBy.GetJob());
+                        tile.Text = ConvertJobToString(map.spaces[i, j].m_unit.GetJob());
                         tile.FontSize = 40;
                         tile.FontWeight = FontWeights.Bold;
                         tile.TextAlignment = TextAlignment.Center;
-                        switch(map.spaces[i, j].occupiedBy.GetTeamColor())
+                        switch(map.spaces[i, j].m_unit.GetTeamColor())
                         {
                             case Team.BLUE:
                                 tile.Foreground = new SolidColorBrush(Colors.Aqua);
@@ -91,7 +91,7 @@ namespace Fire_Emblem_Empires
                         }
                     }
                     SolidColorBrush backgroundColor = new SolidColorBrush();
-                    switch(map.spaces[i, j].terrainType)
+                    switch(map.spaces[i, j].m_terrainType)
                     {
                         case TileEnumeration.PLAIN:
                             backgroundColor = new SolidColorBrush(Colors.Green);
@@ -128,6 +128,8 @@ namespace Fire_Emblem_Empires
             this.View.Items.Add(unitInfo);
         }
 
+
+
         private void Mouse_Enter_Event(object sender, MouseEventArgs e)
         {
             TextBlock tile = (TextBlock) sender;
@@ -137,7 +139,7 @@ namespace Fire_Emblem_Empires
             Unit targetUnit = GetUnitOnTile(tile);
             TextBlock unitInfo = (TextBlock)this.View.Items.GetItemAt(1);
             unitInfo.Background = background;
-            unitInfo.Text = map.spaces[Grid.GetRow(tile), Grid.GetColumn(tile)].terrainType.ToString() + "\n";
+            unitInfo.Text = map.spaces[Grid.GetRow(tile), Grid.GetColumn(tile)].m_terrainType.ToString() + "\n";
             if (targetUnit != null)
             {
                 unitInfo.Text += targetUnit.ToString();
@@ -170,32 +172,34 @@ namespace Fire_Emblem_Empires
         private void Mouse_Left_Click(object sender, MouseButtonEventArgs e)
         {
             TextBlock tile = (TextBlock)sender;
+            //Unit selectedUnit = GetUnitOnTile(tile);
+
             if (selectedUnit == null)
             {
                 selectedUnit = GetUnitOnTile(tile);
-                previousRow = Grid.GetRow(tile);
-                previousColumn = Grid.GetColumn(tile);
-                tile.Text = "";
+                if (selectedUnit != null && selectedUnit.CanMove())
+                {
+                    previousRow = Grid.GetRow(tile);
+                    previousColumn = Grid.GetColumn(tile);
+                }
+                else
+                {
+                    selectedUnit = null;
+                }
             }
             else
             {
-                map.RemoveUnitFromSpace(previousRow, previousColumn);
-                map.AddUnitToSpace(Grid.GetRow(tile), Grid.GetColumn(tile), selectedUnit);
-                tile.Text = ConvertJobToString(selectedUnit.GetJob());
-                tile.FontSize = 40;
-                tile.FontWeight = FontWeights.Bold;
-                tile.TextAlignment = TextAlignment.Center;
-                switch (map.spaces[Grid.GetRow(tile), Grid.GetColumn(tile)].occupiedBy.GetTeamColor())
+                if (map.MoveUnitFromSpaceToSpace(new Location((byte)previousRow, (byte)previousColumn), new Location((byte)Grid.GetRow(tile), (byte)Grid.GetColumn(tile))))
                 {
-                    case Team.BLUE:
-                        tile.Foreground = new SolidColorBrush(Colors.Aqua);
-                        break;
-                    case Team.GREEN:
-                        tile.Foreground = new SolidColorBrush(Colors.LightGreen);
-                        break;
-                    case Team.RED:
-                        tile.Foreground = new SolidColorBrush(Colors.Red);
-                        break;
+                    //map.AddUnitToSpace(Grid.GetRow(tile), Grid.GetColumn(tile), selectedUnit);
+                    tile.Text = ConvertJobToString(selectedUnit.GetJob());
+                    tile.FontSize = 40;
+                    tile.FontWeight = FontWeights.Bold;
+                    tile.TextAlignment = TextAlignment.Center;
+                    tile.Foreground = new SolidColorBrush(Colors.Gray);
+                    Grid temp = (Grid)this.View.Items.GetItemAt(0);
+                    tile = (TextBlock)temp.Children.Cast<UIElement>().First(i => Grid.GetRow(i) == previousRow && Grid.GetColumn(i) == previousColumn);
+                    tile.Text = "";
                 }
                 selectedUnit = null;
             }
@@ -204,7 +208,7 @@ namespace Fire_Emblem_Empires
         {
             int rowNumber = Grid.GetRow(sender);
             int columnNumber = Grid.GetColumn(sender);
-            return map.spaces[rowNumber, columnNumber].occupiedBy;
+            return map.spaces[rowNumber, columnNumber].m_unit;
         }
 
         private string ConvertJobToString(Job currJob)
