@@ -80,7 +80,7 @@ namespace Fire_Emblem_Empires.Board_Creation
 
         public bool LocationIsAValidLocation(Location loc)
         {
-            return loc.m_row > numRows && loc.m_column > numColumns;
+            return loc.m_row <= numRows && loc.m_column <= numColumns;
         }
 
         public bool MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
@@ -91,6 +91,7 @@ namespace Fire_Emblem_Empires.Board_Creation
                 if(spaces[currLoc.m_row, currLoc.m_column].m_isOccupied && spaces[currLoc.m_row, currLoc.m_column].m_unit.m_MovementRange >= CalculateDistance(currLoc, destLoc))
                 {
                     spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+                    spaces[destLoc.m_row, destLoc.m_column].m_unit.isNowUnableToMove();
                     moveSuccess = true;
                 }
             }
