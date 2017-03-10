@@ -106,6 +106,11 @@ namespace Fire_Emblem_Empires.Board_Creation
             return moveSuccess;
         }
 
+        public bool MoveUnitFromSpaceToSpace(Tile tileOne, Tile tileTwo)
+        {
+            return MoveUnitFromSpaceToSpace(tileOne.m_Location, tileTwo.m_Location);
+        }
+
         public byte CalculateDistance(Location locOne, Location locTwo)
         {
             return (byte)(Math.Abs(locOne.m_row - locTwo.m_row) + Math.Abs(locOne.m_column - locTwo.m_column));
