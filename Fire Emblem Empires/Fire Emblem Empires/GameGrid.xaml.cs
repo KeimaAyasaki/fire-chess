@@ -191,7 +191,6 @@ namespace Fire_Emblem_Empires
             {
                 if (map.MoveUnitFromSpaceToSpace(new Location((byte)previousRow, (byte)previousColumn), new Location((byte)Grid.GetRow(tile), (byte)Grid.GetColumn(tile))))
                 {
-                    //map.AddUnitToSpace(Grid.GetRow(tile), Grid.GetColumn(tile), selectedUnit);
                     tile.Text = ConvertJobToString(selectedUnit.GetJob());
                     tile.FontSize = 40;
                     tile.FontWeight = FontWeights.Bold;
