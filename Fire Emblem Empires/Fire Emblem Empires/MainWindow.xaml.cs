@@ -30,18 +30,10 @@ namespace Fire_Emblem_Empires
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void fileLoader_Click(object sender, RoutedEventArgs e)
-        {
-            fReader.Initialize("\\Data\\MapFiles\\Chapter1T1.fes", out map);
+            fReader.Initialize(out map);
             GameGrid grid = new GameGrid(map);
             grid.Show();
-        }
-
-        private void fileSaver_Click(object sender, RoutedEventArgs e)
-        {
-            fReader.CreateFile(map);
+            this.Close();
         }
     }
 }
