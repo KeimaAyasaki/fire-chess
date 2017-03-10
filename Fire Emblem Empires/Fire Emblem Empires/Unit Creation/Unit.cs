@@ -58,7 +58,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // Public data members for stats, unable to be modified but able to be accessed
         public byte m_MaxHealth { get; private set; }
-        public byte m_CurrentHealth { get; private set; }
+        public byte m_CurrentHealth { get; set; }
         public byte m_Attack { get; private set; }
         public byte m_Speed { get; private set; }
         public byte m_Defense { get; private set; }
@@ -237,6 +237,11 @@ namespace Fire_Emblem_Empires.Unit_Creation
         {
             AssignRandomStatsToUnit();
             AssignAbilityPoints();
+        }
+
+        public bool isNotADefaultUnit()
+        {
+            return m_Job == Job.DEFAULT_UNIT;
         }
     }
 }
