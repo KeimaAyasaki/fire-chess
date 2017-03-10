@@ -265,7 +265,7 @@ namespace Fire_Emblem_Empires.Unit_Creation
             AssignAbilityPoints();
         }
 
-        public bool isNotADefaultUnit()
+        public bool isADefaultUnit()
         {
             return m_Job == Job.DEFAULT_UNIT;
         }

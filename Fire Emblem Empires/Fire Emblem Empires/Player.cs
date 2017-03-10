@@ -86,7 +86,7 @@ namespace Fire_Emblem_Empires
             bool canMoveUnits = false;
             for(int j = 0; j < MAX_ROSTER_SIZE; ++j)
             {
-                if(m_roster[j].CanMove() && !m_roster[j].isNotADefaultUnit())
+                if(m_roster[j].CanMove() && !m_roster[j].isADefaultUnit())
                 {
                     canMoveUnits = true;
                     break;
