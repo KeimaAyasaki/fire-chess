@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using Fire_Emblem_Empires.File_Management;
 using Fire_Emblem_Empires.Board_Creation;
 using Fire_Emblem_Empires.Unit_Creation;
+using System.Drawing;
+using System.Reflection;
 
 namespace Fire_Emblem_Empires
 {
@@ -30,28 +32,30 @@ namespace Fire_Emblem_Empires
         public MainWindow()
         {
             InitializeComponent();
+            this.Width = menuScreen.Width;
+            this.Height = menuScreen.Height;
+            menuScreen.MouseUp += new MouseButtonEventHandler(ChangeScreenClick);
             fReader.Initialize(out map);
             GameGrid grid = new GameGrid(map);
             grid.Show();
-            this.Close();
+            //this.Close();
         }
 
-        private void OnMouseClick(Object sender, MouseEventArgs e)
+        private void ChangeScreenClick(Object sender, RoutedEventArgs e)
         {
-            if (menuScreen.Source.ToString().Equals("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\TitleScreen.jpg"))
-            {
+            string imageSource = menuScreen.Source.ToString();
+            //if (imageSource.Equals("file:///D:/fire-chess/fire-chess/Fire Emblem Empires/Data/Menus/TitleScreen.jpg"))
+            //{
 
-                //Image newImage = new Image();
-                //BitmapImage newimage = new BitmapImage();
-                //newimage.BeginInit();
-                //menuScreen.Source = new BitmapImage(new Uri(@"D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg", UriKind.Relative));
-                menuScreen.BeginInit();
-                menuScreen.Source = new BitmapImage(new Uri("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg", UriKind.Relative));
-                menuScreen.EndInit();
-                //menuScreen.Source = new Image("D:\\fire-chess\\fire-chess\\Fire Emblem Empires\\Data\\Menus\\OfficialMenuScreen.jpg");
+            BitmapImage nextScreen = new BitmapImage();
+            nextScreen.BeginInit();
+            nextScreen.UriSource = new Uri(@"pack://application:,,,/" + Assembly.GetExecutingAssembly().GetName().Name  +";component/Resources/OfficialMenuScreen.png");
+            nextScreen.EndInit();
+            menuScreen.Source = nextScreen;
+            
 
 
-            }
+            //}
         }
     }
 }

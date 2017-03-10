@@ -52,6 +52,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -156,6 +157,9 @@
     <Content Include="bin\Debug\Fire Emblem Empires.exe" />
     <Content Include="bin\Debug\Fire Emblem Empires.pdb" />
     <Content Include="bin\Debug\Fire Emblem Empires.vshost.exe" />
+    <Resource Include="Resources\OfficialMenuScreen.png" />
+    <Content Include="Resources\TitleScreen.jpg" />
+    <Resource Include="Resources\TitleScreen.png" />
     <EmbeddedResource Include="Data\Chapter1T1.txt" />
     <None Include="Resources\Chapter1T1.txt" />
   </ItemGroup>
