@@ -79,25 +79,39 @@ namespace Fire_Emblem_Empires
             while (p.CanMoveUnits())
             {
                 Tile currTile = SelectTile();
-                // while boolean over here for unit operation
-                Tile destTile = SelectTile();
-                //Checks if the distance the player wishes to move is greater than the movement the unit has
-                if(m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
+                bool unitOperation = false;
+                // while a tile has a unit and is selected
+                while (currTile != null && currTile.m_unit != null && !unitOperation)
                 {
-                    continue;
-                }
-                //Checks to see if both tiles have a unit
-                if (BothTilesHaveAUnit(currTile, destTile))
-                {
-                    //if units can interact
-                    UnitsInteract(currTile, destTile);aaaaaaaa
-                        // then continue and unit operation == true
-                     // continue back to unit operation boolean set earlier as a while
-                }
-                //Moving unit from starting location to destination
-                else
-                {
-                    m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
+                    Tile destTile = SelectTile();
+
+                    // ensures no operation is carried out on a null destination tile
+                    if(destTile == null)
+                    {
+                        continue;
+                    }
+
+                    //Checks if the distance the player wishes to move is greater than the movement the unit has
+                    if (m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
+                    {
+                        continue;
+                    }
+                    //Checks to see if both tiles have a unit
+                    if (BothTilesHaveAUnit(currTile, destTile))
+                    {
+                        //if units can interact
+                        if (UnitsInteract(currTile, destTile))
+                        {
+                            currTile.m_unit.isNowUnableToMove();
+                            unitOperation = true;
+                        }
+                        continue;
+                    }
+                    //Moving unit from starting location to destination
+                    else
+                    {
+                        m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
+                    }
                 }
             }
         }
@@ -152,7 +166,16 @@ namespace Fire_Emblem_Empires
         //selectTile must validate Tile
         private Tile SelectTile()
         {
-            throw new NotImplementedException();
+            // some sort of click event should be run here to get the tile
+            Tile tile = ?
+            if (m_board.LocationIsAValidLocation(tile.m_Location))
+            {
+                return tile;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         //Checks if the two tiles in question have an acceptible unit
