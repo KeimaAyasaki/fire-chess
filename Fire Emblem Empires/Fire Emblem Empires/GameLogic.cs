@@ -39,7 +39,7 @@ namespace Fire_Emblem_Empires
             {
                 if (p1Turn)
                 {
-                    takeTurn(p1);
+                    TakeTurn(p1);
                     if (p2.m_unitCount == 0)
                     {
                         noWinner = false;
@@ -48,7 +48,7 @@ namespace Fire_Emblem_Empires
                 }
                 else
                 {
-                    takeTurn(p2);
+                    TakeTurn(p2);
                     if (p2.m_unitCount == 0)
                     {
                         noWinner = false;
@@ -65,14 +65,14 @@ namespace Fire_Emblem_Empires
             }
         }
 
-        private void takeTurn(Player p)
+        private void TakeTurn(Player p)
         {
-            p.canNowMoveAllUnits();
+            p.CanNowMoveAllUnits();
             while (p.CanMoveUnits())
             {
-                Tile currTile = selectTile();
-                // while boolean over here for unit opreation
-                Tile destTile = selectTile();
+                Tile currTile = SelectTile();
+                // while boolean over here for unit operation
+                Tile destTile = SelectTile();
                 //Checks if the distance the player wishes to move is greater than the movement the unit has
                 if(m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
                 {
@@ -132,7 +132,7 @@ namespace Fire_Emblem_Empires
             //else if mages
             else if (interactionDistance == 2)
             {
-                if(currTile.m_unit.GetJob == Job.MAGE)
+                if(currTile.m_unit.GetJob() == Job.MAGE)
                 {
                     byte damageDealt = 0;
                     if(m_battleManager.calculateDamage(currTile.m_unit, destTile.m_unit, out damageDealt))
@@ -148,5 +148,14 @@ namespace Fire_Emblem_Empires
         }
 
         //selectTile must validate Tile
+        private Tile SelectTile()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool BothTilesHaveAUnit(Tile currTile, Tile destTile)
+        {
+            return !(currTile.m_unit == null && destTile.m_unit == null) && !(currTile.m_unit.isADefaultUnit() && destTile.m_unit.isADefaultUnit());
+        }
     }
 }
