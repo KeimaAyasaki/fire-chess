@@ -15,6 +15,11 @@ namespace Fire_Emblem_Empires
         byte MAX_ROSTER_SIZE;
         byte unitCount = 0;
 
+        public Player(Unit[] roster)
+        {
+            m_roster = roster;
+        }
+
         public Player(byte rosterSize)
         {
             MAX_ROSTER_SIZE = rosterSize;
