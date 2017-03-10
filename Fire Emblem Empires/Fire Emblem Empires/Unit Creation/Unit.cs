@@ -39,9 +39,9 @@ namespace Fire_Emblem_Empires.Unit_Creation
         // This is an improper implementation since each unit would have allocated this much memory for these, these need to be static per instance of unit
         // A likely solution is to move stat calculations higher up and creating different parameters for the stat creations
         /// <summary>
-        ///  Another idea is to create a class containing a unit type and parameter list
+        ///  Another idea is to create a class containing a unit type and paramet
         ///  such as lyn (lyn stats)
-        ///  which would solve it by accessing a database using KVP
+        ///  which would solve it by accessing a database using KVPs
         /// </summary>
         protected byte JOB_MIN_HEALTH       = 0;
         protected byte JOB_MAX_HEALTH       = 0;
@@ -55,7 +55,6 @@ namespace Fire_Emblem_Empires.Unit_Creation
         protected byte JOB_MAX_RESISTANCE   = 0;
         // The total difference in stats calculated by taking the sum of differences between the upper and lower limits
         private byte MODIFIER_COUNT;
-
 
         // Public data members for stats, unable to be modified but able to be accessed
         public byte m_MaxHealth { get; private set; }
