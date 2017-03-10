@@ -123,6 +123,8 @@ namespace Fire_Emblem_Empires
             this.View.Items.Add(unitInfo);
         }
 
+
+
         private void Mouse_Enter_Event(object sender, MouseEventArgs e)
         {
             TextBlock tile = (TextBlock) sender;

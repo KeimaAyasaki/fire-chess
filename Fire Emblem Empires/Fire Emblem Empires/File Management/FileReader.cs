@@ -69,7 +69,7 @@ namespace Fire_Emblem_Empires.File_Management
                 return false;
             }
 
-            map = new Board(numRows, numColumns);
+            map = new Board((byte)numRows, (byte)numColumns);
             map.name = "Chapter1";
 
             regexString = string.Format("^([A-{0}][0-9]+)\\s([0-4])\\s?(.*)$", (char)('A' + numRows));
@@ -134,7 +134,7 @@ namespace Fire_Emblem_Empires.File_Management
                         unit = CreateUnitWithJob((Team)unitTeam, unitJob, maxHealth, currentHealth, attack, speed, defense, resistance, canMove == 0);
                     }
                 }
-                map.SetSpace(row, column, new Tile((TileEnumeration)terrain, unit));
+                map.SetSpace(new Location((byte)row, (byte)column), new Tile((TileEnumeration)terrain, unit));
             }
             return true;
         }

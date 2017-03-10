@@ -49,37 +49,46 @@ namespace Fire_Emblem_Empires.Board_Creation
     public class Board
     {
         public Tile[,] spaces;
-        public int numRows { get; set; }
-        public int numColumns { get; set; }
+        public byte numRows { get; set; }
+        public byte numColumns { get; set; }
         public string name { get; set; }
 
-        public Board(int numRows, int numColumns)
+        public Board(byte numRows, byte numColumns)
         {
             this.numRows = numRows;
             this.numColumns = numColumns;
             spaces = new Tile[numRows, numColumns];
         }
 
-        public void SetSpace(int row, int column, Tile desiredTile)
+        public void SetSpace(Location loc, Tile desiredTile)
         {
-            spaces[row, column] = desiredTile;
+            spaces[loc.m_row, loc.m_column] = desiredTile;
         }
 
-        public void AddUnitToSpace(int row, int column, Unit unit)
+        public void AddUnitToSpace(Location loc, Unit unit)
         {
-            spaces[row, column].m_unit = unit;
+            spaces[loc.m_row, loc.m_column].m_unit = unit;
         }
 
-        public void RemoveUnitFromSpace(int row, int column)
+        public void RemoveUnitFromSpace(Location loc)
         {
-            if(spaces[row, column].m_unit != null)
+            if(spaces[loc.m_row, loc.m_column].m_unit != null)
             {
-                spaces[row, column].m_unit = null;
+                spaces[loc.m_row, loc.m_column].m_unit = null;
             }
+        }
+
+        public bool LocationIsAValidLocation(Location loc)
+        {
+            return loc.m_row > numRows || loc.m_column > numColumns;
         }
 
         public void MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
         {
+            if(LocationIsAValidLocation(currLoc) || LocationIsAValidLocation(destLoc))
+            {
+                spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+            }
         }
     }
 }

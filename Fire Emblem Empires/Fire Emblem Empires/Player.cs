@@ -80,5 +80,19 @@ namespace Fire_Emblem_Empires
             }
             return unitHasBeenRemoved;
         }
+
+        public bool CanMoveUnits()
+        {
+            bool canMoveUnits = false;
+            for(int j = 0; j < MAX_ROSTER_SIZE; ++j)
+            {
+                if(m_roster[j].CanMove())
+                {
+                    canMoveUnits = true;
+                    break;
+                }
+            }
+            return canMoveUnits;
+        }
     }
 }
