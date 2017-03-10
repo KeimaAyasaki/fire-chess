@@ -7,22 +7,44 @@ using Fire_Emblem_Empires.Unit_Creation;
 
 namespace Fire_Emblem_Empires.Board_Creation
 {
-
+    public struct Location
+    {
+        public byte m_row;
+        public byte m_column;
+        public Location(byte row, byte column)
+        {
+            m_row = row;
+            m_column = column;
+        }
+    }
     public class Tile
     {
         public Tile()
         {
-            terrainType = TileEnumeration.PLAIN;
-            occupiedBy = null;
+            m_terrainType = TileEnumeration.PLAIN;
+            m_unit = null;
         }
 
         public Tile(TileEnumeration terrain, Unit unit)
         {
-            terrainType = terrain;
-            occupiedBy = unit;
+            m_terrainType = terrain;
+            m_unit = unit;
         }
-        public TileEnumeration terrainType { get; set; }
-        public Unit occupiedBy { get; set; }
+        public bool m_isOccupied
+        {
+            get
+            {
+                return m_unit != null;
+            }
+        }
+        public void MoveUnitToTile(Tile other)
+        {
+            other.m_unit = m_unit;
+            m_unit = null;
+        }
+
+        public TileEnumeration m_terrainType { get; set; }
+        public Unit m_unit { get; set; }
     }
     public class Board
     {
@@ -45,33 +67,19 @@ namespace Fire_Emblem_Empires.Board_Creation
 
         public void AddUnitToSpace(int row, int column, Unit unit)
         {
-            spaces[row, column].occupiedBy = unit;
+            spaces[row, column].m_unit = unit;
         }
 
         public void RemoveUnitFromSpace(int row, int column)
         {
-            if(spaces[row, column].occupiedBy != null)
+            if(spaces[row, column].m_unit != null)
             {
-                spaces[row, column].occupiedBy = null;
+                spaces[row, column].m_unit = null;
             }
         }
-        //public TileEnumeration ConvertToTileEnumeration(string terrain)
-        //{
-        //    switch (terrain)
-        //    {
-        //        case "P":
-        //            return TileEnumeration.PLAIN;
-        //        case "M":
-        //            return TileEnumeration.MOUNTAIN;
-        //        case "W":
-        //            return TileEnumeration.WATER;
-        //        case "F":
-        //            return TileEnumeration.FOREST;
-        //        case "T":
-        //            return TileEnumeration.TOWN;
-        //        default:
-        //            return TileEnumeration.NULL;
-        //    }
-        //}
+
+        public void MoveUnitFromSpaceToSpace(Location currLoc, Location destLoc)
+        {
+        }
     }
 }
