@@ -151,8 +151,8 @@ namespace Fire_Emblem_Empires.File_Management
                     int row = i;
                     int column = j;
                     Tile currentTile = map.spaces[row, column];
-                    TileEnumeration terrain = currentTile.terrainType;
-                    Unit unit = currentTile.occupiedBy;
+                    TileEnumeration terrain = currentTile.m_terrainType;
+                    Unit unit = currentTile.m_unit;
                     if (i == map.numRows - 1 && j == map.numColumns - 1)
                     {
                         newMap += String.Format("{0}{1} {2}{3}", (char)(row + 'A'), column + 1, (int)terrain, (unit == null) ? "" : " " + ConvertUnitToRegexFormat(unit));
