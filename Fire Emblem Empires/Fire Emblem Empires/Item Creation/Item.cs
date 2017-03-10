@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Item_Creation
 {
-     
+
     public enum ItemType
     {
         DEFAULT_ITEM,
@@ -18,30 +18,29 @@ namespace Fire_Emblem_Empires.Item_Creation
         VULNERARY
     };
 
-    public class Item
+    public abstract class Item
     {
-        protected ItemType type;
+        public ItemType type { protected set; get; }
         public byte might { private set; get; }
-        protected byte durability = 0;
+        public byte durability { protected set; get; }
 
-        public ItemType getType()
-        {
-            return type;
-        }
-        
-         public Item(){
+        public Item() {
             type = ItemType.DEFAULT_ITEM;
-            might = 1;
+            might = 0;
+            durability = 0;
         }
-        public Item(ItemType type)
+        public Item(ItemType itemType, byte itemDurability)
         {
-            this.type = type;
-            might = setMight(type);   
+            type = itemType;
+            might = setMight(type);
+            durability = itemDurability;
         }
+
         public String getTypeName()
         {
             return type.ToString();
         }
+
         public byte setMight(ItemType type)
         {
             byte value = 0;
@@ -79,7 +78,7 @@ namespace Fire_Emblem_Empires.Item_Creation
 
         public Boolean hasTheSameDurabilityAs(Item item)
         {
-            return getDurability() == getDurability();
+            return durability == item.durability;
         }
 
         public Boolean hasTheSameMightAs(Item item)
@@ -89,62 +88,80 @@ namespace Fire_Emblem_Empires.Item_Creation
 
         public Boolean hasTheSameTypeAs(Item item)
         {
-            return getType() == item.getType();
+            return type == item.type;
         }
 
         public Boolean hasTheSameTypeAs(ItemType itemType)
         {
-            return getType() == itemType;
-        }
-
-        // Unreferenced
-        //public Boolean isDefaultItem(Item item)
-        //{
-        //    return item.getType() == ItemType.DEFAULT_ITEM;
-        //}
-
-        public byte getDurability()
-        {
-            return durability;
+            return type == itemType;
         }
 
         public void setDurability(byte change)
         {
             durability = change;
         }
+
+        public bool useDurability()
+        {
+            if (durability > 0)
+            {
+                durability -= 1;
+                return true;
+            }
+            return false;
+        }
     }
-    // Iron Sword, Iron Lance, Iron Axe, Fire, Staff, Vulnerary
+
+    // The following is a crappy implementation of default durability, figure out a better way to do this
+
+    public class DefaultItem : Item
+    {
+        private static byte DEFAULT_DURABILITY = 0;
+        public DefaultItem() : base(ItemType.DEFAULT_ITEM, DEFAULT_DURABILITY) { }
+        public DefaultItem(byte durability) : base(ItemType.DEFAULT_ITEM, durability) { }
+    }
+
     public class IronSword : Item
     {
-        public IronSword() : base(ItemType.IRON_SWORD) { }
+        private static byte DEFAULT_DURABILITY = 0;
+        public IronSword() : base(ItemType.IRON_SWORD, DEFAULT_DURABILITY) { }
+        public IronSword(byte durability) : base(ItemType.IRON_SWORD, durability) { }
     }
 
     public class IronLance : Item
     {
-        public IronLance() : base(ItemType.IRON_LANCE) { }
+        private static byte DEFAULT_DURABILITY = 0;
+        public IronLance() : base(ItemType.IRON_LANCE, DEFAULT_DURABILITY) { }
+        public IronLance(byte durability) : base(ItemType.IRON_LANCE, durability) { }
     }
 
     public class IronAxe : Item
     {
-        public IronAxe() : base(ItemType.IRON_AXE) { }
+        private static byte DEFAULT_DURABILITY = 0;
+        public IronAxe() : base(ItemType.IRON_AXE, DEFAULT_DURABILITY) { }
+        public IronAxe(byte durability) : base(ItemType.IRON_AXE, durability) { }
     }
 
     public class Fire : Item
     {
-        public Fire() : base(ItemType.FIRE) { }
+        private static byte DEFAULT_DURABILITY = 0;
+        public Fire() : base(ItemType.FIRE, DEFAULT_DURABILITY) { }
+        public Fire(byte durability) : base(ItemType.FIRE, durability) { }
     }
 
     public class Staff : Item
     {
-        public Staff() : base(ItemType.STAFF) { }
+        private static byte DEFAULT_DURABILITY = 0;
+        public Staff() : base(ItemType.STAFF, DEFAULT_DURABILITY) { }
+        public Staff(byte durability) : base(ItemType.STAFF, durability) { }
     }
 
     public class Vulnerary : Item
     {
-        public Vulnerary() : base(ItemType.VULNERARY)
-        {
-            durability = 3;
-        }
+        private static byte DEFAULT_DURABILITY = 3;
+        public Vulnerary() : base(ItemType.VULNERARY, DEFAULT_DURABILITY) { }
+        public Vulnerary(byte durability) : base(ItemType.VULNERARY, durability) { }
     }
+
 }
 
