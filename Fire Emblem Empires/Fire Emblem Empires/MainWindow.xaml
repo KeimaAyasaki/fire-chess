@@ -5,7 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fire_Emblem_Empires"
         mc:Ignorable="d"
-        Title="Fire Emblem: Empires" Height="0" Width="0">
-    <Grid>
+        Title="Fire Emblem: Empires" Height="700" Width="900">
+
+    <Grid x:Name="grid">
+        <!--<Button x:Name="fileLoader" Click="fileLoader_Click" Content="Load File" HorizontalAlignment="Left" Margin="232,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="fileSaver" Click="fileSaver_Click" Content="Save File" HorizontalAlignment="Left" Margin="232,125,0,0" VerticalAlignment="Top" Width="75"/>-->
+        <Button Click="ChangeScreenClick" Padding="-1" x:Name="startButton">
+            <Image x:Name="menuScreen" Source="Resources/TitleScreen.png" />
+        </Button>
+        <!--<Button x:Name="resumeGame" Click="resumeGame_Click" Content="Load File" HorizontalAlignment="Left" Margin="260,146,0,0" VerticalAlignment="Top" Width="395" Height="54" Opacity="0"/>-->
     </Grid>
 </Window>
