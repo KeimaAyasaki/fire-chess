@@ -26,11 +26,13 @@ namespace Fire_Emblem_Empires
         Player p1 = new Player(p1_roster, 5, Team.BLUE);
         Player p2 = new Player(p2_roster, 5, Team.RED);
 
+        //Changes the turn bool to the opposite of what it is assigned as. 
         public void changeTurn()
         {
             p1Turn = !p1Turn;
         }
 
+        //Handles running the game
         public void runGame()
         {
             bool noWinner = true;
@@ -65,6 +67,7 @@ namespace Fire_Emblem_Empires
             }
         }
 
+        //Takes in a player and lets the player move their units
         private void TakeTurn(Player p)
         {
             p.CanNowMoveAllUnits();
@@ -93,6 +96,7 @@ namespace Fire_Emblem_Empires
             }
         }
 
+        //Takes in two tiles and checks to see if the units in the tile can interact
         // TODO:: Refactor
         private bool UnitsInteract(Tile currTile, Tile destTile)
         {
@@ -153,6 +157,7 @@ namespace Fire_Emblem_Empires
             throw new NotImplementedException();
         }
 
+        //Checks if the two tiles in question have an acceptible unit
         private bool BothTilesHaveAUnit(Tile currTile, Tile destTile)
         {
             return !(currTile.m_unit == null && destTile.m_unit == null) && !(currTile.m_unit.isADefaultUnit() && destTile.m_unit.isADefaultUnit());
