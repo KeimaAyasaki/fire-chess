@@ -63,6 +63,7 @@ namespace Fire_Emblem_Empires.Board_Creation
             {
                 for(byte k = 0; k < numColumns; ++k)
                 {
+                    spaces[j, k] = new Tile();
                     spaces[j, k].m_Location = new Location(j, k);
                 }
             }
@@ -96,9 +97,9 @@ namespace Fire_Emblem_Empires.Board_Creation
             bool moveSuccess = false;
             if(LocationIsAValidLocation(currLoc) || LocationIsAValidLocation(destLoc))
             {
-                if(spaces[currLoc.m_row, currLoc.m_column].m_isOccupied && spaces[currLoc.m_row, currLoc.m_column].m_unit.m_MovementRange >= CalculateDistance(currLoc, destLoc))
+                if(spaces[currLoc.m_row, currLoc.m_column].m_isOccupied && spaces[currLoc.m_row, currLoc.m_column].m_unit.m_MovementRange >= CalculateDistance(currLoc, destLoc) && spaces[destLoc.m_row, destLoc.m_column].m_unit == null)
                 {
-                    spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_row]);
+                    spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_column]);
                     spaces[destLoc.m_row, destLoc.m_column].m_unit.isNowUnableToMove();
                     moveSuccess = true;
                 }
