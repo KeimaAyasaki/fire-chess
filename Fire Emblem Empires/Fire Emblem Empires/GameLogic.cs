@@ -191,7 +191,7 @@ namespace Fire_Emblem_Empires
         private Tile SelectTile()
         {
             // some sort of click event should be run here to get the tile
-            Tile tile = ?
+            Tile tile = new Tile();
             if (m_board.LocationIsAValidLocation(tile.m_Location))
             {
                 return tile;

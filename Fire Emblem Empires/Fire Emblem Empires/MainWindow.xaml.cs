@@ -31,6 +31,7 @@ namespace Fire_Emblem_Empires
         public MainWindow()
         {
             InitializeComponent();
+            startButton.Width = menuScreen.Width;
             this.Width = menuScreen.Width;
             this.Height = menuScreen.Height;
             menuScreen.MouseUp += new MouseButtonEventHandler(ChangeScreenClick);
@@ -52,19 +53,24 @@ namespace Fire_Emblem_Empires
                 newScreen.Source = nextScreen;
                 this.grid.Children.Add(newScreen);
                 Button resume = new Button();
+                double buttonWidth = this.Width * 0.43;
+                double buttonHeight = this.Height * 0.14;
+                int heightOffset = (int)(this.Height * 0.1);
+                int centerOffset = (int)(this.Width * 0.028);
+                int buttonDistance = (int)(this.Height * 0.22);
                 resume.VerticalAlignment = VerticalAlignment.Top;
-                resume.Margin = new Thickness(20, 60, 0, 0);
-                resume.Width = 480;
-                resume.Height = 80;
+                resume.Margin = new Thickness(centerOffset, heightOffset, 0, 0);
+                resume.Width = buttonWidth;
+                resume.Height = buttonHeight;
                 resume.MouseEnter += new MouseEventHandler(MouseEnters);
                 resume.MouseLeave += new MouseEventHandler(MouseExits);
                 resume.Opacity = 0;
-                this.grid.Children.Add(resume);
+                //this.grid.Children.Add(resume);
                 Button newGame = new Button();
                 newGame.VerticalAlignment = VerticalAlignment.Top;
-                newGame.Margin = new Thickness(20, 190, 0, 0);
-                newGame.Width = 480;
-                newGame.Height = 80;
+                newGame.Margin = new Thickness(centerOffset, heightOffset += buttonDistance, 0, 0);
+                newGame.Width = buttonWidth;
+                newGame.Height = buttonHeight;
                 newGame.MouseEnter += new MouseEventHandler(MouseEnters);
                 newGame.MouseLeave += new MouseEventHandler(MouseExits);
                 newGame.Click += new RoutedEventHandler(NewGame);
@@ -72,18 +78,18 @@ namespace Fire_Emblem_Empires
                 this.grid.Children.Add(newGame);
                 Button saveGame = new Button();
                 saveGame.VerticalAlignment = VerticalAlignment.Top;
-                saveGame.Margin = new Thickness(20, 320, 0, 0);
-                saveGame.Width = 480;
-                saveGame.Height = 80;
+                saveGame.Margin = new Thickness(centerOffset, heightOffset += buttonDistance, 0, 0);
+                saveGame.Width = buttonWidth;
+                saveGame.Height = buttonHeight;
                 saveGame.MouseEnter += new MouseEventHandler(MouseEnters);
                 saveGame.MouseLeave += new MouseEventHandler(MouseExits);
                 saveGame.Opacity = 0;
-                this.grid.Children.Add(saveGame);
+                //this.grid.Children.Add(saveGame);
                 Button exitGame = new Button();
                 exitGame.VerticalAlignment = VerticalAlignment.Top;
-                exitGame.Margin = new Thickness(20, 430, 0, 0);
-                exitGame.Width = 480;
-                exitGame.Height = 80;
+                exitGame.Margin = new Thickness(centerOffset, heightOffset += (int)(buttonDistance * 0.85), 0, 0);
+                exitGame.Width = buttonWidth;
+                exitGame.Height = buttonHeight;
                 exitGame.MouseEnter += new MouseEventHandler(MouseEnters);
                 exitGame.MouseLeave += new MouseEventHandler(MouseExits);
                 exitGame.Click += new RoutedEventHandler(ExitGame);
@@ -114,6 +120,7 @@ namespace Fire_Emblem_Empires
             fReader.Initialize(out map);
             GameGrid grid = new GameGrid(map);
             grid.Show();
+            this.Close();
         }
     }
 }
