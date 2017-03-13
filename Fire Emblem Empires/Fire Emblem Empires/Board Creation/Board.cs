@@ -69,6 +69,16 @@ namespace Fire_Emblem_Empires.Board_Creation
             }
         }
 
+        public Tile GetSpace(byte row, byte column)
+        {
+            return spaces[row, column];
+        }
+
+        public Tile GetSpace(Location loc)
+        {
+            return GetSpace(loc.m_row, loc.m_column);
+        }
+
         public void SetSpace(Location loc, Tile desiredTile)
         {
             spaces[loc.m_row, loc.m_column] = desiredTile;
