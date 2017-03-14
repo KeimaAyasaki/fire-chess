@@ -23,16 +23,22 @@ namespace Fire_Emblem_Empires
     public partial class GameGrid : Window
     {
         Board map;
-        Unit selectedUnit;
+        bool unitSelected;
         int previousRow;
         int previousColumn;
-        public GameGrid(Board map)
+        MainWindow menu;
+        GameLogic logic;
+        public GameGrid(Board map, MainWindow menu)
         {
             InitializeComponent();
 
             this.map = map;
+            this.menu = menu;
+            logic = new GameLogic(ref map);
 
-            selectedUnit = null;
+            this.KeyDown += new KeyEventHandler(EscapePressed);
+
+            unitSelected = false;
 
             int tileSize = 75;
 
@@ -73,7 +79,7 @@ namespace Fire_Emblem_Empires
                     TextBlock tile = new TextBlock();
                     if(map.spaces[i, j].m_unit != null)
                     {
-                        tile.Text = ConvertJobToString(map.spaces[i, j].m_unit.GetJob());
+                        tile.Text = ConvertJobToString(map.spaces[i, j].m_unit);
                         tile.FontSize = 40;
                         tile.FontWeight = FontWeights.Bold;
                         tile.TextAlignment = TextAlignment.Center;
@@ -103,7 +109,7 @@ namespace Fire_Emblem_Empires
                             backgroundColor = new SolidColorBrush(Colors.Blue);
                             break;
                         case TileEnumeration.MOUNTAIN:
-                            backgroundColor = new SolidColorBrush(Colors.Gray);
+                            backgroundColor = new SolidColorBrush(Colors.SaddleBrown);
                             break;
                         case TileEnumeration.TOWN:
                             backgroundColor = new SolidColorBrush(Colors.Gold);
@@ -173,34 +179,36 @@ namespace Fire_Emblem_Empires
         {
             TextBlock tile = (TextBlock)sender;
             //Unit selectedUnit = GetUnitOnTile(tile);
+            int row = Grid.GetRow(tile);
+            int column = Grid.GetColumn(tile);
 
-            if (selectedUnit == null)
+            if (!unitSelected)
             {
-                selectedUnit = GetUnitOnTile(tile);
-                if (selectedUnit != null && selectedUnit.CanTakeAction())
-                {
-                    previousRow = Grid.GetRow(tile);
-                    previousColumn = Grid.GetColumn(tile);
-                }
-                else
-                {
-                    selectedUnit = null;
-                }
+                previousRow = row;
+                previousColumn = column;
+                Tile currTile = map.spaces[row, column];
+                currTile.m_Location = new Location((byte)row, (byte)column);
+                logic.SetCurrTile(currTile);
+                unitSelected = true;
             }
             else
             {
-                if (map.MoveUnitFromSpaceToSpace(new Location((byte)previousRow, (byte)previousColumn), new Location((byte)Grid.GetRow(tile), (byte)Grid.GetColumn(tile))))
+                Tile destTile = map.spaces[row, column];
+                destTile.m_Location = new Location((byte)row, (byte)column);
+                logic.SetDestTile(destTile);
+                if (logic.TakeTurn())
                 {
-                    tile.Text = ConvertJobToString(selectedUnit.GetJob());
+                    tile.Text = ConvertJobToString(map.spaces[row, column].m_unit);
                     tile.FontSize = 40;
                     tile.FontWeight = FontWeights.Bold;
                     tile.TextAlignment = TextAlignment.Center;
                     tile.Foreground = new SolidColorBrush(Colors.Gray);
                     Grid temp = (Grid)this.View.Items.GetItemAt(0);
                     tile = (TextBlock)temp.Children.Cast<UIElement>().First(i => Grid.GetRow(i) == previousRow && Grid.GetColumn(i) == previousColumn);
-                    tile.Text = "";
+                    tile.Text = ConvertJobToString(map.spaces[previousRow, previousColumn].m_unit);
+                    tile.Foreground = new SolidColorBrush(Colors.Gray);
                 }
-                selectedUnit = null;
+                unitSelected = false;
             }
         }
         private Unit GetUnitOnTile(TextBlock sender)
@@ -210,28 +218,40 @@ namespace Fire_Emblem_Empires
             return map.spaces[rowNumber, columnNumber].m_unit;
         }
 
-        private string ConvertJobToString(Job currJob)
+        private string ConvertJobToString(Unit currJob)
         {
             string job = "";
-            switch(currJob)
+            if (currJob != null)
             {
-                case Job.MERCENARY:
-                    job = "M";
-                    break;           
-                case Job.SOLDIER:
-                    job = "S";
-                    break;
-                case Job.FIGHTER:
-                    job =  "F";
-                    break;
-                case Job.MAGE:
-                    job = "C";
-                    break;
-                case Job.HEALER:
-                    job = "H";
-                    break;
+                switch (currJob.GetJob())
+                {
+                    case Job.MERCENARY:
+                        job = "M";
+                        break;
+                    case Job.SOLDIER:
+                        job = "S";
+                        break;
+                    case Job.FIGHTER:
+                        job = "F";
+                        break;
+                    case Job.MAGE:
+                        job = "C";
+                        break;
+                    case Job.HEALER:
+                        job = "H";
+                        break;
+                }
             }
             return job;
+        }
+
+        private void EscapePressed (object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                menu.Visibility = Visibility.Visible;
+                menu.map = this.map;
+            }
         }
     }
 

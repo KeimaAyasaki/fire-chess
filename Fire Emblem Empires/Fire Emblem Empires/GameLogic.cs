@@ -15,6 +15,7 @@ namespace Fire_Emblem_Empires
         Player p1;
         Player p2;
         Player p3;
+        Player currPlayer;
         static bool p1Turn = true;
         public Board m_board { get; private set; }
         public BattleManager m_battleManager { get; private set; }
@@ -25,7 +26,11 @@ namespace Fire_Emblem_Empires
             m_battleManager = new BattleManager();
             TimeManager.Start();
             ExamineBoardForTeams();
+            currPlayer = p1;
         }
+
+        Tile currTile;
+        Tile destTile;
 
         //Changes the turn bool to the opposite of what it is assigned as. 
         public void ChangeTurn()
@@ -87,7 +92,7 @@ namespace Fire_Emblem_Empires
                 //Checks if it's player 1 turn. 
                 if (p1Turn)
                 {
-                    TakeTurn(p1);
+                    //TakeTurn(p1);
                     if (p2.m_unitCount == 0)
                     {
                         gameIsOver = true;
@@ -97,7 +102,7 @@ namespace Fire_Emblem_Empires
                 //Checks if it's player 2 turn.
                 else
                 {
-                    TakeTurn(p2);
+                    //TakeTurn(p2);
                     if (p2.m_unitCount == 0)
                     {
                         gameIsOver = true;
@@ -124,54 +129,51 @@ namespace Fire_Emblem_Empires
 
         }
 
-        //Takes in a player and lets the player move their units
-        private void TakeTurn(Player p)
+        public void SetCurrTile(Tile selected)
         {
-            p.CanNowMoveAllUnits();
-            while (p.CanMoveUnits())
+            currTile = selected;
+        }
+
+        public void SetDestTile(Tile selected)
+        {
+            destTile = selected;
+        }
+        //Takes in a player and lets the player move their units
+        public bool TakeTurn()
+        {
+            // while a tile has a unit and is selected
+            if (currTile != null && currTile.m_unit != null && currTile.m_unit.CanTakeAction())
             {
-                Tile currTile = SelectTile();
-                bool unitSelected = true;
-                // while a tile has a unit and is selected
-                while (currTile != null && currTile.m_unit != null && currTile.m_unit.CanTakeAction() && unitSelected)
+
+                //Checks if the distance the player wishes to move is greater than the movement the unit has
+                if (m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
                 {
-                    Tile destTile = SelectTile();
-
-                    // ensures no operation is carried out on a null destination tile
-                    if(destTile == null)
+                    return false;
+                }
+                //Checks to see if both tiles have a unit
+                if (BothTilesHaveAUnit(currTile, destTile))
+                {
+                    //if units can interact
+                    if (UnitsInteract(currTile, destTile))
                     {
-                        unitSelected = false;
-                        continue;
-                    }
-
-                    //Checks if the distance the player wishes to move is greater than the movement the unit has
-                    if (m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
-                    {
-                        unitSelected = false;
-                        continue;
-                    }
-                    //Checks to see if both tiles have a unit
-                    if (BothTilesHaveAUnit(currTile, destTile))
-                    {
-                        //if units can interact
-                        if (UnitsInteract(currTile, destTile))
-                        {
-                            currTile.m_unit.isNowUnableToTakeAction();
-                            ++turnCount;
-                            unitSelected = false;
-                        }
-                        continue;
-                    }
-                    //Moving unit from starting location to destination
-                    else
-                    {
-                        m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
-                        currTile.m_unit.m_canMove = false;
+                        currTile.m_unit.isNowUnableToTakeAction();
                         ++turnCount;
-                        unitSelected = false;
                     }
                 }
+                //Moving unit from starting location to destination
+                else
+                {
+                    m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
+                    m_board.spaces[destTile.m_Location.m_row, destTile.m_Location.m_column].m_unit.m_canMove = false;
+                    ++turnCount;
+                }
             }
+            if(!currPlayer.CanMoveUnits())
+            {
+                currPlayer = p1Turn ? p1 : p2;
+                currPlayer.CanNowMoveAllUnits();
+            }
+            return true;
         }
 
         //Takes in two tiles and checks to see if the units in the tile can interact
@@ -263,7 +265,9 @@ namespace Fire_Emblem_Empires
         //Checks if the two tiles in question have an acceptible unit
         private bool BothTilesHaveAUnit(Tile currTile, Tile destTile)
         {
-            return !(currTile.m_unit == null && destTile.m_unit == null) && !(currTile.m_unit.isADefaultUnit() && destTile.m_unit.isADefaultUnit());
+            //bool currTileHasUnit = currTile.m_unit != null && !currTile.m_unit.isADefaultUnit();
+            //bool destTileHasUnit = destTile.m_unit != null && 
+            return !(currTile.m_unit == null || destTile.m_unit == null) && !(currTile.m_unit.isADefaultUnit() || destTile.m_unit.isADefaultUnit());
         }
     }
 }

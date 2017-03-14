@@ -140,7 +140,7 @@ namespace Fire_Emblem_Empires.File_Management
         }
 
         //currently does not work if called before Initialize, this will change when Board is implemented
-        public bool CreateFile(Board map)
+        public bool CreateFile(Board map, string timeStamp)
         {
             string newMap = "";           
             newMap += String.Format("{0}X{1}\n", map.numRows, map.numColumns);
@@ -178,7 +178,7 @@ namespace Fire_Emblem_Empires.File_Management
                 string value = entry.Value.ToString();
                 resWriter.AddResource(key, value);
             }
-            resWriter.AddResource(String.Format("{0}{1}", map.name, saveInfo.Count.ToString()), newMap);
+            resWriter.AddResource(String.Format("{0}_{1}", map.name, timeStamp), newMap);
             resWriter.Close(); 
             return true;
         }
