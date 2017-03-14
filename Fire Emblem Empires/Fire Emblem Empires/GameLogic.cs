@@ -102,7 +102,7 @@ namespace Fire_Emblem_Empires
                         //if units can interact
                         if (UnitsInteract(currTile, destTile))
                         {
-                            currTile.m_unit.isNowUnableToMove();
+                            currTile.m_unit.isNowUnableToTakeAction();
                             unitOperation = true;
                         }
                         continue;

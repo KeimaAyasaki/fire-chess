@@ -60,7 +60,7 @@ namespace Fire_Emblem_Empires
             bool canMoveUnits = false;
             foreach(Unit unit in m_roster)
             {
-                if(unit.CanMove())
+                if(unit.CanTakeAction())
                 {
                     canMoveUnits = true;
                     break;
@@ -73,7 +73,7 @@ namespace Fire_Emblem_Empires
         {
             foreach(Unit unit in m_roster)
             {
-                unit.isNowAbleToMove();
+                unit.isNowAbleToTakeAction();
             }
         }
     }

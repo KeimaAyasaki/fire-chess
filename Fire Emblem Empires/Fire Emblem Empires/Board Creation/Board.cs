@@ -110,7 +110,7 @@ namespace Fire_Emblem_Empires.Board_Creation
                 if(spaces[currLoc.m_row, currLoc.m_column].m_isOccupied && spaces[currLoc.m_row, currLoc.m_column].m_unit.m_MovementRange >= CalculateDistance(currLoc, destLoc) && spaces[destLoc.m_row, destLoc.m_column].m_unit == null)
                 {
                     spaces[currLoc.m_row, currLoc.m_column].MoveUnitToTile(spaces[destLoc.m_row, destLoc.m_column]);
-                    spaces[destLoc.m_row, destLoc.m_column].m_unit.isNowUnableToMove();
+                    spaces[destLoc.m_row, destLoc.m_column].m_unit.isNowUnableToTakeAction();
                     moveSuccess = true;
                 }
             }
