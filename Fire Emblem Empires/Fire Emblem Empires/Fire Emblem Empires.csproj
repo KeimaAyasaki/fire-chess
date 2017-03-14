@@ -159,6 +159,8 @@
     <Content Include="bin\Debug\Fire Emblem Empires.pdb" />
     <Content Include="bin\Debug\Fire Emblem Empires.vshost.exe" />
     <Resource Include="Resources\OfficialMenuScreen.png" />
+    <Resource Include="Resources\FE_Empires_SaveScreen.png" />
+    <Resource Include="Resources\FE_Empires_LoadScreen.png" />
     <Content Include="Resources\TitleScreen.jpg" />
     <Resource Include="Resources\TitleScreen.png" />
     <EmbeddedResource Include="Data\Chapter1T1.txt" />
