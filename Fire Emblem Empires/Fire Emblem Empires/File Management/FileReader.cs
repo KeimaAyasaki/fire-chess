@@ -193,7 +193,7 @@ namespace Fire_Emblem_Empires.File_Management
             line += " " + unit.m_Speed;
             line += " " + unit.m_Defense;
             line += " " + unit.m_Resistance;        
-            line += " " + (unit.CanMove() ? "0" : "1");
+            line += " " + (unit.CanTakeAction() ? "0" : "1");
             return line;
         }
         public Unit CreateUnitWithJob(Team team, int job, byte MaxHealth, byte CurrentHealth, byte Attack, byte Speed, byte Defense, byte Resistance, bool CanMove)

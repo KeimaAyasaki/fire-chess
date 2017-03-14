@@ -131,10 +131,9 @@ namespace Fire_Emblem_Empires
             while (p.CanMoveUnits())
             {
                 Tile currTile = SelectTile();
-                bool actionTaken = false;
                 bool unitSelected = true;
                 // while a tile has a unit and is selected
-                while (currTile != null && currTile.m_unit != null && !actionTaken && unitSelected)
+                while (currTile != null && currTile.m_unit != null && currTile.m_unit.CanTakeAction() && unitSelected)
                 {
                     Tile destTile = SelectTile();
 
@@ -157,9 +156,8 @@ namespace Fire_Emblem_Empires
                         //if units can interact
                         if (UnitsInteract(currTile, destTile))
                         {
-                            currTile.m_unit.isNowUnableToMove();
+                            currTile.m_unit.isNowUnableToTakeAction();
                             ++turnCount;
-                            actionTaken = true;
                             unitSelected = false;
                         }
                         continue;
@@ -168,7 +166,7 @@ namespace Fire_Emblem_Empires
                     else
                     {
                         m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
-                        currTile.m_unit.isNowUnableToMove();
+                        currTile.m_unit.m_canMove = false;
                         ++turnCount;
                         unitSelected = false;
                     }

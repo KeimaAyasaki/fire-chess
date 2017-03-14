@@ -177,7 +177,7 @@ namespace Fire_Emblem_Empires
             if (selectedUnit == null)
             {
                 selectedUnit = GetUnitOnTile(tile);
-                if (selectedUnit != null && selectedUnit.CanMove())
+                if (selectedUnit != null && selectedUnit.CanTakeAction())
                 {
                     previousRow = Grid.GetRow(tile);
                     previousColumn = Grid.GetColumn(tile);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Fire_Emblem_Empires.Time_Management
 {
-    class TimeManager
+    public class TimeManager
     {
         static Stopwatch stopWatch = new Stopwatch();
         static public bool isOn { get; private set; }
