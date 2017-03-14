@@ -118,7 +118,7 @@ namespace Fire_Emblem_Empires_Tests.Unit_Unit_Tests
             Assert.AreEqual(expectedResult, actualResult);
 
             // Tell the fighter it is unable to move
-            fighterOne.isNowUnableToMove();
+            fighterOne.isNowUnableToTakeAction();
 
             // Check if the fighter is unable to move
             expectedResult = false;
@@ -136,7 +136,7 @@ namespace Fire_Emblem_Empires_Tests.Unit_Unit_Tests
             Assert.AreEqual(expectedResult, actualResult);
 
             // Tell the mage it is unable to move
-            mageOne.isNowUnableToMove();
+            mageOne.isNowUnableToTakeAction();
 
             // Make sure the mage cannot move
             expectedResult = false;
@@ -144,7 +144,7 @@ namespace Fire_Emblem_Empires_Tests.Unit_Unit_Tests
             Assert.AreEqual(expectedResult, actualResult);
 
             // Tell the mage it is able to 
-            mageOne.isNowAbleToMove();
+            mageOne.isNowAbleToTakeAction();
 
             // check if the mage is unable to move
             expectedResult = true;

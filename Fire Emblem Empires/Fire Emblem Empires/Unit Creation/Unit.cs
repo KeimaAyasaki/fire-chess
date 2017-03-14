@@ -67,7 +67,8 @@ namespace Fire_Emblem_Empires.Unit_Creation
 
         // Protected data members to keep track of unit statuses and properties
         protected bool          m_alive     = true;
-        protected bool          m_canMove   = true;
+        public bool             m_canMove   = true;
+        public bool             m_canAttack = true;
         protected Job           m_Job;
         protected Team          m_Team;
         protected Inventory     m_inventory = new Inventory(MAX_INVENTORY_SIZE);
@@ -183,17 +184,19 @@ namespace Fire_Emblem_Empires.Unit_Creation
             m_alive = false;
             return true;
         }
-        public bool CanMove()
+        public bool CanTakeAction()
         {
-            return m_canMove;
+            return m_canMove || m_canAttack;
         }
-        public void isNowUnableToMove()
+        public void isNowUnableToTakeAction()
         {
             m_canMove = false;
+            m_canAttack = false;
         }
-        public void isNowAbleToMove()
+        public void isNowAbleToTakeAction()
         {
             m_canMove = true;
+            m_canAttack = true;
         }
         public Job GetJob() { return m_Job; }
         public void SetTeam(Team team) { m_Team = team; }
