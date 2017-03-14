@@ -1,6 +1,7 @@
 ﻿using Fire_Emblem_Empires.Board_Creation;
 using Fire_Emblem_Empires.Unit_Creation;
 using Fire_Emblem_Empires.Battle_Management;
+using Fire_Emblem_Empires.Time_Management;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +12,77 @@ namespace Fire_Emblem_Empires
 {
     public class GameLogic
     {
-        public static Unit[] p1_roster = new Unit[] { new Fighter(Team.BLUE), new Healer(Team.BLUE), new Mage(Team.BLUE), new Mercenary(Team.BLUE), new Soldier(Team.BLUE) };
-        public static Unit[] p2_roster = new Unit[] { new Fighter(Team.RED), new Healer(Team.RED), new Mage(Team.RED), new Mercenary(Team.RED), new Soldier(Team.RED) };
+        Player p1;
+        Player p2;
+        Player p3;
         static bool p1Turn = true;
         public Board m_board { get; private set; }
         public BattleManager m_battleManager { get; private set; }
-
+        public int turnCount = 0;
         public GameLogic(ref Board board)
         {
             m_board = board;
             m_battleManager = new BattleManager();
+            TimeManager.Start();
+            ExamineBoardForTeams();
         }
 
-        Player p1 = new Player(p1_roster, 5, Team.BLUE);
-        Player p2 = new Player(p2_roster, 5, Team.RED);
-
         //Changes the turn bool to the opposite of what it is assigned as. 
-        public void changeTurn()
+        public void ChangeTurn()
         {
             p1Turn = !p1Turn;
         }
 
-        //Handles running the game
-        public void runGame()
+        public void ExamineBoardForTeams()
         {
-            bool noWinner = true;
-            bool p1Wins = false;
+            byte redCount = 0;
+            List<Unit> red_roster = new List<Unit>();
+            byte blueCount = 0;
+            List<Unit> blue_roster = new List<Unit>();
+            byte greenCount = 0;
+            List<Unit> green_roster = new List<Unit>();
+
+            for (byte j = 0; j < m_board.numRows; ++j)
+            {
+                for(byte k = 0; k < m_board.numColumns; ++k)
+                {
+                    if(m_board.GetSpace(j, k).m_unit != null)
+                    {
+                        if(m_board.GetSpace(j, k).m_unit.GetTeamColor() == Team.BLUE)
+                        {
+                            ++blueCount;
+                            blue_roster.Add(m_board.GetSpace(j, k).m_unit);
+                        }
+                        else if (m_board.GetSpace(j, k).m_unit.GetTeamColor() == Team.RED)
+                        {
+                            ++redCount;
+                            red_roster.Add(m_board.GetSpace(j, k).m_unit);
+                        }
+                        else if(m_board.GetSpace(j, k).m_unit.GetTeamColor() == Team.GREEN)
+                        {
+                            ++greenCount;
+                            green_roster.Add(m_board.GetSpace(j, k).m_unit);
+                        }
+                    }
+                }
+            }
+            p1 = new Player(Team.BLUE, blue_roster);
+            p2 = new Player(Team.RED, red_roster);
+            p3 = new Player(Team.GREEN, green_roster);
+            if(p1.CanMoveUnits() && p2.CanMoveUnits() && p3.CanMoveUnits())
+            {
+                Console.WriteLine("Unimplemented mass multiplayer. Expect Crashing");
+                Console.WriteLine("Expected only Red and Blue units");
+            }
+        }
+
+        //Handles running the game
+        public void Run()
+        {
+            bool gameIsOver = false;
+            Player winner = null;
             //Keeps running so long as no winner is decided
-            while (noWinner)
+            while (!gameIsOver)
             {
                 //Checks if it's player 1 turn. 
                 if (p1Turn)
@@ -46,8 +90,8 @@ namespace Fire_Emblem_Empires
                     TakeTurn(p1);
                     if (p2.m_unitCount == 0)
                     {
-                        noWinner = false;
-                        p1Wins = true;
+                        gameIsOver = true;
+                        winner = p1;
                     }
                 }
                 //Checks if it's player 2 turn.
@@ -56,20 +100,28 @@ namespace Fire_Emblem_Empires
                     TakeTurn(p2);
                     if (p2.m_unitCount == 0)
                     {
-                        noWinner = false;
+                        gameIsOver = true;
+                        winner = p2;
                     }
                 }
             }
             //Handles when P1 wins
-            if (p1Wins)
+            if(winner == null)
             {
-                Console.WriteLine("Player 1 Wins");
+                Console.WriteLine("Game finished before a winner was determined.");
             }
-            //Handles when P2 wins
-            else
+            else if(winner == p1)
             {
-                Console.WriteLine("Player 2 Wins");
+                Console.WriteLine("Player 1 won!");
             }
+            else if(winner == p2)
+            {
+                Console.WriteLine("Plyaer 2 won!");
+            }
+            TimeManager.Stop();
+            Console.WriteLine("Time Elapsed = {0}", TimeManager.TimeElapsedSinceStart());
+            Console.WriteLine("Turns taken = {0}", turnCount);
+
         }
 
         //Takes in a player and lets the player move their units
@@ -79,21 +131,24 @@ namespace Fire_Emblem_Empires
             while (p.CanMoveUnits())
             {
                 Tile currTile = SelectTile();
-                bool unitOperation = false;
+                bool actionTaken = false;
+                bool unitSelected = true;
                 // while a tile has a unit and is selected
-                while (currTile != null && currTile.m_unit != null && !unitOperation)
+                while (currTile != null && currTile.m_unit != null && !actionTaken && unitSelected)
                 {
                     Tile destTile = SelectTile();
 
                     // ensures no operation is carried out on a null destination tile
                     if(destTile == null)
                     {
+                        unitSelected = false;
                         continue;
                     }
 
                     //Checks if the distance the player wishes to move is greater than the movement the unit has
                     if (m_board.CalculateDistance(currTile, destTile) > currTile.m_unit.m_MovementRange)
                     {
+                        unitSelected = false;
                         continue;
                     }
                     //Checks to see if both tiles have a unit
@@ -103,7 +158,9 @@ namespace Fire_Emblem_Empires
                         if (UnitsInteract(currTile, destTile))
                         {
                             currTile.m_unit.isNowUnableToMove();
-                            unitOperation = true;
+                            ++turnCount;
+                            actionTaken = true;
+                            unitSelected = false;
                         }
                         continue;
                     }
@@ -111,6 +168,9 @@ namespace Fire_Emblem_Empires
                     else
                     {
                         m_board.MoveUnitFromSpaceToSpace(currTile, destTile);
+                        currTile.m_unit.isNowUnableToMove();
+                        ++turnCount;
+                        unitSelected = false;
                     }
                 }
             }
