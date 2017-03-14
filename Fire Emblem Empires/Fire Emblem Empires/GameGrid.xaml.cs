@@ -26,11 +26,15 @@ namespace Fire_Emblem_Empires
         Unit selectedUnit;
         int previousRow;
         int previousColumn;
-        public GameGrid(Board map)
+        MainWindow menu;
+        public GameGrid(Board map, MainWindow menu)
         {
             InitializeComponent();
 
             this.map = map;
+            this.menu = menu;
+
+            this.KeyDown += new KeyEventHandler(EscapePressed);
 
             selectedUnit = null;
 
@@ -103,7 +107,7 @@ namespace Fire_Emblem_Empires
                             backgroundColor = new SolidColorBrush(Colors.Blue);
                             break;
                         case TileEnumeration.MOUNTAIN:
-                            backgroundColor = new SolidColorBrush(Colors.Gray);
+                            backgroundColor = new SolidColorBrush(Colors.SaddleBrown);
                             break;
                         case TileEnumeration.TOWN:
                             backgroundColor = new SolidColorBrush(Colors.Gold);
@@ -232,6 +236,15 @@ namespace Fire_Emblem_Empires
                     break;
             }
             return job;
+        }
+
+        private void EscapePressed (object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                menu.Visibility = Visibility.Visible;
+                menu.map = this.map;
+            }
         }
     }
 
