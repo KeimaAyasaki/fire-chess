@@ -121,6 +121,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="bin\Debug\MapFiles.resources" />
+    <Resource Include="bin\Release\MapFiles.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -151,9 +153,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="bin\Debug\Fire Emblem Empires.exe" />
     <Content Include="bin\Debug\Fire Emblem Empires.pdb" />
@@ -161,6 +161,7 @@
     <Resource Include="Resources\OfficialMenuScreen.png" />
     <Resource Include="Resources\FE_Empires_SaveScreen.png" />
     <Resource Include="Resources\FE_Empires_LoadScreen.png" />
+    <EmbeddedResource Include="Data\InitialSetup.txt" />
     <Content Include="Resources\TitleScreen.jpg" />
     <Resource Include="Resources\TitleScreen.png" />
     <EmbeddedResource Include="Data\Chapter1T1.txt" />

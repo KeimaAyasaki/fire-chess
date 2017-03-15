@@ -62,11 +62,13 @@ namespace Fire_Emblem_Empires
                         {
                             ++redCount;
                             red_roster.Add(m_board.GetSpace(j, k).m_unit);
+                            m_board.GetSpace(j, k).m_unit.isNowUnableToTakeAction();
                         }
                         else if(m_board.GetSpace(j, k).m_unit.GetTeamColor() == Team.GREEN)
                         {
                             ++greenCount;
                             green_roster.Add(m_board.GetSpace(j, k).m_unit);
+                            m_board.GetSpace(j, k).m_unit.isNowUnableToTakeAction();
                         }
                     }
                 }
@@ -170,6 +172,7 @@ namespace Fire_Emblem_Empires
             }
             if(!currPlayer.CanMoveUnits())
             {
+                p1Turn = !p1Turn;
                 currPlayer = p1Turn ? p1 : p2;
                 currPlayer.CanNowMoveAllUnits();
             }

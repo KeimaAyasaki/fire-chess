@@ -142,6 +142,10 @@ namespace Fire_Emblem_Empires.File_Management
         //currently does not work if called before Initialize, this will change when Board is implemented
         public bool CreateFile(Board map, string timeStamp)
         {
+            if(map == null)
+            {
+                return false;
+            }
             string newMap = "";           
             newMap += String.Format("{0}X{1}\n", map.numRows, map.numColumns);
             for(int i = 0; i <  map.numRows; i++)
