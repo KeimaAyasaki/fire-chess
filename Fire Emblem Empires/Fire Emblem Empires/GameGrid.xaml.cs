@@ -77,25 +77,21 @@ namespace Fire_Emblem_Empires
                 for(int j = 0; j < numColumns; j++)
                 {
                     TextBlock tile = new TextBlock();
-                    if(map.spaces[i, j].m_unit != null)
-                    {
-                        tile.Text = ConvertJobToString(map.spaces[i, j].m_unit);
-                        tile.FontSize = 40;
-                        tile.FontWeight = FontWeights.Bold;
-                        tile.TextAlignment = TextAlignment.Center;
-                        switch(map.spaces[i, j].m_unit.GetTeamColor())
-                        {
-                            case Team.BLUE:
-                                tile.Foreground = new SolidColorBrush(Colors.Aqua);
-                                break;
-                            case Team.GREEN:
-                                tile.Foreground = new SolidColorBrush(Colors.LightGreen);
-                                break;
-                            case Team.RED:
-                                tile.Foreground = new SolidColorBrush(Colors.Red);
-                                break;
-                        }
-                    }
+                    tile.FontSize = 40;
+                    tile.FontWeight = FontWeights.Bold;
+                    tile.TextAlignment = TextAlignment.Center;
+                    //if (map.spaces[i, j].m_unit != null)
+                    //{
+                    //    tile.Text = ConvertJobToString(map.spaces[i, j].m_unit);
+                    //    if (map.spaces[i, j].m_unit.GetTeamColor() == Team.BLUE)
+                    //    {
+                    //        tile.Foreground = new SolidColorBrush(Colors.Aqua);
+                    //    }
+                    //    else
+                    //    {
+                    //        tile.Foreground = new SolidColorBrush(Colors.Gray);
+                    //    }
+                    //}
                     SolidColorBrush backgroundColor = new SolidColorBrush();
                     switch(map.spaces[i, j].m_terrainType)
                     {
@@ -132,6 +128,7 @@ namespace Fire_Emblem_Empires
             unitInfo.Height = tileSize * 1.7;
             unitInfo.Margin = new Thickness(-2);
             this.View.Items.Add(unitInfo);
+            UpdateGrid();
         }
 
 
@@ -199,14 +196,7 @@ namespace Fire_Emblem_Empires
                 if (logic.TakeTurn())
                 {
                     tile.Text = ConvertJobToString(map.spaces[row, column].m_unit);
-                    tile.FontSize = 40;
-                    tile.FontWeight = FontWeights.Bold;
-                    tile.TextAlignment = TextAlignment.Center;
-                    tile.Foreground = new SolidColorBrush(Colors.Gray);
-                    Grid temp = (Grid)this.View.Items.GetItemAt(0);
-                    tile = (TextBlock)temp.Children.Cast<UIElement>().First(i => Grid.GetRow(i) == previousRow && Grid.GetColumn(i) == previousColumn);
-                    tile.Text = ConvertJobToString(map.spaces[previousRow, previousColumn].m_unit);
-                    tile.Foreground = new SolidColorBrush(Colors.Gray);
+                    UpdateGrid();
                 }
                 unitSelected = false;
             }
@@ -251,6 +241,38 @@ namespace Fire_Emblem_Empires
             {
                 menu.Visibility = Visibility.Visible;
                 menu.map = this.map;
+            }
+        }
+
+        private void UpdateGrid()
+        {
+            for(int i = 0; i < map.numRows; ++i)
+            {
+                for (int j = 0; j < map.numColumns; ++j)
+                {
+                    Grid temp = (Grid)this.View.Items.GetItemAt(0);
+                    TextBlock space = (TextBlock)temp.Children.Cast<UIElement>().First(k => Grid.GetRow(k) == i && Grid.GetColumn(k) == j);
+                    space.Text = ConvertJobToString(map.spaces[i, j].m_unit);
+                    if (map.spaces[i, j].m_unit != null && map.spaces[i, j].m_unit.CanTakeAction())
+                    {
+                        switch (map.spaces[i, j].m_unit.GetTeamColor())
+                        {
+                            case Team.BLUE:
+                                space.Foreground = new SolidColorBrush(Colors.Aqua);
+                                break;
+                            case Team.GREEN:
+                                space.Foreground = new SolidColorBrush(Colors.LightGreen);
+                                break;
+                            case Team.RED:
+                                space.Foreground = new SolidColorBrush(Colors.Red);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        space.Foreground = new SolidColorBrush(Colors.Gray);
+                    }
+                }
             }
         }
     }
